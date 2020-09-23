@@ -9,6 +9,8 @@ import {
   ListItemText,
 } from '@material-ui/core'
 
+import LogoIcon from '../assets/Logo'
+
 import ExploreIcon from '@material-ui/icons/Explore'
 import CasinoIcon from '@material-ui/icons/Casino'
 import CreateIcon from '@material-ui/icons/Create'
@@ -20,11 +22,24 @@ import { withRouter } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles({
-  drawer: {
-    width: '250px',
+const drawerWidth = '250px'
+
+const useStyles = makeStyles((theme) => ({
+  logo: {
+    maxWidth: '55px',
   },
-})
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  icon: {
+    height: '50px',
+    width: '50px',
+  },
+}))
 
 const Drawer = (props) => {
   const { history } = props
@@ -62,9 +77,20 @@ const Drawer = (props) => {
     },
   ]
   return (
-    <MUIDrawer variant='permanent' className={classes.drawer}>
+    <MUIDrawer
+      variant='permanent'
+      className={classes.drawer}
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+    >
       <List>
-        <ListItem></ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <LogoIcon className={classes.icon} />
+          </ListItemIcon>
+          <ListItemText>WATOWATCH</ListItemText>
+        </ListItem>
         <Divider />
         {menuItems.map((item, index) => {
           const { text, icon, onClick } = item

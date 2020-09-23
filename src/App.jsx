@@ -10,18 +10,17 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { Route, Switch } from 'react-router-dom'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
   },
-})
+}))
 
 const App = () => {
   const classes = useStyles()
   return (
     <div className={classes.container}>
       <Drawer />
-
       <Switch>
         <Route exact from='/' render={(props) => <Explore {...props} />} />
         <Route
