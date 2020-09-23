@@ -10,6 +10,15 @@ const theme = createMuiTheme({
   palette: {
     primary: indigo,
   },
+  typography: {
+    fontFamily: ['Poppins', 'Open Sans'].join(','),
+    h1: {
+      fontFamily: 'Poppins',
+    },
+    body1: {
+      fontFamily: 'Open Sans',
+    },
+  },
 })
 
 ReactDOM.render(
