@@ -9,6 +9,8 @@ import {
   ListItemText,
 } from '@material-ui/core'
 
+import { Link } from 'react-router-dom'
+
 import LogoIcon from '../assets/Logo'
 
 import ExploreIcon from '@material-ui/icons/Explore'
@@ -42,38 +44,37 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Drawer = (props) => {
-  const { history } = props
   const classes = useStyles()
   const menuItems = [
     {
       text: 'Explore Movies',
       icon: <ExploreIcon />,
-      onClick: () => history.push('/'),
+      path: '/',
     },
     {
       text: 'Movie Roulette',
       icon: <CasinoIcon />,
-      onClick: () => history.push('/roulette'),
+      path: '/roulette',
     },
     {
       text: 'Create New List',
       icon: <CreateIcon />,
-      onClick: () => history.push('/create'),
+      path: '/create',
     },
     {
       text: 'My Lists',
       icon: <MovieFilterIcon />,
-      onClick: () => history.push('/mylists'),
+      path: '/mylists',
     },
     {
       text: 'Explore Lists',
       icon: <VisibilityIcon />,
-      onClick: () => history.push('/explore'),
+      path: '/explore',
     },
     {
       text: 'Shared Lists',
       icon: <FaceIcon />,
-      onClick: () => history.push('/shared'),
+      path: '/shared',
     },
   ]
   return (
@@ -92,13 +93,15 @@ const Drawer = (props) => {
           <ListItemText>WATOWATCH</ListItemText>
         </ListItem>
         <Divider />
-        {menuItems.map((item, index) => {
-          const { text, icon, onClick } = item
+        {menuItems.map((item) => {
+          const { text, icon, onClick, path } = item
           return (
-            <ListItem button key={text} onClick={onClick}>
-              {icon && <ListItemIcon>{icon}</ListItemIcon>}
-              <ListItemText primary={text} />
-            </ListItem>
+            <Link to={path} key={text}>
+              <ListItem button key={text} onClick={onClick}>
+                {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
           )
         })}
       </List>

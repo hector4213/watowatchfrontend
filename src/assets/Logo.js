@@ -6,7 +6,6 @@ const Logo = (props) => {
     <SvgIcon {...props}>
       <svg
         id='Capa_1'
-        enable-background='new 0 0 512 512'
         height='20'
         viewBox='0 0 512 512'
         width='20'
