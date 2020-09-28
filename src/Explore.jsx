@@ -34,7 +34,7 @@ const Explore = () => {
   }
   return (
     <Container>
-      <Typography align='left' variant='h2'>
+      <Typography align='left' variant='h2' gutterBottom={true}>
         Trending
       </Typography>
       <div className={classes.sliderContainer}>
