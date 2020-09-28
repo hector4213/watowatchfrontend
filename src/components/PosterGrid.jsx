@@ -8,11 +8,11 @@ import MovieCard from '../components/MovieCard'
 const PosterGrid = ({ movieData, config }) => {
   console.log('this is from poster grid', config.poster_sizes[0])
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 6,
+    slidesToScroll: 6,
     responsive: [
       {
         breakpoint: 1024,
