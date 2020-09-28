@@ -16,6 +16,7 @@ const Explore = () => {
   const [trending, setTrending] = useState([])
   const [config, setConfig] = useState([])
   const [topRated, setTopRated] = useState([])
+  const [upComing, setUpComing] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -24,10 +25,12 @@ const Explore = () => {
         tvdbService.getImgConfig(),
         tvdbService.getTrending(),
         tvdbService.getTopRated(),
+        tvdbService.getUpAndComing(),
       ]).then((responses) => {
         setConfig(responses[0].images)
         setTrending(responses[1].results)
         setTopRated(responses[2].results)
+        setUpComing(responses[3].results)
         setIsLoading(false)
       })
     }
