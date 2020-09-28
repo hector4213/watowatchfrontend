@@ -54,6 +54,10 @@ const Explore = () => {
           Top Rated
         </Typography>
         <PosterGrid movieData={topRated} config={config} />
+        <Typography align='left' variant='h3' gutterBottom={true}>
+          Up and Coming
+        </Typography>
+        <PosterGrid movieData={upComing} config={config} />
       </div>
     </Container>
   )
