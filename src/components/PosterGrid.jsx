@@ -1,6 +1,7 @@
 import React from 'react'
-
-import { Grid } from '@material-ui/core'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -8,20 +9,52 @@ import MovieCard from '../components/MovieCard'
 
 const PosterGrid = ({ movieData, config }) => {
   console.log('this is from poster grid', config.poster_sizes[0])
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  }
+
   return (
-    <Grid container spacing={2} justify='space-evenly'>
+    <Slider {...settings}>
       {movieData.map((movie) => (
-        <Grid item key={movie.id}>
-          <MovieCard
-            title={movie.title}
-            overview={movie.overview}
-            imageTitle={movie.title}
-            src={config.base_url + config.poster_sizes[3] + movie.poster_path}
-            year={movie.release_date.substring(0, 4)}
-          />
-        </Grid>
+        <MovieCard
+          title={movie.title}
+          overview={movie.overview}
+          imageTitle={movie.title}
+          src={config.base_url + config.poster_sizes[2] + movie.poster_path}
+          year={movie.release_date.substring(0, 4)}
+        />
       ))}
-    </Grid>
+    </Slider>
   )
 }
 

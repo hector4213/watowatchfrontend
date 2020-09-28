@@ -13,17 +13,14 @@ import {
   IconButton,
 } from '@material-ui/core'
 
-import AddBoxIcon from '@material-ui/icons/AddBox'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 342,
+    width: 185,
   },
   media: {
-    height: 513,
-    width: 342,
-    paddingTop: '50%',
+    height: 277,
   },
   cardHeader: {
     flex: '1',

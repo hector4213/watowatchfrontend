@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
-import { Container } from '@material-ui/core'
+import { Container, Typography } from '@material-ui/core'
 
-import Header from './components/Header'
 import PosterGrid from './components/PosterGrid'
 
 import tvdbService from './apis/tvdbService'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
+  root: {},
+  sliderContainer: {},
 }))
 
 const Explore = () => {
@@ -35,11 +33,15 @@ const Explore = () => {
     return null
   }
   return (
-    <Container maxWidth='xl'>
-      <Header />
-      {trending && config ? (
-        <PosterGrid movieData={trending} config={config} />
-      ) : null}
+    <Container>
+      <Typography align='left' variant='h2'>
+        Trending
+      </Typography>
+      <div className={classes.sliderContainer}>
+        {trending && config ? (
+          <PosterGrid movieData={trending} config={config} />
+        ) : null}
+      </div>
     </Container>
   )
 }

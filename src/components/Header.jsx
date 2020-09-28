@@ -19,7 +19,6 @@ const Header = () => {
     <Grid className={classes.gridStyles} container spacing={3}>
       <Grid
         item
-        xs={12}
         spacing={3}
         alignItems='center'
         justify='space-between'
