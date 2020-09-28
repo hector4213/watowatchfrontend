@@ -14,33 +14,43 @@ const useStyles = makeStyles((theme) => ({
 
 const Explore = () => {
   const [trending, setTrending] = useState([])
-  const [config, setConfig] = useState(null)
+  const [config, setConfig] = useState([])
+  const [topRated, setTopRated] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const configResponse = await tvdbService.getImgConfig()
-      const response = await tvdbService.getTrending()
-      setConfig(configResponse.images)
-      setTrending(response.results)
-      console.log(configResponse.images)
+      await Promise.all([
+        tvdbService.getImgConfig(),
+        tvdbService.getTrending(),
+        tvdbService.getTopRated(),
+      ]).then((responses) => {
+        setConfig(responses[0].images)
+        setTrending(responses[1].results)
+        setTopRated(responses[2].results)
+        setIsLoading(false)
+      })
     }
+
     fetchMovies()
   }, [])
   console.log(trending)
   const classes = useStyles()
 
-  if (!config || !trending) {
+  if (isLoading) {
     return null
   }
   return (
     <Container>
-      <Typography align='left' variant='h2' gutterBottom={true}>
+      <Typography align='left' variant='h3' gutterBottom={true}>
         Trending
       </Typography>
       <div className={classes.sliderContainer}>
-        {trending && config ? (
-          <PosterGrid movieData={trending} config={config} />
-        ) : null}
+        <PosterGrid movieData={trending} config={config} />
+        <Typography align='left' variant='h3' gutterBottom={true}>
+          Top Rated
+        </Typography>
+        <PosterGrid movieData={topRated} config={config} />
       </div>
     </Container>
   )
