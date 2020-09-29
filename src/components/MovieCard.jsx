@@ -49,8 +49,13 @@ const MovieCard = ({
   const isExpanded = expanded ? classes.expandOpen : null
 
   return (
-    <Card className={classes.root}>
-      <CardMedia className={classes.media} image={src} title={imageTitle} />
+    <Card className={classes.root} key={id}>
+      <CardMedia
+        className={classes.media}
+        image={src}
+        title={imageTitle}
+        onClick={() => getDetails(id)}
+      />
 
       <CardActions disableSpacing>
         <IconButton

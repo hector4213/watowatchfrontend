@@ -104,7 +104,7 @@ const Layout = ({ children, window }) => {
   const drawer = menuItems.map((item) => {
     const { text, icon, onClick, path } = item
     return (
-      <MenuItem component={Link} to={path} onClick={onClick}>
+      <MenuItem component={Link} to={path} onClick={onClick} key={text}>
         <IconButton>{icon}</IconButton>
         {text}
       </MenuItem>
