@@ -6,6 +6,7 @@ import CreateList from './CreateList'
 import MyLists from './MyLists'
 import ExploreLists from './ExploreLists'
 import MySharedLists from './MySharedLists'
+import MovieDetails from './MovieDetails'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { Route, Switch } from 'react-router-dom'
