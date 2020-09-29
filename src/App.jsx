@@ -32,6 +32,11 @@ const App = () => {
           />
           <Route
             exact
+            from='/movies/:id'
+            render={(props) => <MovieDetails {...props} />}
+          />
+          <Route
+            exact
             from='/create'
             render={(props) => <CreateList {...props} />}
           />

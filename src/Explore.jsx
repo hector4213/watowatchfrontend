@@ -17,12 +17,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Explore = () => {
+const Explore = ({ history }) => {
   const [trending, setTrending] = useState([])
   const [config, setConfig] = useState([])
   const [topRated, setTopRated] = useState([])
   const [upComing, setUpComing] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+
+  const getMovieDetails = (id) => {
+    history.push('/movies/' + id)
+  }
 
   useEffect(() => {
     const fetchMovies = async () => {
