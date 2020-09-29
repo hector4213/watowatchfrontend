@@ -52,10 +52,21 @@ const getMovieDetails = async (id) => {
   return response.data
 }
 
+const getMoviesLike = async (id) => {
+  const response = await axios.get(`${baseURL}/${id}/similar`, {
+    params: {
+      language: 'en-US',
+      api_key: process.env.REACT_APP_TVDB_APIKEY,
+    },
+  })
+  return response.data
+}
+
 export default {
   getImgConfig,
   getTrending,
   getTopRated,
   getUpAndComing,
   getMovieDetails,
+  getMoviesLike,
 }
