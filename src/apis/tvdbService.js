@@ -1,36 +1,52 @@
 import axios from 'axios'
 
-const trending = `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TVDB_APIKEY}`
-const tvdbConfig = `https://api.themoviedb.org/3/configuration?api_key=${process.env.REACT_APP_TVDB_APIKEY}`
-const topRated = `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_TVDB_APIKEY}`
-const upComing = `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TVDB_APIKEY}`
+const tvdbConfig = `https://api.themoviedb.org/3/configuration`
+
+const baseURL = `https://api.themoviedb.org/3/movie`
 
 const getImgConfig = async () => {
-  const response = await axios.get(tvdbConfig)
+  const response = await axios.get(tvdbConfig, {
+    params: {
+      api_key: process.env.REACT_APP_TVDB_APIKEY,
+    },
+  })
   return response.data
 }
 const getTrending = async () => {
-  const response = await axios.get(trending, {
+  const response = await axios.get(`${baseURL}/popular`, {
     params: {
       language: 'en-US',
+      api_key: process.env.REACT_APP_TVDB_APIKEY,
     },
   })
   return response.data
 }
 
 const getTopRated = async () => {
-  const response = await axios.get(topRated, {
+  const response = await axios.get(`${baseURL}/top_rated`, {
     params: {
       language: 'en-US',
+      api_key: process.env.REACT_APP_TVDB_APIKEY,
     },
   })
   return response.data
 }
 
 const getUpAndComing = async () => {
-  const response = await axios.get(upComing, {
+  const response = await axios.get(`${baseURL}/upcoming`, {
     params: {
       language: 'en-US',
+      api_key: process.env.REACT_APP_TVDB_APIKEY,
+    },
+  })
+  return response.data
+}
+
+const getMovieDetails = async (id) => {
+  const response = await axios.get(`${baseURL}/${id}`, {
+    params: {
+      language: 'en-US',
+      api_key: process.env.REACT_APP_TVDB_APIKEY,
     },
   })
   return response.data
@@ -41,4 +57,5 @@ export default {
   getTrending,
   getTopRated,
   getUpAndComing,
+  getMovieDetails,
 }

@@ -66,7 +66,11 @@ const Explore = ({ history }) => {
         </Typography>
       </div>
       <div className={classes.sliderContainer}>
-        <PosterGrid movieData={trending} config={config} />
+        <PosterGrid
+          movieData={trending}
+          config={config}
+          getDetails={getMovieDetails}
+        />
         <Typography
           align='left'
           variant='h3'
@@ -76,7 +80,11 @@ const Explore = ({ history }) => {
           Top Rated
           <Whatshot color='secondary' fontSize='inherit' />
         </Typography>
-        <PosterGrid movieData={topRated} config={config} />
+        <PosterGrid
+          movieData={topRated}
+          config={config}
+          getDetails={getMovieDetails}
+        />
         <Typography
           align='left'
           variant='h3'
@@ -86,7 +94,11 @@ const Explore = ({ history }) => {
           Up and Coming
           <Replay color='secondary' fontSize='inherit' />
         </Typography>
-        <PosterGrid movieData={upComing} config={config} />
+        <PosterGrid
+          movieData={upComing}
+          config={config}
+          getDetails={getMovieDetails}
+        />
       </div>
     </Container>
   )

@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick-theme.css'
 
 import MovieCard from '../components/MovieCard'
 
-const PosterGrid = ({ movieData, config }) => {
+const PosterGrid = ({ movieData, config, getDetails }) => {
   console.log('this is from poster grid', config.poster_sizes[0])
   const settings = {
     dots: false,
@@ -50,6 +50,9 @@ const PosterGrid = ({ movieData, config }) => {
           imageTitle={movie.title}
           src={config.base_url + config.poster_sizes[2] + movie.poster_path}
           year={movie.release_date.substring(0, 4)}
+          key={movie.id}
+          getDetails={getDetails}
+          id={movie.id}
         />
       ))}
     </Slider>
