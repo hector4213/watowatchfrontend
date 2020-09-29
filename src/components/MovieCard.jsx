@@ -58,7 +58,7 @@ const MovieCard = ({ title, overview, src, imageTitle, year }) => {
         title={title}
         subheader={year}
         className={classes.cardHeader}
-        titleTypographyProps={{ fontSize: '0.8rem' }}
+        titleTypographyProps={{ fontSize: '0.8rem', noWrap: true }}
       />
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <CardContent>
