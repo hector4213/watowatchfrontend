@@ -15,6 +15,7 @@ import { AddCircle } from '@material-ui/icons'
 const MovieDetails = () => {
   const id = useParams().id
   const [movie, setMovie] = useState([])
+  const [recommend, setRecommend] = useState([])
   const [config, setConfig] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
 
@@ -23,9 +24,11 @@ const MovieDetails = () => {
       const responses = await Promise.all([
         tvdbService.getImgConfig(),
         tvdbService.getMovieDetails(id),
+        tvdbService.getRecommendations(id),
       ])
       setConfig(responses[0].images)
       setMovie(responses[1])
+      setRecommend(responses[2].results)
       setIsLoaded(true)
     }
     getDetails()
