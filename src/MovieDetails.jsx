@@ -3,6 +3,7 @@ import tvdbService from './apis/tvdbService'
 import { useParams } from 'react-router-dom'
 
 import PosterSlides from './components/PosterSlides'
+import UserRating from './components/UserRating'
 
 import {
   Container,
@@ -66,11 +67,7 @@ const MovieDetails = ({ history }) => {
                 </Typography>
               </Grid>
               <Grid item>
-                <CircularProgress
-                  variant='static'
-                  value={movie.vote_average * 10}
-                  color='secondary'
-                />
+                <UserRating value={movie.vote_average * 10} />
               </Grid>
               <Grid item xs>
                 {movie.overview}
