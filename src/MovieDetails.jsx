@@ -37,42 +37,41 @@ const MovieDetails = () => {
   if (!isLoaded) {
     return null
   }
+  console.log('these are recommended', recommend)
+  console.log()
 
   return (
     <>
       <Container>
-        <Grid container spacing={3}>
-          <Grid item xs={4}>
+        <Grid container spacing={2}>
+          <Grid item>
             <img
               src={config.base_url + config.poster_sizes[3] + movie.poster_path}
               alt='poster'
             />
           </Grid>
-          <Grid item container xs={8} direction='row'>
-            <Grid item xs={12}>
-              <Typography variant='h6' gutterBottom>
-                {movie.original_title}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              {movie.overview}
-            </Grid>
-            <Grid item xs={12} container alignItems='center'>
-              <Grid item xs={2}>
+          <Grid item xs={12} sm container>
+            <Grid item xs container direction='column' spacing={2}>
+              <Grid item xs={2} />
+              <Grid item xs={3}>
+                <Typography variant='h6' gutterBottom>
+                  {movie.original_title}
+                </Typography>
+              </Grid>
+              <Grid item>
                 <CircularProgress
                   variant='static'
                   value={movie.vote_average * 10}
+                  color='secondary'
                 />
               </Grid>
-              <Grid item xs={4}>
-                <IconButton>
-                  <AddCircle color='secondary' fontSize='large' />
-                </IconButton>
-                <Typography display='inline'>Add to List</Typography>
+              <Grid item xs>
+                {movie.overview}
               </Grid>
             </Grid>
           </Grid>
         </Grid>
+        <PosterSlides movieData={recommend} config={config} />
       </Container>
     </>
   )
