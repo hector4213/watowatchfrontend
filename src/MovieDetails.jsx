@@ -2,22 +2,29 @@ import React, { useState, useEffect } from 'react'
 import tvdbService from './apis/tvdbService'
 import { useParams } from 'react-router-dom'
 
+import PosterSlides from './components/PosterSlides'
+
 import {
   Container,
   Grid,
   Typography,
   IconButton,
+  Paper,
   CircularProgress,
 } from '@material-ui/core'
 
 import { AddCircle } from '@material-ui/icons'
 
-const MovieDetails = () => {
+const MovieDetails = ({ history }) => {
   const id = useParams().id
   const [movie, setMovie] = useState([])
   const [recommend, setRecommend] = useState([])
   const [config, setConfig] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
+
+  const getMovieDetails = (id) => {
+    history.push('/movies/' + id)
+  }
 
   useEffect(() => {
     const getDetails = async () => {
@@ -71,7 +78,11 @@ const MovieDetails = () => {
             </Grid>
           </Grid>
         </Grid>
-        <PosterSlides movieData={recommend} config={config} />
+        <PosterSlides
+          movieData={recommend}
+          config={config}
+          getDetails={getMovieDetails}
+        />
       </Container>
     </>
   )
