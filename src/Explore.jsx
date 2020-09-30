@@ -5,7 +5,7 @@ import { Container, Typography } from '@material-ui/core'
 
 import { TrendingUp, Whatshot, Replay } from '@material-ui/icons'
 
-import PosterGrid from './components/PosterGrid'
+import PosterSlides from './components/PosterSlides'
 
 import tvdbService from './apis/tvdbService'
 
@@ -66,7 +66,7 @@ const Explore = ({ history }) => {
         </Typography>
       </div>
       <div className={classes.sliderContainer}>
-        <PosterGrid
+        <PosterSlides
           movieData={trending}
           config={config}
           getDetails={getMovieDetails}
@@ -80,7 +80,7 @@ const Explore = ({ history }) => {
           Top Rated
           <Whatshot color='secondary' fontSize='inherit' />
         </Typography>
-        <PosterGrid
+        <PosterSlides
           movieData={topRated}
           config={config}
           getDetails={getMovieDetails}
@@ -94,7 +94,7 @@ const Explore = ({ history }) => {
           Up and Coming
           <Replay color='secondary' fontSize='inherit' />
         </Typography>
-        <PosterGrid
+        <PosterSlides
           movieData={upComing}
           config={config}
           getDetails={getMovieDetails}
