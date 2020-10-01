@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 
 import {
@@ -52,6 +52,8 @@ const MovieCard = ({
     <Card className={classes.root} key={id}>
       <CardMedia
         className={classes.media}
+        component={Link}
+        to={`/movies/${id}`}
         image={src}
         title={imageTitle}
         onClick={() => getDetails(id)}

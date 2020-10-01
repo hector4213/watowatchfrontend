@@ -5,42 +5,32 @@ import { useParams } from 'react-router-dom'
 import PosterSlides from './components/PosterSlides'
 import UserRating from './components/UserRating'
 
-import {
-  Container,
-  Grid,
-  Typography,
-  IconButton,
-  Paper,
-  CircularProgress,
-} from '@material-ui/core'
+import { Container, Grid, Typography } from '@material-ui/core'
 
 import { AddCircle } from '@material-ui/icons'
 
-const MovieDetails = ({ history }) => {
-  const id = useParams().id
+const MovieDetails = () => {
+  const movieId = useParams().id
   const [movie, setMovie] = useState([])
   const [recommend, setRecommend] = useState([])
   const [config, setConfig] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
 
-  const getMovieDetails = (id) => {
-    history.push('/movies/' + id)
+  const getAllDetails = async (id) => {
+    const responses = await Promise.all([
+      tvdbService.getImgConfig(),
+      tvdbService.getMovieDetails(id),
+      tvdbService.getRecommendations(id),
+    ])
+    setConfig(responses[0].images)
+    setMovie(responses[1])
+    setRecommend(responses[2].results)
+    setIsLoaded(true)
   }
 
   useEffect(() => {
-    const getDetails = async () => {
-      const responses = await Promise.all([
-        tvdbService.getImgConfig(),
-        tvdbService.getMovieDetails(id),
-        tvdbService.getRecommendations(id),
-      ])
-      setConfig(responses[0].images)
-      setMovie(responses[1])
-      setRecommend(responses[2].results)
-      setIsLoaded(true)
-    }
-    getDetails()
-  }, [id])
+    getAllDetails(movieId)
+  }, [movieId])
 
   if (!isLoaded) {
     return null
@@ -78,7 +68,7 @@ const MovieDetails = ({ history }) => {
         <PosterSlides
           movieData={recommend}
           config={config}
-          getDetails={getMovieDetails}
+          getDetails={getAllDetails}
         />
       </Container>
     </>
