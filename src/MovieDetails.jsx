@@ -5,7 +5,6 @@ import PosterSlides from './components/PosterSlides'
 import UserRating from './components/UserRating'
 
 import { Container, Grid, Typography } from '@material-ui/core'
-import { TramOutlined } from '@material-ui/icons'
 
 const MovieDetails = ({ config, getMovieDetails }) => {
   const movieId = useParams().id
@@ -15,7 +14,7 @@ const MovieDetails = ({ config, getMovieDetails }) => {
 
   useEffect(() => {
     const getDetails = async () => {
-      const responses = await getMovieDetails(movieId).then((responses) => {
+      await getMovieDetails(movieId).then((responses) => {
         setMovie(responses[0])
         setRecommend(responses[1].results)
         setIsLoading(false)

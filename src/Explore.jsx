@@ -23,10 +23,6 @@ const Explore = ({
   isLoading,
   history,
 }) => {
-  const getMovieDetails = (id) => {
-    history.push('/movies/' + id)
-  }
-
   console.log(trending)
   const classes = useStyles()
 
@@ -47,11 +43,7 @@ const Explore = ({
         </Typography>
       </div>
       <div className={classes.sliderContainer}>
-        <PosterSlides
-          movieData={trending}
-          config={config}
-          getDetails={getMovieDetails}
-        />
+        <PosterSlides movieData={trending} config={config} />
         <Typography
           align='left'
           variant='h3'
@@ -61,11 +53,7 @@ const Explore = ({
           Top Rated
           <Whatshot color='secondary' fontSize='inherit' />
         </Typography>
-        <PosterSlides
-          movieData={topRated}
-          config={config}
-          getDetails={getMovieDetails}
-        />
+        <PosterSlides movieData={topRated} config={config} />
         <Typography
           align='left'
           variant='h3'
@@ -75,11 +63,7 @@ const Explore = ({
           Up and Coming
           <Replay color='secondary' fontSize='inherit' />
         </Typography>
-        <PosterSlides
-          movieData={upComing}
-          config={config}
-          getDetails={getMovieDetails}
-        />
+        <PosterSlides movieData={upComing} config={config} />
       </div>
     </Container>
   )
