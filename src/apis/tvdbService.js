@@ -10,7 +10,7 @@ const getImgConfig = async () => {
       api_key: process.env.REACT_APP_TVDB_APIKEY,
     },
   })
-  return response.data
+  return response.data.images
 }
 const getTrending = async () => {
   const response = await axios.get(`${baseURL}/popular`, {
@@ -19,7 +19,7 @@ const getTrending = async () => {
       api_key: process.env.REACT_APP_TVDB_APIKEY,
     },
   })
-  return response.data
+  return response.data.results
 }
 
 const getTopRated = async () => {
@@ -29,7 +29,7 @@ const getTopRated = async () => {
       api_key: process.env.REACT_APP_TVDB_APIKEY,
     },
   })
-  return response.data
+  return response.data.results
 }
 
 const getUpAndComing = async () => {
@@ -39,7 +39,7 @@ const getUpAndComing = async () => {
       api_key: process.env.REACT_APP_TVDB_APIKEY,
     },
   })
-  return response.data
+  return response.data.results
 }
 
 const getMovieDetails = async (id) => {

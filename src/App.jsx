@@ -36,10 +36,10 @@ const App = () => {
         tvdbService.getTopRated(),
         tvdbService.getUpAndComing(),
       ]).then((responses) => {
-        setConfig(responses[0].images)
-        setTrending(responses[1].results)
-        setTopRated(responses[2].results)
-        setUpComing(responses[3].results)
+        setConfig(responses[0])
+        setTrending(responses[1])
+        setTopRated(responses[2])
+        setUpComing(responses[3])
         setIsLoading(false)
       })
     }
