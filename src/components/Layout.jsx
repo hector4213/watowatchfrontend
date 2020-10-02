@@ -131,9 +131,13 @@ const Layout = ({ children, setUser }) => {
           <IconButton>
             <LogoIcon />
           </IconButton>
-          <Typography variant='h6' noWrap>
+          <Typography variant='h6' noWrap className={classes.header}>
             WATOWATCH
           </Typography>
+
+          <LoginModal setUser={setUser} />
+
+          <Button color='secondary'>Signup</Button>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label='menu-links'>

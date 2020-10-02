@@ -56,7 +56,6 @@ const MovieCard = ({
         to={`/movies/${id}`}
         image={src}
         title={imageTitle}
-        onClick={() => getDetails(id)}
       />
 
       <CardActions disableSpacing>

@@ -1,38 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import tvdbService from './apis/tvdbService'
 import { useParams } from 'react-router-dom'
 
 import PosterSlides from './components/PosterSlides'
 import UserRating from './components/UserRating'
 
 import { Container, Grid, Typography } from '@material-ui/core'
+import { TramOutlined } from '@material-ui/icons'
 
-import { AddCircle } from '@material-ui/icons'
-
-const MovieDetails = () => {
+const MovieDetails = ({ config, getMovieDetails }) => {
   const movieId = useParams().id
   const [movie, setMovie] = useState([])
   const [recommend, setRecommend] = useState([])
-  const [config, setConfig] = useState([])
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  const getAllDetails = async (id) => {
-    const responses = await Promise.all([
-      tvdbService.getImgConfig(),
-      tvdbService.getMovieDetails(id),
-      tvdbService.getRecommendations(id),
-    ])
-    setConfig(responses[0].images)
-    setMovie(responses[1])
-    setRecommend(responses[2].results)
-    setIsLoaded(true)
-  }
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    getAllDetails(movieId)
+    const getDetails = async () => {
+      const responses = await getMovieDetails(movieId).then((responses) => {
+        setMovie(responses[0])
+        setRecommend(responses[1].results)
+        setIsLoading(false)
+      })
+    }
+    getDetails()
   }, [movieId])
 
-  if (!isLoaded) {
+  if (isLoading) {
     return null
   }
   console.log('these are recommended', recommend)
@@ -65,11 +57,7 @@ const MovieDetails = () => {
             </Grid>
           </Grid>
         </Grid>
-        <PosterSlides
-          movieData={recommend}
-          config={config}
-          getDetails={getAllDetails}
-        />
+        <PosterSlides movieData={recommend} config={config} />
       </Container>
     </>
   )

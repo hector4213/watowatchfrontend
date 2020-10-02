@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Typography } from '@material-ui/core'
@@ -6,8 +6,6 @@ import { Container, Typography } from '@material-ui/core'
 import { TrendingUp, Whatshot, Replay } from '@material-ui/icons'
 
 import PosterSlides from './components/PosterSlides'
-
-import tvdbService from './apis/tvdbService'
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -17,35 +15,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Explore = ({ history }) => {
-  const [trending, setTrending] = useState([])
-  const [config, setConfig] = useState([])
-  const [topRated, setTopRated] = useState([])
-  const [upComing, setUpComing] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-
+const Explore = ({
+  trending,
+  config,
+  topRated,
+  upComing,
+  isLoading,
+  history,
+}) => {
   const getMovieDetails = (id) => {
     history.push('/movies/' + id)
   }
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      await Promise.all([
-        tvdbService.getImgConfig(),
-        tvdbService.getTrending(),
-        tvdbService.getTopRated(),
-        tvdbService.getUpAndComing(),
-      ]).then((responses) => {
-        setConfig(responses[0].images)
-        setTrending(responses[1].results)
-        setTopRated(responses[2].results)
-        setUpComing(responses[3].results)
-        setIsLoading(false)
-      })
-    }
-
-    fetchMovies()
-  }, [])
   console.log(trending)
   const classes = useStyles()
 
