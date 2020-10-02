@@ -10,6 +10,7 @@ import {
   Typography,
   MenuItem,
   MenuList,
+  Button,
 } from '@material-ui/core'
 
 import ExploreIcon from '@material-ui/icons/Explore'
@@ -21,6 +22,7 @@ import FaceIcon from '@material-ui/icons/Face'
 import Burger from '@material-ui/icons/Menu'
 
 import LogoIcon from '../assets/Logo'
+import LoginModal from './LoginModal'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -90,10 +92,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     width: '100vw',
   },
+  header: {
+    flexGrow: 1,
+  },
 }))
 
-const Layout = ({ children, window }) => {
-  //   const { window } = props
+const Layout = ({ children, setUser }) => {
   const classes = useStyles()
   const [mobileOpen, setMobileOpen] = useState(false)
 

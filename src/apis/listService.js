@@ -1,10 +1,19 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3001/lists'
+const baseURL = 'http://localhost:3001/'
+
+let token = null
+
+const setToken = (newToken) => {
+  token = `bearer ${newToken}`
+}
 
 //Route to make new movie list
 const createList = async (titleName) => {
-  const response = axios.post(baseURL, titleName)
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = axios.post(baseURL, titleName, config)
   return response.data
 }
 
@@ -52,4 +61,5 @@ export default {
   removeMovieFromList,
   addBuddy,
   removeBuddy,
+  setToken,
 }
