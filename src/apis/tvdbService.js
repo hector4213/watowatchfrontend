@@ -4,19 +4,21 @@ const tvdbConfig = `https://api.themoviedb.org/3/configuration`
 
 const baseURL = `https://api.themoviedb.org/3/movie`
 
+const apiParams = {
+  language: 'en-US',
+  api_key: process.env.REACT_APP_TVDB_APIKEY,
+}
+
 const getImgConfig = async () => {
   const response = await axios.get(tvdbConfig, {
-    params: {
-      api_key: process.env.REACT_APP_TVDB_APIKEY,
-    },
+    params: apiParams,
   })
   return response.data.images
 }
 const getTrending = async () => {
   const response = await axios.get(`${baseURL}/popular`, {
     params: {
-      language: 'en-US',
-      api_key: process.env.REACT_APP_TVDB_APIKEY,
+      apiParams,
     },
   })
   return response.data.results
@@ -25,8 +27,7 @@ const getTrending = async () => {
 const getTopRated = async () => {
   const response = await axios.get(`${baseURL}/top_rated`, {
     params: {
-      language: 'en-US',
-      api_key: process.env.REACT_APP_TVDB_APIKEY,
+      apiParams,
     },
   })
   return response.data.results
@@ -35,8 +36,7 @@ const getTopRated = async () => {
 const getUpAndComing = async () => {
   const response = await axios.get(`${baseURL}/upcoming`, {
     params: {
-      language: 'en-US',
-      api_key: process.env.REACT_APP_TVDB_APIKEY,
+      apiParams,
     },
   })
   return response.data.results
@@ -45,8 +45,7 @@ const getUpAndComing = async () => {
 const getMovieDetails = async (id) => {
   const response = await axios.get(`${baseURL}/${id}`, {
     params: {
-      language: 'en-US',
-      api_key: process.env.REACT_APP_TVDB_APIKEY,
+      apiParams,
     },
   })
   return response.data
@@ -55,8 +54,7 @@ const getMovieDetails = async (id) => {
 const getRecommendations = async (id) => {
   const response = await axios.get(`${baseURL}/${id}/recommendations`, {
     params: {
-      language: 'en-US',
-      api_key: process.env.REACT_APP_TVDB_APIKEY,
+      apiParams,
     },
   })
   return response.data
