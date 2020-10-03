@@ -32,7 +32,7 @@ const LoginModal = ({ setUser }) => {
     setSnackOpen(true)
     setTimeout(() => {
       setOpen(false)
-    }, 3000)
+    }, 2000)
   }
 
   const handleSnackClose = () => {
@@ -53,7 +53,9 @@ const LoginModal = ({ setUser }) => {
       window.localStorage.setItem('loggedInUser', JSON.stringify(user))
 
       listService.setToken(user.token)
-      setUser(user)
+      setTimeout(() => {
+        setUser(user)
+      })
       setError(false)
       handleSnackOpen('Logged in')
     } catch (error) {

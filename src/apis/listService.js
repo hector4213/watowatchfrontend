@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3001/'
+const baseURL = 'http://localhost:3001'
 
 let token = null
 
@@ -13,7 +13,7 @@ const createList = async (titleName) => {
   const config = {
     headers: { Authorization: token },
   }
-  const response = axios.post(baseURL, titleName, config)
+  const response = axios.post(`${baseURL}/lists`, titleName, config)
   return response.data
 }
 
