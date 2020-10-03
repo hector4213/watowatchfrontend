@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Layout = ({ children, setUser }) => {
+const Layout = ({ children, setUser, user }) => {
   const classes = useStyles()
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -134,10 +134,8 @@ const Layout = ({ children, setUser }) => {
           <Typography variant='h6' noWrap className={classes.header}>
             WATOWATCH
           </Typography>
-
-          <LoginModal setUser={setUser} />
-
-          <Button color='secondary'>Signup</Button>
+          {user === null ? <LoginModal setUser={setUser} user={user} /> : null}
+          {user !== null ? 'LOGOUT' : null}
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label='menu-links'>

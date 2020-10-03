@@ -10,6 +10,7 @@ import MovieDetails from './MovieDetails'
 import { makeStyles } from '@material-ui/core/styles'
 
 import tvdbService from './apis/tvdbService'
+import listService from './apis/listService'
 
 import { Route, Switch } from 'react-router-dom'
 import './App.css'
@@ -27,6 +28,15 @@ const App = () => {
   const [topRated, setTopRated] = useState([])
   const [upComing, setUpComing] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedInUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      listService.setToken(user.token)
+    }
+  }, [])
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -60,7 +70,7 @@ const App = () => {
   }
   return (
     <div className={classes.container}>
-      <Layout setUser={setUser}>
+      <Layout setUser={setUser} user={user}>
         <Switch>
           <Route
             exact
@@ -95,7 +105,7 @@ const App = () => {
           <Route
             exact
             from='/create'
-            render={(props) => <CreateList {...props} />}
+            render={(props) => <CreateList {...props} user={user} />}
           />
           <Route
             exact
