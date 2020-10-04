@@ -66,12 +66,14 @@ const SignUp = () => {
         password,
       }
       await userService.register(newUser)
+      setError(false)
       clearFields()
       handleSnackOpen(
         `Thanks ${firstName} please log in with your new account!`
       )
     } catch (error) {
-      console.log(error)
+      handleSnackOpen(error.response.data.error)
+      setError(true)
     }
   }
   return (
