@@ -22,6 +22,7 @@ import Burger from '@material-ui/icons/Menu'
 
 import LogoIcon from '../assets/Logo'
 import LoginModal from './LoginModal'
+import Logout from './Logout'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -133,8 +134,11 @@ const Layout = ({ children, setUser, user }) => {
           <Typography variant='h6' noWrap className={classes.header}>
             WATOWATCH
           </Typography>
-          {user === null ? <LoginModal setUser={setUser} user={user} /> : null}
-          {user !== null ? 'LOGOUT' : null}
+          {user === null ? (
+            <LoginModal setUser={setUser} user={user} />
+          ) : (
+            <Logout />
+          )}
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label='menu-links'>
