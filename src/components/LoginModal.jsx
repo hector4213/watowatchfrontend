@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import SignUp from '../components/SignUp'
 import {
   Button,
   TextField,
@@ -11,11 +11,19 @@ import {
 } from '@material-ui/core'
 
 import { Alert } from '@material-ui/lab'
+import { makeStyles } from '@material-ui/core/styles'
 
 import loginService from '../apis/loginService'
 import listService from '../apis/listService'
 
+const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+  },
+})
+
 const LoginModal = ({ setUser }) => {
+  const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [password, setPassword] = useState(null)
   const [email, setEmail] = useState(null)
@@ -55,7 +63,7 @@ const LoginModal = ({ setUser }) => {
       listService.setToken(user.token)
       setTimeout(() => {
         setUser(user)
-      })
+      }, 3000)
       setError(false)
       handleSnackOpen('Logged in')
     } catch (error) {
@@ -65,7 +73,7 @@ const LoginModal = ({ setUser }) => {
   }
 
   return (
-    <div>
+    <div className={classes.root}>
       <Button color='secondary' onClick={handleClickOpen}>
         LOGIN
       </Button>
@@ -107,12 +115,13 @@ const LoginModal = ({ setUser }) => {
         </DialogContent>
         <Snackbar
           open={snackOpen}
-          autoHideDuration={2000}
+          autoHideDuration={1000}
           onClose={handleSnackClose}
         >
           <Alert severity={error ? 'error' : 'success'}>{message}</Alert>
         </Snackbar>
       </Dialog>
+      <SignUp />
     </div>
   )
 }

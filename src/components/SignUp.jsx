@@ -7,9 +7,12 @@ import {
   DialogContent,
   DialogTitle,
   Snackbar,
+  Grid,
 } from '@material-ui/core'
 
 import { Alert } from '@material-ui/lab'
+
+import userService from '../apis/userService'
 
 const SignUp = () => {
   const [open, setOpen] = useState(false)
@@ -30,17 +33,43 @@ const SignUp = () => {
     setSnackOpen(false)
   }
 
+  const handleSnackOpen = (msg) => {
+    setMessage(msg)
+    setSnackOpen(true)
+    setTimeout(() => {
+      setOpen(false)
+    }, 2000)
+  }
+
   const handleClose = () => {
     setOpen(false)
   }
-
-  const handleLogin = (e) => {
+  const clearFields = () => {
+    setFirstName('')
+    setLastName('')
+    setPassword('')
+    setEmail('')
+    setPasswordConfirm('')
+  }
+  const handleRegister = async (e) => {
     e.preventDefault()
     if (password !== passwordConfirm) {
-      setError(true)
-      setMessage('Passwords do not match')
+      handleSnackOpen('Password do not match, please try again')
+      clearFields()
+      return
     }
     try {
+      const newUser = {
+        firstName,
+        lastName,
+        email,
+        password,
+      }
+      await userService.register(newUser)
+      clearFields()
+      handleSnackOpen(
+        `Thanks ${firstName} please log in with your new account!`
+      )
     } catch (error) {
       console.log(error)
     }
@@ -57,62 +86,83 @@ const SignUp = () => {
       >
         <DialogTitle id='form-dialog-title'>Register</DialogTitle>
         <DialogContent>
-          <form onSubmit={handleLogin}>
-            <TextField
-              margin='dense'
-              id='firstName'
-              label='firstname'
-              type='text'
-              fullWidth
-              color='secondary'
-              onChange={({ target }) => setFirstName(target.value)}
-              value={firstName}
-            />{' '}
-            <TextField
-              margin='dense'
-              id='lastName'
-              label='lastName'
-              type='text'
-              fullWidth
-              color='secondary'
-              onChange={({ target }) => setLastName(target.value)}
-              value={lastName}
-            />
-            <TextField
-              margin='dense'
-              id='email'
-              label='email'
-              type='email'
-              fullWidth
-              color='secondary'
-              onChange={({ target }) => setEmail(target.value)}
-              value={email}
-            />
-            <TextField
-              margin='dense'
-              id='password'
-              label='password'
-              type='password'
-              fullWidth
-              color='secondary'
-              onChange={({ target }) => setPassword(target.value)}
-              value={password}
-            />
-            <TextField
-              margin='dense'
-              id='passwordConfirm'
-              label='password'
-              type='password'
-              fullWidth
-              color='secondary'
-              onChange={({ target }) => setPasswordConfirm(target.value)}
-              value={passwordConfirm}
-            />
+          <form onSubmit={handleRegister}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  margin='dense'
+                  id='firstName'
+                  label='First Name *'
+                  type='text'
+                  fullWidth
+                  color='secondary'
+                  onChange={({ target }) => setFirstName(target.value)}
+                  value={firstName}
+                  variant='outlined'
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  margin='dense'
+                  id='lastName'
+                  label='Last Name *'
+                  type='text'
+                  fullWidth
+                  color='secondary'
+                  onChange={({ target }) => setLastName(target.value)}
+                  value={lastName}
+                  variant='outlined'
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  margin='dense'
+                  id='email'
+                  label='Email *'
+                  type='email'
+                  fullWidth
+                  color='secondary'
+                  onChange={({ target }) => setEmail(target.value)}
+                  value={email}
+                  variant='outlined'
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  margin='dense'
+                  id='password'
+                  label='Password *'
+                  type='password'
+                  fullWidth
+                  color='secondary'
+                  onChange={({ target }) => setPassword(target.value)}
+                  value={password}
+                  variant='outlined'
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  margin='dense'
+                  id='passwordConfirm'
+                  label='Confirm Password *'
+                  type='password'
+                  fullWidth
+                  color='secondary'
+                  onChange={({ target }) => setPasswordConfirm(target.value)}
+                  value={passwordConfirm}
+                  variant='outlined'
+                />
+              </Grid>
+            </Grid>
             <DialogActions>
-              <Button type='submit' color='inherit'>
+              <Button variant='contained' type='submit' color='secondary'>
                 Register
               </Button>
-              <Button onClick={handleClose} color='inherit'>
+              <Button
+                variant='contained'
+                onClick={handleClose}
+                color='secondary'
+              >
                 Cancel
               </Button>
             </DialogActions>
