@@ -10,7 +10,6 @@ import {
   Typography,
   MenuItem,
   MenuList,
-  Button,
 } from '@material-ui/core'
 
 import ExploreIcon from '@material-ui/icons/Explore'
