@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import tvdbService from './apis/tvdbService'
 import listService from './apis/listService'
+import userService from './apis/userService'
 
 import { Route, Switch } from 'react-router-dom'
 import './App.css'
@@ -63,6 +64,10 @@ const App = () => {
       tvdbService.getRecommendations(id),
     ])
   }
+  const getUserLists = async (id) => {
+    const response = await userService.getUserLists(id)
+    return response
+  }
   const classes = useStyles()
 
   if (isLoading) {
@@ -89,7 +94,9 @@ const App = () => {
           <Route
             exact
             from='/roulette'
-            render={(props) => <Roulette {...props} />}
+            render={(props) => (
+              <Roulette {...props} user={user} getUserLists={getUserLists} />
+            )}
           />
           <Route
             exact
