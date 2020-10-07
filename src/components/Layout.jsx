@@ -137,7 +137,7 @@ const Layout = ({ children, setUser, user }) => {
           {user === null ? (
             <LoginModal setUser={setUser} user={user} />
           ) : (
-            <Logout />
+            <Logout setUser={setUser} />
           )}
         </Toolbar>
       </AppBar>

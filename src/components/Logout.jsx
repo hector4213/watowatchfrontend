@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import listService from '../apis/listService'
-
+import { useHistory } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 
-const Logout = ({ history }) => {
+const Logout = ({ setUser }) => {
+  let history = useHistory()
   const handleLogOut = () => {
     window.localStorage.clear()
+    setUser(null)
     history.push('/')
   }
 
