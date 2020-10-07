@@ -13,22 +13,23 @@ import {
 const Roulette = ({ getUserLists, user }) => {
   const [userLists, setUserLists] = useState([])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (user === null) {
-        return
-      }
-      const userLists = await getUserLists(user.id)
-      const promises = userLists.map(async (list) => {
-        const movieDetailsPromises = list.movies.map((movie) =>
-          tvdbService.getMovieDetails(movie)
-        )
-        const movieDetails = await Promise.all(movieDetailsPromises)
-        return { ...list, movies: movieDetails }
-      })
-      const movieResponses = await Promise.all(promises)
-      setUserLists(movieResponses)
+  const fetchData = async () => {
+    if (user === null) {
+      return
     }
+    const userLists = await getUserLists(user.id)
+    const promises = userLists.map(async (list) => {
+      const movieDetailsPromises = list.movies.map((movie) =>
+        tvdbService.getMovieDetails(movie)
+      )
+      const movieDetails = await Promise.all(movieDetailsPromises)
+      return { ...list, movies: movieDetails }
+    })
+    const movieResponses = await Promise.all(promises)
+    setUserLists(movieResponses)
+  }
+
+  useEffect(() => {
     fetchData()
   }, [user])
 

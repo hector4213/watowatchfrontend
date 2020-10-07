@@ -50,29 +50,16 @@ const CreateList = ({ user }) => {
   }
 
   return (
-    <Container>
-      <Grid container spacing={9}>
-        <Grid item xs={12}>
-          <Typography variant='h4'>Create a New Movie List</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>
-            <Typography variant='h6'>Enter a title</Typography>
-            <form onSubmit={handleSubmit}>
-              <TextField
-                onChange={({ target }) => setName(target.value)}
-                value={name}
-                variant='outlined'
-                size='small'
-                fullWidth
-              />
-              <Button color='secondary' type='submit' variant='outlined'>
-                Create
-              </Button>
-            </form>
-          </Paper>
+    <Container component='main'>
+      <Typography className={classes.header} variant='h6'>
+        Create a list
+      </Typography>
+      <Grid container spacing={3}>
+        <Grid item xs={8}>
+          <TextField id='title' label='enter title' />
         </Grid>
       </Grid>
+
       <Snackbar open={open} autoHideDuration={2000}>
         <Alert severity={error ? 'error' : 'success'}>{message}</Alert>
       </Snackbar>
