@@ -95,7 +95,12 @@ const App = () => {
             exact
             from='/roulette'
             render={(props) => (
-              <Roulette {...props} user={user} getUserLists={getUserLists} />
+              <Roulette
+                {...props}
+                user={user}
+                getUserLists={getUserLists}
+                config={config}
+              />
             )}
           />
           <Route

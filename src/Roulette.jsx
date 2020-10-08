@@ -8,10 +8,15 @@ import {
   Button,
   Paper,
   Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
 } from '@material-ui/core'
 
-const Roulette = ({ getUserLists, user }) => {
+const Roulette = ({ getUserLists, user, config }) => {
   const [userLists, setUserLists] = useState([])
+  const [selectedList, setSelectedList] = useState(null)
+  const [basket, setBasket] = useState([])
 
   const fetchData = async () => {
     if (user === null) {
@@ -29,25 +34,18 @@ const Roulette = ({ getUserLists, user }) => {
     setUserLists(movieResponses)
   }
 
+  const handleListChange = (e) => {
+    console.log(e.target.value)
+    setSelectedList(e.target.value)
+  }
+
   useEffect(() => {
     fetchData()
-  }, [user])
+  }, [])
 
   if (user === null) {
     return 'Please login or create an account!'
   }
-
-  const movieLists = userLists.map((list) => (
-    <div>
-      {list.title}
-      <button>test</button>
-      <p>
-        {list.movies.map((movie) =>
-          movie !== null ? <li>{movie.title}</li> : 'empty'
-        )}
-      </p>
-    </div>
-  ))
 
   return (
     <Container component='main'>
@@ -69,9 +67,31 @@ const Roulette = ({ getUserLists, user }) => {
               Please Select from your lists
             </Typography>
           </Grid>
+          <Grid item xs={12} md={8}>
+            <FormControl style={{ width: '300px' }}>
+              <InputLabel id='list-select-label'>Select your lists</InputLabel>
+              <Select
+                labelId='list-select-label'
+                id='list-select'
+                value={selectedList || ''}
+                onChange={handleListChange}
+              >
+                {userLists.map((list) => (
+                  <MenuItem key={list.title} value={list}>
+                    {list.title}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
         </Paper>
       </Grid>
-      <div style={{ paddingTop: '50px' }}>{movieLists}</div>
+      <div style={{ paddingTop: '50px' }}>
+        {selectedList &&
+          selectedList.movies.map((movie) => (
+            <li key={movie.id}>{movie.title}</li>
+          ))}
+      </div>
     </Container>
   )
 }
