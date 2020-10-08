@@ -129,16 +129,20 @@ const Roulette = ({ getUserLists, user, config }) => {
                 }
                 alt='movieposter'
               />
-              <Button onClick={() => removeFromBasket(movie)}>
-                Remove from Basket
-              </Button>
             </div>
           ))}
         <div>
           <Button color='secondary' onClick={() => getRandom()}>
             get random
           </Button>
-          <div>{basket.map((movie) => movie.title)}</div>
+          <div>
+            {basket.map((movie) => (
+              <div>
+                <p>{movie.title}</p>
+                <Button onClick={() => removeFromBasket(movie)}>delete</Button>
+              </div>
+            ))}
+          </div>
           <div>{winner ? selectedWinner() : null}</div>
         </div>
       </div>
