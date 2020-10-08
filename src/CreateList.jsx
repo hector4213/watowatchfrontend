@@ -55,8 +55,18 @@ const CreateList = ({ user }) => {
         Create a list
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={8}>
-          <TextField id='title' label='enter title' />
+        <Grid item xs={12} md={6}>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              id='title'
+              label='enter title'
+              value={name}
+              onChange={({ target }) => setName(target.value)}
+            />
+            <Button color='secondary' type='submit'>
+              Create
+            </Button>
+          </form>
         </Grid>
       </Grid>
 
