@@ -17,6 +17,7 @@ const Roulette = ({ getUserLists, user, config }) => {
   const [userLists, setUserLists] = useState([])
   const [selectedList, setSelectedList] = useState(null)
   const [basket, setBasket] = useState([])
+  const [winner, setWinner] = useState(null)
 
   const fetchData = async () => {
     if (user === null) {
@@ -39,6 +40,30 @@ const Roulette = ({ getUserLists, user, config }) => {
     setSelectedList(e.target.value)
   }
 
+  const handleAddToBasket = (movieItem) => {
+    setBasket([...basket, movieItem])
+  }
+
+  const removeFromBasket = (item) => {
+    console.log('im removing from basket')
+    const deleteItem = basket.filter((movie) => item.id !== movie.id)
+    setBasket(deleteItem)
+  }
+
+  const getRandom = () => {
+    setWinner(basket[Math.floor(Math.random() * basket.length)])
+  }
+
+  const selectedWinner = () => (
+    <>
+      (<h1>{winner.title}</h1>
+      <img
+        src={config.base_url + config.poster_sizes[2] + winner.poster_path}
+        alt='randomresult'
+      />
+      )
+    </>
+  )
   useEffect(() => {
     fetchData()
   }, [])
@@ -87,10 +112,35 @@ const Roulette = ({ getUserLists, user, config }) => {
         </Paper>
       </Grid>
       <div style={{ paddingTop: '50px' }}>
+        {selectedList && <h3>{selectedList.title}</h3>}
         {selectedList &&
           selectedList.movies.map((movie) => (
-            <li key={movie.id}>{movie.title}</li>
+            <div style={{ display: 'flex', width: '100%' }}>
+              <p key={movie.id}>{movie.title}</p>
+              <Button
+                color='secondary'
+                onClick={() => handleAddToBasket(movie)}
+              >
+                Add to basket
+              </Button>
+              <img
+                src={
+                  config.base_url + config.poster_sizes[0] + movie.poster_path
+                }
+                alt='movieposter'
+              />
+              <Button onClick={() => removeFromBasket(movie)}>
+                Remove from Basket
+              </Button>
+            </div>
           ))}
+        <div>
+          <Button color='secondary' onClick={() => getRandom()}>
+            get random
+          </Button>
+          <div>{basket.map((movie) => movie.title)}</div>
+          <div>{winner ? selectedWinner() : null}</div>
+        </div>
       </div>
     </Container>
   )
