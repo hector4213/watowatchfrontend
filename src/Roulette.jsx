@@ -56,12 +56,11 @@ const Roulette = ({ getUserLists, user, config }) => {
 
   const selectedWinner = () => (
     <>
-      (<h1>{winner.title}</h1>
+      <h1>{winner.title}</h1>
       <img
         src={config.base_url + config.poster_sizes[2] + winner.poster_path}
         alt='randomresult'
       />
-      )
     </>
   )
   useEffect(() => {
