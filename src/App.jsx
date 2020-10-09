@@ -40,6 +40,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
+    //TODO: change to async/await
     const fetchMovies = async () => {
       await Promise.all([
         tvdbService.getImgConfig(),
@@ -122,7 +123,9 @@ const App = () => {
           <Route
             exact
             from='/mylists'
-            render={(props) => <MyLists {...props} />}
+            render={(props) => (
+              <MyLists {...props} user={user} getUserLists={getUserLists} />
+            )}
           />
           <Route
             exact
