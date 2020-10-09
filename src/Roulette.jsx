@@ -115,8 +115,8 @@ const Roulette = ({ getUserLists, user, config }) => {
         {selectedList && <h3>{selectedList.title}</h3>}
         {selectedList &&
           selectedList.movies.map((movie) => (
-            <div style={{ display: 'flex', width: '100%' }}>
-              <p key={movie.id}>{movie.title}</p>
+            <div key={movie.id} style={{ display: 'flex', width: '100%' }}>
+              <p>{movie.title}</p>
               <Button
                 color='secondary'
                 onClick={() => handleAddToBasket(movie)}
