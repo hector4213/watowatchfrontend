@@ -24,39 +24,62 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const [user, setUser] = useState(null)
+  const [userLists, setUserLists] = useState([])
   const [trending, setTrending] = useState([])
   const [config, setConfig] = useState([])
   const [topRated, setTopRated] = useState([])
   const [upComing, setUpComing] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
+  const isLoggedIn = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedInUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       listService.setToken(user.token)
+      return true
     }
-  }, [])
+  }
+
+  useEffect(() => {
+    const getUserLists = async () => {
+      const lists = await userService.getUserLists(user.id)
+      const promises = lists.map(async (list) => {
+        const movieDetailsPromises = list.movies.map((movie) =>
+          tvdbService.getMovieDetails(movie)
+        )
+        const movieDetails = await Promise.all(movieDetailsPromises)
+        return { ...list, movies: movieDetails }
+      })
+      const movieResponses = await Promise.all(promises)
+      console.log(movieResponses)
+      setUserLists(movieResponses)
+    }
+    if (user !== null) {
+      getUserLists()
+      console.log(userLists)
+    }
+  }, [user])
 
   useEffect(() => {
     //TODO: change to async/await
     const fetchMovies = async () => {
-      await Promise.all([
+      const responses = await Promise.all([
         tvdbService.getImgConfig(),
         tvdbService.getTrending(),
         tvdbService.getTopRated(),
         tvdbService.getUpAndComing(),
-      ]).then((responses) => {
-        setConfig(responses[0])
-        setTrending(responses[1])
-        setTopRated(responses[2])
-        setUpComing(responses[3])
-        setIsLoading(false)
-      })
+      ])
+      setConfig(responses[0])
+      setTrending(responses[1])
+      setTopRated(responses[2])
+      setUpComing(responses[3])
+      setUserLists(responses[4])
+      setIsLoading(false)
     }
-
+    isLoggedIn()
     fetchMovies()
+    console.log(user)
   }, [])
 
   const getMovieDetails = (id) => {
