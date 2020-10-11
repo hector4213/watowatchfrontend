@@ -39,6 +39,18 @@ const MovieDetails = ({ config, getMovieDetails, userLists }) => {
   }
   console.log('these are recommended', recommend)
   console.log()
+  const handleOpen = () => {
+    setIsOpen(true)
+    // const response = await listService.addMovieToList({
+    //   title: movie.original_title,
+    //   genre: movie.genres[0].name,
+    //   tvdb_movieid: movie.id,
+    // })
+  }
+
+  const handleClose = () => {
+    setIsOpen(false)
+  }
 
   return (
     <>
@@ -64,10 +76,21 @@ const MovieDetails = ({ config, getMovieDetails, userLists }) => {
               <Grid item xs>
                 {movie.overview}
               </Grid>
+              <Grid item xs={12}>
+                <Button onClick={handleOpen}>Add to list</Button>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
         <PosterSlides movieData={recommend} config={config} />
+        <Dialog selectedValue={userLists} open={isOpen} onClose={handleClose}>
+          <DialogTitle id='list-selection'>Select your list</DialogTitle>
+          <List>
+            {userLists.map((list) => (
+              <ListItem>{list.title}</ListItem>
+            ))}
+          </List>
+        </Dialog>
       </Container>
     </>
   )
