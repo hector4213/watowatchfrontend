@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import tvdbService from './apis/tvdbService'
 
 import {
   Container,
@@ -13,27 +12,10 @@ import {
   MenuItem,
 } from '@material-ui/core'
 
-const Roulette = ({ getUserLists, user, config }) => {
-  const [userLists, setUserLists] = useState([])
+const Roulette = ({ userLists, user, config }) => {
   const [selectedList, setSelectedList] = useState(null)
   const [basket, setBasket] = useState([])
   const [winner, setWinner] = useState(null)
-
-  const fetchData = async () => {
-    if (user === null) {
-      return
-    }
-    const userLists = await getUserLists(user.id)
-    const promises = userLists.map(async (list) => {
-      const movieDetailsPromises = list.movies.map((movie) =>
-        tvdbService.getMovieDetails(movie)
-      )
-      const movieDetails = await Promise.all(movieDetailsPromises)
-      return { ...list, movies: movieDetails }
-    })
-    const movieResponses = await Promise.all(promises)
-    setUserLists(movieResponses)
-  }
 
   const handleListChange = (e) => {
     console.log(e.target.value)
@@ -63,9 +45,6 @@ const Roulette = ({ getUserLists, user, config }) => {
       />
     </>
   )
-  useEffect(() => {
-    fetchData()
-  }, [])
 
   if (user === null) {
     return 'Please login or create an account!'

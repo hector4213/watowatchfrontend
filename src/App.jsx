@@ -88,10 +88,7 @@ const App = () => {
       tvdbService.getRecommendations(id),
     ])
   }
-  const getUserLists = async (id) => {
-    const response = await userService.getUserLists(id)
-    return response
-  }
+
   const classes = useStyles()
 
   if (isLoading) {
@@ -122,7 +119,7 @@ const App = () => {
               <Roulette
                 {...props}
                 user={user}
-                getUserLists={getUserLists}
+                userLists={userLists}
                 config={config}
               />
             )}
@@ -135,6 +132,7 @@ const App = () => {
                 {...props}
                 config={config}
                 getMovieDetails={getMovieDetails}
+                userLists={userLists}
               />
             )}
           />
@@ -147,7 +145,12 @@ const App = () => {
             exact
             from='/mylists'
             render={(props) => (
-              <MyLists {...props} user={user} getUserLists={getUserLists} />
+              <MyLists
+                {...props}
+                user={user}
+                userLists={userLists}
+                config={config}
+              />
             )}
           />
           <Route

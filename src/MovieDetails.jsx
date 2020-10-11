@@ -4,13 +4,24 @@ import { useParams } from 'react-router-dom'
 import PosterSlides from './components/PosterSlides'
 import UserRating from './components/UserRating'
 
-import { Container, Grid, Typography } from '@material-ui/core'
+import {
+  Container,
+  Grid,
+  Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  List,
+  ListItem,
+} from '@material-ui/core'
 
-const MovieDetails = ({ config, getMovieDetails }) => {
+const MovieDetails = ({ config, getMovieDetails, userLists }) => {
   const movieId = useParams().id
   const [movie, setMovie] = useState([])
   const [recommend, setRecommend] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
+  console.log(userLists)
 
   useEffect(() => {
     const getDetails = async () => {
