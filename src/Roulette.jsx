@@ -12,10 +12,21 @@ import {
   MenuItem,
 } from '@material-ui/core'
 
-const Roulette = ({ userLists, user, config }) => {
+const Roulette = ({ user, config, getUserLists }) => {
   const [selectedList, setSelectedList] = useState(null)
   const [basket, setBasket] = useState([])
   const [winner, setWinner] = useState(null)
+  const [userLists, setUserLists] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getUserLists()
+      setUserLists(data)
+    }
+    if (user !== null) {
+      fetchData()
+    }
+  }, [])
 
   const handleListChange = (e) => {
     console.log(e.target.value)

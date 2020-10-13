@@ -31,7 +31,10 @@ const getListById = async (id) => {
 
 // Route to add a movie to list
 const addMovieToList = async (id, movieObj) => {
-  const response = await axios.put(`${baseURL}/${id}`, movieObj)
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.put(`${baseURL}/lists/${id}`, movieObj, config)
   return response.data
 }
 

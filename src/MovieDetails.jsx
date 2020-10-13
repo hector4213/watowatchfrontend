@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import PosterSlides from './components/PosterSlides'
 import UserRating from './components/UserRating'
-
+import listService from './apis/listService'
 import {
   Container,
   Grid,
@@ -15,12 +15,13 @@ import {
   ListItem,
 } from '@material-ui/core'
 
-const MovieDetails = ({ config, getMovieDetails, userLists }) => {
+const MovieDetails = ({ config, getMovieDetails, getUserLists }) => {
   const movieId = useParams().id
-  const [movie, setMovie] = useState([])
+  const [movie, setMovie] = useState({})
   const [recommend, setRecommend] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(false)
+  const [userLists, setUserLists] = useState([])
   console.log(userLists)
 
   useEffect(() => {
@@ -32,7 +33,16 @@ const MovieDetails = ({ config, getMovieDetails, userLists }) => {
       })
     }
     getDetails()
+    getUserLists()
   }, [movieId])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getUserLists()
+      setUserLists(data)
+    }
+    fetchData()
+  }, [])
 
   if (isLoading) {
     return null
@@ -41,11 +51,20 @@ const MovieDetails = ({ config, getMovieDetails, userLists }) => {
   console.log()
   const handleOpen = () => {
     setIsOpen(true)
-    // const response = await listService.addMovieToList({
-    //   title: movie.original_title,
-    //   genre: movie.genres[0].name,
-    //   tvdb_movieid: movie.id,
-    // })
+  }
+
+  const handleAdd = async (listId) => {
+    try {
+      const movieToAdd = {
+        title: movie.original_title,
+        genre: movie.genres[0].name,
+        tvdb_movieid: movie.id,
+      }
+      await listService.addMovieToList(listId, movieToAdd)
+      getUserLists() //works but can i handle this better instead of another api call?
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const handleClose = () => {
@@ -83,11 +102,16 @@ const MovieDetails = ({ config, getMovieDetails, userLists }) => {
           </Grid>
         </Grid>
         <PosterSlides movieData={recommend} config={config} />
-        <Dialog selectedValue={userLists} open={isOpen} onClose={handleClose}>
+        <Dialog selectedvalue={userLists} open={isOpen} onClose={handleClose}>
           <DialogTitle id='list-selection'>Select your list</DialogTitle>
           <List>
             {userLists.map((list) => (
-              <ListItem>{list.title}</ListItem>
+              <ListItem
+                key={list.list_id}
+                onClick={() => handleAdd(list.list_id)}
+              >
+                {list.title}
+              </ListItem>
             ))}
           </List>
         </Dialog>

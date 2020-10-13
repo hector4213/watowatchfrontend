@@ -7,7 +7,6 @@ import {
   Fade,
   Popper,
   Paper,
-  Grow,
   ClickAwayListener,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
@@ -26,7 +25,7 @@ const SearchBar = () => {
   const [text, setText] = useState('')
   const [results, setResults] = useState([])
   const [anchorEl, setAnchorEl] = useState(null)
-  const isOpen = Boolean(anchorEl)
+  const [isOpen, setIsOpen] = useState(false)
   const divRef = React.useRef()
   const classes = useStyles()
   //TODO: fix search results, fix focus issue, placement, add small image + movie yr
@@ -38,6 +37,7 @@ const SearchBar = () => {
     }
     const timeoutId = setTimeout(() => {
       if (text) {
+        setIsOpen(true)
         search()
       }
     }, 1000)
@@ -62,9 +62,7 @@ const SearchBar = () => {
   }
 
   const handleClose = (e) => {
-    if (divRef.current && divRef.current.contains(e.target)) {
-      return
-    }
+    setIsOpen(false)
     setAnchorEl(null)
   }
   const showResults = (
@@ -85,31 +83,30 @@ const SearchBar = () => {
           onChange={handleChange}
           value={text}
         />
-        <Popper
-          open={isOpen}
-          anchorEl={divRef.current}
-          role={undefined}
-          transition
-          disablePortal
-        >
-          {({ TransitionProps, placement }) => (
-            <Grow
-              {...TransitionProps}
-              style={{
-                transformOrigin:
-                  placement === 'bottom' ? 'center top' : 'center bottom',
-              }}
-            >
-              <Paper>
-                <ClickAwayListener onClickAway={handleClose}>
-                  {showResults}
-                </ClickAwayListener>
-              </Paper>
-            </Grow>
-          )}
-        </Popper>
       </form>
       <div ref={divRef}></div>
+      <Popper
+        open={isOpen}
+        anchorEl={divRef.current}
+        role={undefined}
+        transition
+        disablePortal
+      >
+        {({ TransitionProps, placement }) => (
+          <Fade
+            {...TransitionProps}
+            style={{
+              transformOrigin: 'center top',
+            }}
+          >
+            <Paper>
+              <ClickAwayListener onClickAway={handleClose}>
+                {showResults}
+              </ClickAwayListener>
+            </Paper>
+          </Fade>
+        )}
+      </Popper>
     </div>
   )
 }

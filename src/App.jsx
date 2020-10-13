@@ -42,26 +42,6 @@ const App = () => {
   }
 
   useEffect(() => {
-    const getUserLists = async () => {
-      const lists = await userService.getUserLists(user.id)
-      const promises = lists.map(async (list) => {
-        const movieDetailsPromises = list.movies.map((movie) =>
-          tvdbService.getMovieDetails(movie)
-        )
-        const movieDetails = await Promise.all(movieDetailsPromises)
-        return { ...list, movies: movieDetails }
-      })
-      const movieResponses = await Promise.all(promises)
-      console.log(movieResponses)
-      setUserLists(movieResponses)
-    }
-    if (user !== null) {
-      getUserLists()
-      console.log(userLists)
-    }
-  }, [user])
-
-  useEffect(() => {
     //TODO: change to async/await
     const fetchMovies = async () => {
       const responses = await Promise.all([
@@ -81,6 +61,19 @@ const App = () => {
     fetchMovies()
     console.log(user)
   }, [])
+
+  const getUserLists = async () => {
+    const lists = await userService.getUserLists(user.id)
+    const promises = lists.map(async (list) => {
+      const movieDetailsPromises = list.movies.map((movie) =>
+        tvdbService.getMovieDetails(movie)
+      )
+      const movieDetails = await Promise.all(movieDetailsPromises)
+      return { ...list, movies: movieDetails }
+    })
+    const movieResponses = await Promise.all(promises)
+    return movieResponses
+  }
 
   const getMovieDetails = (id) => {
     return Promise.all([
@@ -119,8 +112,8 @@ const App = () => {
               <Roulette
                 {...props}
                 user={user}
-                userLists={userLists}
                 config={config}
+                getUserLists={getUserLists}
               />
             )}
           />
@@ -132,7 +125,7 @@ const App = () => {
                 {...props}
                 config={config}
                 getMovieDetails={getMovieDetails}
-                userLists={userLists}
+                getUserLists={getUserLists}
               />
             )}
           />
