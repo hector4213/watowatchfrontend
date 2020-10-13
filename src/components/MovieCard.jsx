@@ -30,15 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const MovieCard = ({
-  title,
-  overview,
-  src,
-  imageTitle,
-  year,
-  id,
-  getDetails,
-}) => {
+const MovieCard = ({ title, overview, src, imageTitle, year, id }) => {
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)
 
