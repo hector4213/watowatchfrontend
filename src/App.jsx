@@ -7,6 +7,7 @@ import MyLists from './MyLists'
 import ExploreLists from './ExploreLists'
 import MySharedLists from './MySharedLists'
 import MovieDetails from './MovieDetails'
+import UserProfile from './UserProfile'
 import { makeStyles } from '@material-ui/core/styles'
 
 import tvdbService from './apis/tvdbService'
@@ -140,14 +141,13 @@ const App = () => {
             )}
           />
           <Route
-            exact
-            from='/explore'
-            render={(props) => <ExploreLists {...props} />}
-          />
-          <Route
-            exact
-            from='/shared'
-            render={(props) => <MySharedLists {...props} />}
+            path='/explore'
+            render={({ match: { url } }) => (
+              <>
+                <Route path={`${url}/`} component={ExploreLists} exact />
+                <Route path={`${url}/profile/:id`} component={UserProfile} />
+              </>
+            )}
           />
         </Switch>
       </Layout>
