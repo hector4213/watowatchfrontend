@@ -5,14 +5,14 @@ import 'slick-carousel/slick/slick-theme.css'
 
 import MovieCard from '../components/MovieCard'
 
-const PosterSlides = ({ movieData, config }) => {
-  console.log('this is from poster grid', config.poster_sizes[0])
+const PosterSlides = ({ movieData, config, listId, handleDelete }) => {
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 6,
+    adaptiveHeight: true,
     responsive: [
       {
         breakpoint: 1366,
@@ -50,6 +50,10 @@ const PosterSlides = ({ movieData, config }) => {
     ],
   }
 
+  if (!movieData) {
+    return 'Loading...'
+  }
+
   return (
     <Slider {...settings}>
       {movieData.map((movie) => (
@@ -61,6 +65,8 @@ const PosterSlides = ({ movieData, config }) => {
           year={movie.release_date.substring(0, 4)}
           key={movie.id}
           id={movie.id}
+          listId={listId}
+          handleDelete={handleDelete}
         />
       ))}
     </Slider>

@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/styles'
 
 import userService from './apis/userService'
 import tvdbService from './apis/tvdbService'
+import listService from './apis/listService'
 
 import PosterSlides from './components/PosterSlides'
 
@@ -28,6 +29,29 @@ const MyLists = ({ user, config }) => {
     setUserLists(movieResponses)
   }
 
+  const handleDelete = async (listId, deleted) => {
+    try {
+      const deleteMovie = {
+        movieId: deleted,
+      }
+      await listService.removeMovieFromList(listId, deleteMovie)
+      const newData = userLists.map((list) => {
+        if (list.list_id !== listId) {
+          return list
+        }
+        return {
+          ...list,
+          movies: list.movies.filter(
+            (movie) => movie.id !== deleteMovie.movieId
+          ),
+        }
+      })
+      setUserLists(newData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     if (user !== null) {
       getUserLists()
@@ -42,9 +66,14 @@ const MyLists = ({ user, config }) => {
         </Grid>
         <Grid item xs={12}>
           {userLists.map((list) => (
-            <div>
+            <div key={list.list_id}>
               {list.title}
-              <PosterSlides movieData={list.movies} config={config} />
+              <PosterSlides
+                movieData={list.movies}
+                config={config}
+                listId={list.list_id}
+                handleDelete={handleDelete}
+              />
             </div>
           ))}
         </Grid>

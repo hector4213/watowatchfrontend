@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 
+import { RemoveCircle, ExpandMore } from '@material-ui/icons'
+
 import {
   Card,
   CardHeader,
@@ -12,8 +14,6 @@ import {
   Collapse,
   IconButton,
 } from '@material-ui/core'
-
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +30,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const MovieCard = ({ title, overview, src, imageTitle, year, id }) => {
+const MovieCard = ({
+  title,
+  overview,
+  src,
+  imageTitle,
+  year,
+  id,
+  handleDelete,
+  listId,
+}) => {
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)
 
@@ -57,7 +66,10 @@ const MovieCard = ({ title, overview, src, imageTitle, year, id }) => {
           aria-expanded={expanded}
           aria-label='see-overview'
         >
-          <ExpandMoreIcon />
+          <ExpandMore />
+        </IconButton>
+        <IconButton onClick={() => handleDelete(listId, id)}>
+          <RemoveCircle />
         </IconButton>
       </CardActions>
       <CardHeader

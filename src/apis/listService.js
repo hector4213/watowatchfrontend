@@ -39,8 +39,15 @@ const addMovieToList = async (id, movieObj) => {
 }
 
 //Route to remove a movie from a list
-const removeMovieFromList = async (id, movie) => {
-  const response = await axios.delete(`${id}/${baseURL}/movies`, movie)
+const removeMovieFromList = async (listId, deletedObj) => {
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.put(
+    `${baseURL}/lists/${listId}/movies`,
+    deletedObj,
+    config
+  )
   return response.data
 }
 
