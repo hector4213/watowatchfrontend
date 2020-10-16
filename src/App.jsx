@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const [user, setUser] = useState(null)
-  const [userLists, setUserLists] = useState([])
   const [trending, setTrending] = useState([])
   const [config, setConfig] = useState([])
   const [topRated, setTopRated] = useState([])
@@ -54,7 +53,6 @@ const App = () => {
       setTrending(responses[1])
       setTopRated(responses[2])
       setUpComing(responses[3])
-      setUserLists(responses[4])
       setIsLoading(false)
     }
     isLoggedIn()
@@ -138,12 +136,7 @@ const App = () => {
             exact
             from='/mylists'
             render={(props) => (
-              <MyLists
-                {...props}
-                user={user}
-                userLists={userLists}
-                config={config}
-              />
+              <MyLists {...props} user={user} config={config} />
             )}
           />
           <Route
