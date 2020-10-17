@@ -144,7 +144,17 @@ const App = () => {
             render={({ match: { url } }) => (
               <>
                 <Route path={`${url}/`} component={ExploreLists} exact />
-                <Route path={`${url}/profile/:id`} component={UserProfile} />
+                <Route
+                  path={`${url}/profile/:id`}
+                  render={(props) => (
+                    <UserProfile
+                      {...props}
+                      user={user}
+                      config={config}
+                      getUserLists={getUserLists}
+                    />
+                  )}
+                />
               </>
             )}
           />
