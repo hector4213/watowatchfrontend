@@ -5,7 +5,13 @@ import 'slick-carousel/slick/slick-theme.css'
 
 import MovieCard from '../components/MovieCard'
 
-const PosterSlides = ({ movieData, config, listId, handleDelete }) => {
+const PosterSlides = ({
+  movieData,
+  config,
+  listId,
+  handleDelete,
+  hasDelete,
+}) => {
   const settings = {
     dots: false,
     infinite: true,
@@ -67,6 +73,7 @@ const PosterSlides = ({ movieData, config, listId, handleDelete }) => {
           id={movie.id}
           listId={listId}
           handleDelete={handleDelete}
+          hasDelete={hasDelete}
         />
       ))}
     </Slider>

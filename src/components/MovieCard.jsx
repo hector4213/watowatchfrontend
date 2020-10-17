@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { RemoveCircle, ExpandMore } from '@material-ui/icons'
 
+import DeleteButton from './DeleteButton'
+
 import {
   Card,
   CardHeader,
@@ -39,6 +41,7 @@ const MovieCard = ({
   id,
   handleDelete,
   listId,
+  hasDelete,
 }) => {
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)
@@ -68,9 +71,10 @@ const MovieCard = ({
         >
           <ExpandMore />
         </IconButton>
-        <IconButton onClick={() => handleDelete(listId, id)}>
-          <RemoveCircle />
-        </IconButton>
+        <DeleteButton
+          hasDelete={hasDelete}
+          onClick={() => handleDelete(listId, id)}
+        />
       </CardActions>
       <CardHeader
         title={title}
