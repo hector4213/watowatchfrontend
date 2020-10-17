@@ -43,7 +43,7 @@ const Explore = ({
         </Typography>
       </div>
       <div className={classes.sliderContainer}>
-        <PosterSlides movieData={trending} config={config} />
+        <PosterSlides movieData={trending} config={config} hasDelete={false} />
         <Typography
           align='left'
           variant='h3'
@@ -53,7 +53,7 @@ const Explore = ({
           Top Rated
           <Whatshot color='secondary' fontSize='inherit' />
         </Typography>
-        <PosterSlides movieData={topRated} config={config} />
+        <PosterSlides movieData={topRated} config={config} hasDelete={false} />
         <Typography
           align='left'
           variant='h3'
@@ -63,7 +63,7 @@ const Explore = ({
           Up and Coming
           <Replay color='secondary' fontSize='inherit' />
         </Typography>
-        <PosterSlides movieData={upComing} config={config} />
+        <PosterSlides movieData={upComing} config={config} hasDelete={false} />
       </div>
     </Container>
   )
