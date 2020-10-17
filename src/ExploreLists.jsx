@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 import { Container, Grid, Typography, Button, Paper } from '@material-ui/core'
 
@@ -6,7 +7,6 @@ import userService from './apis/userService'
 
 const ExploreLists = () => {
   const [users, setUsers] = useState([])
-  const [selectedUser, setSelectedUser] = useState(null)
 
   const fetchUserData = async () => {
     const response = await userService.getAllUsers()
@@ -18,14 +18,6 @@ const ExploreLists = () => {
     fetchUserData()
   }, [])
 
-  const getUserListData = async (id) => {
-    const response = await userService.getUserLists(id)
-    setSelectedUser(response)
-  }
-
-  if (selectedUser) {
-  }
-
   return (
     <Container component='main'>
       <Typography component='h1' variant='h4'>
@@ -34,9 +26,10 @@ const ExploreLists = () => {
 
       {users.map((user) => (
         <div>
-          <h3
-            onClick={() => getUserListData(user.id)}
-          >{`${user.first_name}'s Lists`}</h3>
+          <Typography
+            component={Link}
+            to={`/explore/profile/${user.id}`}
+          >{`${user.first_name}'s Lists`}</Typography>
           <p>
             {user.movelists.map((list) => {
               if (list === null) {
