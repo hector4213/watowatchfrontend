@@ -35,7 +35,7 @@ const MyLists = ({ user, config }) => {
         movieId: deleted,
       }
       await listService.removeMovieFromList(listId, deleteMovie)
-      const newData = userLists.map((list) => {
+      const updatedList = userLists.map((list) => {
         if (list.list_id !== listId) {
           return list
         }
@@ -46,7 +46,7 @@ const MyLists = ({ user, config }) => {
           ),
         }
       })
-      setUserLists(newData)
+      setUserLists(updatedList)
     } catch (error) {
       console.log(error)
     }
