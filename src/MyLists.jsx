@@ -73,6 +73,7 @@ const MyLists = ({ user, config }) => {
                 config={config}
                 listId={list.list_id}
                 handleDelete={handleDelete}
+                hasDelete={true}
               />
             </div>
           ))}
