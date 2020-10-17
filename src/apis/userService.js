@@ -17,8 +17,14 @@ const getAllUsers = async () => {
   return response.data
 }
 
+const getProfile = async (id) => {
+  const response = await axios.get(`${baseURL}/users/${id}`)
+  return response.data
+}
+
 export default {
   register,
   getUserLists,
   getAllUsers,
+  getProfile,
 }
