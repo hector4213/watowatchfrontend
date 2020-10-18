@@ -4,8 +4,6 @@ import { Typography, Container, Grid } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/styles'
 
-import userService from './apis/userService'
-import tvdbService from './apis/tvdbService'
 import listService from './apis/listService'
 
 import PosterSlides from './components/PosterSlides'
