@@ -46,8 +46,6 @@ const MovieCard = ({
   hasDelete,
   hasAdd,
   handleDialogOpen,
-  handleAdd,
-  setMovie,
 }) => {
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)

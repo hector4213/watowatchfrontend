@@ -9,7 +9,10 @@ import {
   DialogTitle,
   List,
   ListItem,
+  Snackbar,
 } from '@material-ui/core'
+
+import { Alert } from '@material-ui/lab'
 import PosterSlides from './components/PosterSlides'
 
 import userService from './apis/userService'
@@ -20,6 +23,7 @@ const UserProfile = ({ config, getUserLists, currentUser }) => {
   const [lists, setLists] = useState([])
   const [loggedUserLists, setLoggedUserLists] = useState([])
   const [isOpen, setIsOpen] = useState(false)
+  const [snackOpen, setSnackOpen] = useState(false)
   const [loading, setIsLoading] = useState(true)
   const [movie, setMovie] = useState({})
   const userProfile = useParams().id
@@ -42,7 +46,11 @@ const UserProfile = ({ config, getUserLists, currentUser }) => {
   const handleAdd = async (listId) => {
     try {
       await listService.addMovieToList(listId, movie)
+      setSnackOpen(true)
       getUserLists(user.id) //works but can i handle this better instead of another api call?
+      setTimeout(() => {
+        handleClose()
+      }, 1000)
     } catch (error) {
       console.log(error)
     }
@@ -55,6 +63,11 @@ const UserProfile = ({ config, getUserLists, currentUser }) => {
 
   const handleClose = () => {
     setIsOpen(false)
+    handleSnackClose()
+  }
+
+  const handleSnackClose = () => {
+    setSnackOpen(false)
   }
   console.log(movie)
 
@@ -102,6 +115,13 @@ const UserProfile = ({ config, getUserLists, currentUser }) => {
             </ListItem>
           ))}
         </List>
+        <Snackbar
+          open={snackOpen}
+          autoHideDuration={1000}
+          onClose={handleSnackClose}
+        >
+          <Alert severity='success'>{'Movie Added!'}</Alert>
+        </Snackbar>
       </Dialog>
     </Container>
   )
