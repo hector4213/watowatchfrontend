@@ -11,6 +11,9 @@ const PosterSlides = ({
   listId,
   handleDelete,
   hasDelete,
+  hasAdd,
+  handleDialogOpen,
+  setMovie,
 }) => {
   const settings = {
     dots: false,
@@ -71,9 +74,13 @@ const PosterSlides = ({
           year={movie.release_date.substring(0, 4)}
           key={movie.id}
           id={movie.id}
+          genre={movie.genres[0].name}
           listId={listId}
           handleDelete={handleDelete}
           hasDelete={hasDelete}
+          hasAdd={hasAdd}
+          handleDialogOpen={handleDialogOpen}
+          setMovie={setMovie}
         />
       ))}
     </Slider>
