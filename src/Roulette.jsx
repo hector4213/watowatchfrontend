@@ -20,7 +20,7 @@ const Roulette = ({ user, config, getUserLists }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getUserLists()
+      const data = await getUserLists(user.id)
       setUserLists(data)
     }
     if (user !== null) {

@@ -12,18 +12,11 @@ const useStyles = makeStyles({
   root: {},
 })
 
-const MyLists = ({ user, config }) => {
+const MyLists = ({ user, config, getUserLists }) => {
   const [userLists, setUserLists] = useState([])
-  const getUserLists = async () => {
-    const lists = await userService.getUserLists(user.id)
-    const promises = lists.map(async (list) => {
-      const movieDetailsPromises = list.movies.map((movie) =>
-        tvdbService.getMovieDetails(movie)
-      )
-      const movieDetails = await Promise.all(movieDetailsPromises)
-      return { ...list, movies: movieDetails }
-    })
-    const movieResponses = await Promise.all(promises)
+
+  const fetchData = async () => {
+    const movieResponses = await getUserLists(user.id)
     setUserLists(movieResponses)
   }
 
@@ -52,7 +45,7 @@ const MyLists = ({ user, config }) => {
 
   useEffect(() => {
     if (user !== null) {
-      getUserLists()
+      fetchData()
     }
   }, [])
 
