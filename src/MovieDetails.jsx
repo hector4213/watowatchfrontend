@@ -15,14 +15,13 @@ import {
   ListItem,
 } from '@material-ui/core'
 
-const MovieDetails = ({ config, getMovieDetails, getUserLists }) => {
+const MovieDetails = ({ config, getMovieDetails, getUserLists, user }) => {
   const movieId = useParams().id
   const [movie, setMovie] = useState({})
   const [recommend, setRecommend] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(false)
   const [userLists, setUserLists] = useState([])
-  console.log(userLists)
 
   useEffect(() => {
     const getDetails = async () => {
@@ -38,7 +37,7 @@ const MovieDetails = ({ config, getMovieDetails, getUserLists }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getUserLists()
+      const data = await getUserLists(user.id)
       setUserLists(data)
     }
     fetchData()
@@ -61,7 +60,7 @@ const MovieDetails = ({ config, getMovieDetails, getUserLists }) => {
         tvdb_movieid: movie.id,
       }
       await listService.addMovieToList(listId, movieToAdd)
-      getUserLists() //works but can i handle this better instead of another api call?
+      getUserLists(user.id) //works but can i handle this better instead of another api call?
     } catch (error) {
       console.log(error)
     }

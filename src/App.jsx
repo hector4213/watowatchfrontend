@@ -124,6 +124,7 @@ const App = () => {
                 config={config}
                 getMovieDetails={getMovieDetails}
                 getUserLists={getUserLists}
+                user={user}
               />
             )}
           />
@@ -136,7 +137,12 @@ const App = () => {
             exact
             from='/mylists'
             render={(props) => (
-              <MyLists {...props} user={user} config={config} />
+              <MyLists
+                {...props}
+                user={user}
+                config={config}
+                getUserLists={getUserLists}
+              />
             )}
           />
           <Route
@@ -149,7 +155,7 @@ const App = () => {
                   render={(props) => (
                     <UserProfile
                       {...props}
-                      user={user}
+                      currentUser={user.id}
                       config={config}
                       getUserLists={getUserLists}
                     />
