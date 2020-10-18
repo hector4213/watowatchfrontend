@@ -8,7 +8,7 @@ const AddButton = ({ hasAdd, onClick }) => {
   }
   return (
     <IconButton onClick={onClick}>
-      <AddCircle />
+      <AddCircle color='secondary' />
     </IconButton>
   )
 }

@@ -10,7 +10,7 @@ const DeleteButton = ({ onClick, hasDelete }) => {
   }
   return (
     <IconButton onClick={onClick}>
-      <RemoveCircle />
+      <RemoveCircle color='secondary' />
     </IconButton>
   )
 }

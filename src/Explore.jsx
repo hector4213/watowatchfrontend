@@ -15,14 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Explore = ({
-  trending,
-  config,
-  topRated,
-  upComing,
-  isLoading,
-  history,
-}) => {
+const Explore = ({ trending, config, topRated, upComing, isLoading }) => {
   console.log(trending)
   const classes = useStyles()
 

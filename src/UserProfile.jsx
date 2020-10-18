@@ -6,6 +6,7 @@ import {
   Typography,
   Grid,
   Dialog,
+  Button,
   DialogTitle,
   List,
   ListItem,
@@ -80,6 +81,9 @@ const UserProfile = ({ config, getUserLists, currentUser }) => {
       <Typography component='h1' variant='h3'>
         {`${user.first_name}'s Lists`}
       </Typography>
+      <Button color='secondary' variant='contained'>
+        Add as Buddy
+      </Button>
       <Grid container spacing={3}>
         {lists.map((list) => (
           <>
