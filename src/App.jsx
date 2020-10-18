@@ -60,8 +60,8 @@ const App = () => {
     console.log(user)
   }, [])
 
-  const getUserLists = async () => {
-    const lists = await userService.getUserLists(user.id)
+  const getUserLists = async (id) => {
+    const lists = await userService.getUserLists(id)
     const promises = lists.map(async (list) => {
       const movieDetailsPromises = list.movies.map((movie) =>
         tvdbService.getMovieDetails(movie)
