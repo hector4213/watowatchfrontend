@@ -25,8 +25,9 @@ const UserProfile = ({ config, getUserLists, currentUser }) => {
   const [loggedUserLists, setLoggedUserLists] = useState([])
   const [isOpen, setIsOpen] = useState(false)
   const [snackOpen, setSnackOpen] = useState(false)
+  const [message, setMessage] = useState(null)
   const [loading, setIsLoading] = useState(true)
-  const [movie, setMovie] = useState({})
+  const [movie, setMovie] = useState(null)
   const userProfile = useParams().id
 
   const fetchUserData = async () => {
@@ -44,16 +45,42 @@ const UserProfile = ({ config, getUserLists, currentUser }) => {
     fetchUserData()
   }, [])
 
-  const handleAdd = async (listId) => {
+  const listAdd = async (listId) => {
     try {
       await listService.addMovieToList(listId, movie)
       setSnackOpen(true)
+      setMessage(`${movie.title} has been added!`)
       getUserLists(user.id) //works but can i handle this better instead of another api call?
       setTimeout(() => {
         handleClose()
-      }, 1000)
+      }, 600)
     } catch (error) {
       console.log(error)
+    }
+  }
+  const buddyAdd = async (listId) => {
+    const buddy = {
+      buddyId: user.id,
+    }
+    try {
+      const response = await listService.addBuddy(listId, buddy)
+      setSnackOpen(true)
+      setMessage(`${user.first_name} has been added!`)
+      setTimeout(() => {
+        handleClose()
+      }, 600)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleAdd = async (listId) => {
+    //if no movie then do add buddy call
+    if (movie === null) {
+      await buddyAdd(listId)
+    } else {
+      await listAdd(listId)
     }
   }
 
@@ -65,12 +92,19 @@ const UserProfile = ({ config, getUserLists, currentUser }) => {
   const handleClose = () => {
     setIsOpen(false)
     handleSnackClose()
+    setMovie(null)
+    setMessage(null)
   }
 
   const handleSnackClose = () => {
     setSnackOpen(false)
   }
   console.log(movie)
+
+  const handleAddBuddy = async (listId) => {
+    setIsOpen(true)
+    console.log(user.id)
+  }
 
   if (loading) {
     return 'Loading....'
@@ -81,7 +115,11 @@ const UserProfile = ({ config, getUserLists, currentUser }) => {
       <Typography component='h1' variant='h3'>
         {`${user.first_name}'s Lists`}
       </Typography>
-      <Button color='secondary' variant='contained'>
+      <Button
+        onClick={() => handleAddBuddy()}
+        color='secondary'
+        variant='contained'
+      >
         Add as Buddy
       </Button>
       <Grid container spacing={3}>
@@ -119,12 +157,8 @@ const UserProfile = ({ config, getUserLists, currentUser }) => {
             </ListItem>
           ))}
         </List>
-        <Snackbar
-          open={snackOpen}
-          autoHideDuration={1000}
-          onClose={handleSnackClose}
-        >
-          <Alert severity='success'>{'Movie Added!'}</Alert>
+        <Snackbar open={snackOpen} autoHideDuration={700} onClose={handleClose}>
+          <Alert severity='success'>{message}</Alert>
         </Snackbar>
       </Dialog>
     </Container>

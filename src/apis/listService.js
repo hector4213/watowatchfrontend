@@ -53,8 +53,15 @@ const removeMovieFromList = async (listId, deletedObj) => {
 
 //Route to add a buddy to a list
 
-const addBuddy = async (listId) => {
-  const response = axios.put(`${baseURL}/${listId}/buddies/add`)
+const addBuddy = async (listId, buddy) => {
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = axios.post(
+    `${baseURL}/lists/${listId}/buddies/add`,
+    buddy,
+    config
+  )
   return response.data
 }
 
