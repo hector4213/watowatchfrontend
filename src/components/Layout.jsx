@@ -19,7 +19,6 @@ import MovieFilterIcon from '@material-ui/icons/MovieFilter'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import FaceIcon from '@material-ui/icons/Face'
 import Burger from '@material-ui/icons/Menu'
-import MovieFilterOutlinedIcon from '@material-ui/icons/MovieFilterOutlined'
 
 import SearchBar from './SearchBar'
 import LogoIcon from '../assets/Logo'
@@ -66,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
+  grow: {
+    flexGrow: 1,
+  },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
@@ -93,30 +95,6 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'space-between',
       width: '50%vw',
     },
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
@@ -166,9 +144,9 @@ const Layout = ({ children, setUser, user }) => {
             WATOWATCH
           </Typography>
 
-          <MovieFilterOutlinedIcon />
-
           <SearchBar />
+
+          <div className={classes.grow} />
 
           {user === null ? (
             <LoginModal setUser={setUser} user={user} />
