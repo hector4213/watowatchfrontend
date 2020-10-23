@@ -13,7 +13,7 @@ const createList = async (titleName) => {
   const config = {
     headers: { Authorization: token },
   }
-  const response = axios.post(`${baseURL}/lists`, titleName, config)
+  const response = await axios.post(`${baseURL}/lists`, titleName, config)
   return response.data
 }
 
@@ -57,7 +57,7 @@ const addBuddy = async (listId, buddy) => {
   const config = {
     headers: { Authorization: token },
   }
-  const response = axios.post(
+  const response = await axios.post(
     `${baseURL}/lists/${listId}/buddies/add`,
     buddy,
     config
@@ -65,8 +65,21 @@ const addBuddy = async (listId, buddy) => {
   return response.data
 }
 
-const removeBuddy = async (id) => {
-  const response = axios.delete(`${baseURL}/${id}/buddies/delete`)
+const removeBuddy = async (listId, buddy) => {
+  const config = {
+    headers: { Authorization: token },
+    params: { buddyId: buddy },
+  }
+
+  const response = await axios.delete(
+    `${baseURL}/lists/${listId}/buddies/delete`,
+    config
+  )
+  return response.data
+}
+
+const getBuddiedList = async (id) => {
+  const response = await axios.get(`${baseURL}/lists/shared/${id}`)
   return response.data
 }
 
@@ -79,4 +92,5 @@ export default {
   addBuddy,
   removeBuddy,
   setToken,
+  getBuddiedList,
 }
