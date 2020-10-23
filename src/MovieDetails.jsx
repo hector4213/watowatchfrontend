@@ -15,7 +15,13 @@ import {
   ListItem,
 } from '@material-ui/core'
 
-const MovieDetails = ({ config, getMovieDetails, getUserLists, user }) => {
+const MovieDetails = ({
+  config,
+  getMovieDetails,
+  getUserLists,
+  user,
+  getBuddiedLists,
+}) => {
   const movieId = useParams().id
   const [movie, setMovie] = useState({})
   const [recommend, setRecommend] = useState([])
@@ -32,13 +38,15 @@ const MovieDetails = ({ config, getMovieDetails, getUserLists, user }) => {
       })
     }
     getDetails()
-    getUserLists()
   }, [movieId])
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getUserLists(user.id)
-      setUserLists(data)
+      const data = getUserLists(user.id)
+      const buddyData = getBuddiedLists(user.id)
+      const responses = await Promise.all([data, buddyData])
+      console.log(responses[0], responses[1])
+      setUserLists([...responses[0], ...responses[1]])
     }
     fetchData()
   }, [])
