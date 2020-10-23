@@ -15,6 +15,8 @@ import {
   ListItem,
 } from '@material-ui/core'
 
+import { Face } from '@material-ui/icons'
+
 const MovieDetails = ({
   config,
   getMovieDetails,
@@ -118,6 +120,7 @@ const MovieDetails = ({
                 onClick={() => handleAdd(list.list_id)}
               >
                 {list.title}
+                {list.user_id !== user.id ? <Face /> : null}
               </ListItem>
             ))}
           </List>
