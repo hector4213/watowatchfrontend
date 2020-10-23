@@ -7,6 +7,7 @@ import MyLists from './MyLists'
 import ExploreLists from './ExploreLists'
 import MovieDetails from './MovieDetails'
 import UserProfile from './UserProfile'
+import MySharedLists from './MySharedLists'
 import { makeStyles } from '@material-ui/core/styles'
 
 import tvdbService from './apis/tvdbService'
@@ -73,6 +74,19 @@ const App = () => {
     return movieResponses
   }
 
+  const getBuddiedLists = async (id) => {
+    const lists = await listService.getBuddiedList(id)
+    const promises = lists.map(async (list) => {
+      const movieDetailsPromises = list.movies.map((movie) =>
+        tvdbService.getMovieDetails(movie.tvdb_movieid)
+      )
+      const movieDetails = await Promise.all(movieDetailsPromises)
+      return { ...list, movies: movieDetails }
+    })
+    const movieResponses = await Promise.all(promises)
+    return movieResponses
+  }
+
   const getMovieDetails = (id) => {
     return Promise.all([
       tvdbService.getMovieDetails(id),
@@ -112,6 +126,7 @@ const App = () => {
                 user={user}
                 config={config}
                 getUserLists={getUserLists}
+                getBuddiedLists={getBuddiedLists}
               />
             )}
           />
@@ -162,6 +177,19 @@ const App = () => {
                   )}
                 />
               </>
+            )}
+          />
+          <Route
+            exact
+            from='/shared'
+            render={(props) => (
+              <MySharedLists
+                {...props}
+                user={user}
+                config={config}
+                getUserLists={getUserLists}
+                getBuddiedLists={getBuddiedLists}
+              />
             )}
           />
         </Switch>
