@@ -12,7 +12,8 @@ import {
   MenuItem,
 } from '@material-ui/core'
 
-const Roulette = ({ user, config, getUserLists }) => {
+const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
+  //TODO: get shared lists into roulette
   const [selectedList, setSelectedList] = useState(null)
   const [basket, setBasket] = useState([])
   const [winner, setWinner] = useState(null)
@@ -20,8 +21,11 @@ const Roulette = ({ user, config, getUserLists }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getUserLists(user.id)
-      setUserLists(data)
+      const userData = getUserLists(user.id)
+      const buddyData = getBuddiedLists(user.id)
+      const responses = await Promise.all([userData, buddyData])
+      setUserLists([...responses[0], ...responses[1]])
+      console.log(userLists)
     }
     if (user !== null) {
       fetchData()
