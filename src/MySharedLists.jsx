@@ -14,9 +14,34 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
     setBuddyLists(response)
   }
 
+  const handleDelete = async (listId, deleted) => {
+    try {
+      const deleteMovie = {
+        movieId: deleted,
+      }
+      await listService.removeMovieFromList(listId, deleteMovie)
+      const updatedList = buddyLists.map((list) => {
+        if (list.list_id !== listId) {
+          return list
+        }
+        return {
+          ...list,
+          movies: list.movies.filter(
+            (movie) => movie.id !== deleteMovie.movieId
+          ),
+        }
+      })
+      setBuddyLists(updatedList)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
-    fetchBuddiedLists()
-  }, [])
+    if (user) {
+      fetchBuddiedLists()
+    }
+  }, [user])
   return (
     <Container>
       <Typography component='h1' variant='h3'>
@@ -30,6 +55,8 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
               movieData={list.movies}
               config={config}
               hasDelete={true}
+              listId={list.list_id}
+              handleDelete={handleDelete}
             />
             {list.buddy_ids.map((buddy) => (
               <div>

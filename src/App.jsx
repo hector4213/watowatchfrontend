@@ -139,6 +139,7 @@ const App = () => {
                 config={config}
                 getMovieDetails={getMovieDetails}
                 getUserLists={getUserLists}
+                getBuddiedLists={getBuddiedLists}
                 user={user}
               />
             )}
