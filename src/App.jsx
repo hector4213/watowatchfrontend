@@ -65,7 +65,7 @@ const App = () => {
     const lists = await userService.getUserLists(id)
     const promises = lists.map(async (list) => {
       const movieDetailsPromises = list.movies.map((movie) =>
-        tvdbService.getMovieDetails(movie)
+        tvdbService.getMovieDetails(movie.tvdb_movieid)
       )
       const movieDetails = await Promise.all(movieDetailsPromises)
       return { ...list, movies: movieDetails }
