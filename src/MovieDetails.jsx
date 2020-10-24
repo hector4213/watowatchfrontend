@@ -13,7 +13,9 @@ import {
   DialogTitle,
   List,
   ListItem,
+  Snackbar,
 } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
 
 import { Face } from '@material-ui/icons'
 
@@ -29,6 +31,8 @@ const MovieDetails = ({
   const [recommend, setRecommend] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(false)
+  const [snackOpen, setSnackOpen] = useState(false)
+  const [message, setMessage] = useState(null)
   const [userLists, setUserLists] = useState([])
 
   useEffect(() => {
@@ -70,6 +74,8 @@ const MovieDetails = ({
         tvdb_movieid: movie.id,
       }
       await listService.addMovieToList(listId, movieToAdd)
+      setSnackOpen(true)
+      setMessage(`${movieToAdd.title} has been added!`)
       getUserLists(user.id) //works but can i handle this better instead of another api call?
     } catch (error) {
       console.log(error)
@@ -77,7 +83,11 @@ const MovieDetails = ({
   }
 
   const handleClose = () => {
+    setSnackOpen(false)
     setIsOpen(false)
+    setTimeout(() => {
+      setMessage(null)
+    })
   }
 
   return (
@@ -124,6 +134,13 @@ const MovieDetails = ({
               </ListItem>
             ))}
           </List>
+          <Snackbar
+            open={snackOpen}
+            autoHideDuration={700}
+            onClose={handleClose}
+          >
+            <Alert severity='success'>{message}</Alert>
+          </Snackbar>
         </Dialog>
       </Container>
     </>
