@@ -68,9 +68,19 @@ const App = () => {
         tvdbService.getMovieDetails(movie.tvdb_movieid)
       )
       const movieDetails = await Promise.all(movieDetailsPromises)
-      return { ...list, movies: movieDetails }
+      const transform = list.movies.map((movie) => movie)
+      let final = movieDetails.reduce((acc, curr) => {
+        acc[curr.id] = curr
+        return acc
+      }, {})
+      const combinedMovieDetails = transform.map((d) =>
+        Object.assign(d, final[d.tvdb_movieid])
+      )
+
+      return { ...list, movies: combinedMovieDetails }
     })
     const movieResponses = await Promise.all(promises)
+    console.log(movieResponses, 'this movie responses')
     return movieResponses
   }
 
@@ -97,7 +107,7 @@ const App = () => {
   const classes = useStyles()
 
   if (isLoading) {
-    return 'loading....'
+    return '...loading'
   }
   return (
     <div className={classes.container}>
