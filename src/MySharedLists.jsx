@@ -60,12 +60,6 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
               listId={list.list_id}
               handleDelete={handleDelete}
             />
-            {list.buddy_ids.map((buddy) => (
-              <div>
-                <p>{buddy.f1}</p>
-                <p>{buddy.f2}</p>
-              </div>
-            ))}
           </Grid>
         ))}
       </Grid>
