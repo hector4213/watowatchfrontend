@@ -50,21 +50,16 @@ const MyLists = ({ user, config, getUserLists }) => {
     }
   }
 
-  const handleDelete = async (listId, deleted) => {
+  const handleDelete = async (listId, deletedMovie) => {
     try {
-      const deleteMovie = {
-        movieId: deleted,
-      }
-      await listService.removeMovieFromList(listId, deleteMovie)
+      await listService.removeMovieFromList(listId, deletedMovie)
       const updatedList = userLists.map((list) => {
         if (list.list_id !== listId) {
           return list
         }
         return {
           ...list,
-          movies: list.movies.filter(
-            (movie) => movie.id !== deleteMovie.movieId
-          ),
+          movies: list.movies.filter((movie) => movie.id !== deletedMovie),
         }
       })
       setUserLists(updatedList)
