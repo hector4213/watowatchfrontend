@@ -18,8 +18,8 @@ const createList = async (titleName) => {
 }
 
 //Route to get all movie lists from all users
-const getLists = async () => {
-  const response = await axios.get(baseURL)
+const getUserLists = async (id) => {
+  const response = await axios.get(`${baseURL}/lists/${id}`)
   return response.data
 }
 
@@ -39,13 +39,12 @@ const addMovieToList = async (id, movieObj) => {
 }
 
 //Route to remove a movie from a list
-const removeMovieFromList = async (listId, deletedObj) => {
+const removeMovieFromList = async (listId, movieId) => {
   const config = {
     headers: { Authorization: token },
   }
-  const response = await axios.put(
-    `${baseURL}/lists/${listId}/movies`,
-    deletedObj,
+  const response = await axios.delete(
+    `${baseURL}/lists/${listId}/movie/${movieId}`,
     config
   )
   return response.data
@@ -68,7 +67,9 @@ const addBuddy = async (listId, buddy) => {
 const removeBuddy = async (listId, buddy) => {
   const config = {
     headers: { Authorization: token },
-    params: { buddyId: buddy },
+    params: {
+      buddyId: buddy,
+    },
   }
 
   const response = await axios.delete(
@@ -85,7 +86,7 @@ const getBuddiedList = async (id) => {
 
 export default {
   createList,
-  getLists,
+  getUserLists,
   getListById,
   addMovieToList,
   removeMovieFromList,
