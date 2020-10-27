@@ -58,11 +58,10 @@ const App = () => {
     }
     isLoggedIn()
     fetchMovies()
-    console.log(user)
   }, [])
 
   const getUserLists = async (id) => {
-    const lists = await userService.getUserLists(id)
+    const lists = await listService.getUserLists(id)
     const promises = lists.map(async (list) => {
       const movieDetailsPromises = list.movies.map((movie) =>
         tvdbService.getMovieDetails(movie.tvdb_movieid)
