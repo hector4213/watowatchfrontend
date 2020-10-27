@@ -110,17 +110,18 @@ const MovieDetails = ({
               </Grid>
               <Grid item>
                 <UserRating value={movie.vote_average * 10} />
+                <Button onClick={handleOpen}>Add to list</Button>
               </Grid>
               <Grid item xs>
                 {movie.overview}
               </Grid>
-              <Grid item xs={12}>
-                <Button onClick={handleOpen}>Add to list</Button>
-              </Grid>
             </Grid>
           </Grid>
+          <Grid item xs={12}>
+            <PosterSlides movieData={recommend} config={config} />
+          </Grid>
         </Grid>
-        <PosterSlides movieData={recommend} config={config} />
+
         <Dialog selectedvalue={userLists} open={isOpen} onClose={handleClose}>
           <DialogTitle id='list-selection'>Select your list</DialogTitle>
           <List>
