@@ -34,7 +34,7 @@ const addMovieToList = async (id, movieObj) => {
   const config = {
     headers: { Authorization: token },
   }
-  const response = await axios.put(`${baseURL}/lists/${id}`, movieObj, config)
+  const response = await axios.post(`${baseURL}/lists/${id}`, movieObj, config)
   return response.data
 }
 

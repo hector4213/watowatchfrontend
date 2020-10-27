@@ -16,19 +16,14 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
 
   const handleDelete = async (listId, deleted) => {
     try {
-      const deleteMovie = {
-        movieId: deleted,
-      }
-      await listService.removeMovieFromList(listId, deleteMovie)
+      await listService.removeMovieFromList(listId, deleted)
       const updatedList = buddyLists.map((list) => {
         if (list.list_id !== listId) {
           return list
         }
         return {
           ...list,
-          movies: list.movies.filter(
-            (movie) => movie.id !== deleteMovie.movieId
-          ),
+          movies: list.movies.filter((movie) => movie.id !== deleted),
         }
       })
       setBuddyLists(updatedList)
