@@ -9,6 +9,7 @@ import MovieDetails from './MovieDetails'
 import UserProfile from './UserProfile'
 import MySharedLists from './MySharedLists'
 import { makeStyles } from '@material-ui/core/styles'
+import Loader from './components/Loader'
 
 import tvdbService from './apis/tvdbService'
 import listService from './apis/listService'
