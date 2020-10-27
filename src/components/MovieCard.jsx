@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { RemoveCircle, ExpandMore } from '@material-ui/icons'
+import { DoneOutlineRounded, ExpandMore } from '@material-ui/icons'
 
 import DeleteButton from './DeleteButton'
 import AddButton from './AddButton'
@@ -16,6 +16,7 @@ import {
   Typography,
   Collapse,
   IconButton,
+  Button,
 } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +47,7 @@ const MovieCard = ({
   hasDelete,
   hasAdd,
   handleDialogOpen,
+  seen,
 }) => {
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)
@@ -89,6 +91,11 @@ const MovieCard = ({
           hasAdd={hasAdd}
           onClick={() => handleDialogOpen(movieSelection)}
         />
+        {seen ? (
+          <DoneOutlineRounded />
+        ) : (
+          <Button size='small'>Mark as seen</Button>
+        )}
       </CardActions>
       <CardHeader
         title={title}
