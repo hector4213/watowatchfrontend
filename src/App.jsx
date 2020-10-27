@@ -43,7 +43,6 @@ const App = () => {
   }
 
   useEffect(() => {
-    //TODO: change to async/await
     const fetchMovies = async () => {
       const responses = await Promise.all([
         tvdbService.getImgConfig(),
