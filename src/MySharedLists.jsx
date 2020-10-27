@@ -50,7 +50,9 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
       <Grid container spacing={3}>
         {buddyLists.map((list) => (
           <Grid item xs={12}>
-            <p>{list.title}</p>
+            <p>
+              {list.title} Author: {list.author}
+            </p>
             <PosterSlides
               movieData={list.movies}
               config={config}

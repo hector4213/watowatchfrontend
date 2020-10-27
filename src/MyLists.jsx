@@ -72,7 +72,7 @@ const MyLists = ({ user, config, getUserLists }) => {
     if (user !== null) {
       fetchData()
     }
-  }, [user])
+  }, [])
 
   return (
     <Container>
