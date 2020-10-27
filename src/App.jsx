@@ -106,7 +106,7 @@ const App = () => {
   const classes = useStyles()
 
   if (isLoading) {
-    return '...loading'
+    return <Loader size={100} />
   }
   return (
     <div className={classes.container}>
