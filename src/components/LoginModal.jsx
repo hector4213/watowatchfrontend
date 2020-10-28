@@ -38,9 +38,6 @@ const LoginModal = ({ setUser }) => {
   const handleSnackOpen = (msg) => {
     setMessage(msg)
     setSnackOpen(true)
-    setTimeout(() => {
-      setOpen(false)
-    }, 2000)
   }
 
   const handleSnackClose = () => {
