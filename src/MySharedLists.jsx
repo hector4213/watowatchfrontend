@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import PosterSlides from './components/PosterSlides'
 
 import listService from './apis/listService'
-import tvdbService from './apis/tvdbService'
 
 import { Container, Typography, Grid } from '@material-ui/core'
 
