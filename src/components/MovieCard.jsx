@@ -95,9 +95,11 @@ const MovieCard = ({
           onClick={() => handleDialogOpen(movieSelection)}
         />
         {seen ? (
-          <DoneOutlineRounded />
+          <DoneOutlineRounded onClick={() => updateSeen(listId, id)} />
         ) : (
-          <Button size='small'>Mark as seen</Button>
+          <Button size='small' onClick={() => updateSeen(listId, id)}>
+            Mark as seen
+          </Button>
         )}
       </CardActions>
       <CardHeader
