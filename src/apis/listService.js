@@ -50,6 +50,13 @@ const removeMovieFromList = async (listId, movieId) => {
   return response.data
 }
 
+//Route to mark movie as seen
+
+const setSeen = async (id, movieId) => {
+  const response = axios.put(`${baseURL}/lists/${id}/movie/${movieId}`)
+  return response.data
+}
+
 //Route to add a buddy to a list
 
 const addBuddy = async (listId, buddy) => {
@@ -94,4 +101,5 @@ export default {
   removeBuddy,
   setToken,
   getBuddiedList,
+  setSeen,
 }

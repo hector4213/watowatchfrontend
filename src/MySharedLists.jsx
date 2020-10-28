@@ -35,7 +35,7 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
     if (user) {
       fetchBuddiedLists()
     }
-  }, [user])
+  }, [])
   return (
     <Container>
       <Typography component='h1' variant='h3'>
