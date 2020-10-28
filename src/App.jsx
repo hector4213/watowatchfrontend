@@ -66,13 +66,14 @@ const App = () => {
         tvdbService.getMovieDetails(movie.tvdb_movieid)
       )
       const movieDetails = await Promise.all(movieDetailsPromises)
-      const transform = list.movies.map((movie) => movie)
-      let final = movieDetails.reduce((acc, curr) => {
+      const movieProps = list.movies.map((movie) => movie)
+      let movieData = movieDetails.reduce((acc, curr) => {
         acc[curr.id] = curr
         return acc
       }, {})
-      const combinedMovieDetails = transform.map((d) =>
-        Object.assign(d, final[d.tvdb_movieid])
+      console.log(movieData, 'movieData')
+      const combinedMovieDetails = movieProps.map((movieItem) =>
+        Object.assign(movieItem, movieData[movieItem.tvdb_movieid])
       )
 
       return { ...list, movies: combinedMovieDetails }
@@ -89,7 +90,16 @@ const App = () => {
         tvdbService.getMovieDetails(movie.tvdb_movieid)
       )
       const movieDetails = await Promise.all(movieDetailsPromises)
-      return { ...list, movies: movieDetails }
+      const movieProps = list.movies.map((movie) => movie)
+      let movieData = movieDetails.reduce((acc, curr) => {
+        acc[curr.id] = curr
+        return acc
+      }, {})
+
+      const combinedMovieDetails = movieProps.map((movieItem) =>
+        Object.assign(movieItem, movieData[movieItem.tvdb_movieid])
+      )
+      return { ...list, movies: combinedMovieDetails }
     })
     const movieResponses = await Promise.all(promises)
     return movieResponses
