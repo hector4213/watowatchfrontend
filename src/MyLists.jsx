@@ -50,6 +50,34 @@ const MyLists = ({ user, config, getUserLists }) => {
     }
   }
 
+  const updateSeen = async (listId, movieId) => {
+    try {
+      console.log(movieId, 'this is movieid')
+      const response = await listService.setSeen(listId, movieId)
+      const updatedList = userLists.map((list) => {
+        if (list.list_id !== listId) {
+          return list
+        }
+        return {
+          ...list,
+          movies: list.movies.map((movie) => {
+            if (movie.tvdb_movieid === movieId) {
+              return {
+                ...movie,
+                seen: !movie.seen,
+              }
+            }
+            return movie
+          }),
+        }
+      })
+      console.log(updatedList)
+      setUserLists(updatedList)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const handleDelete = async (listId, deletedMovie) => {
     try {
       await listService.removeMovieFromList(listId, deletedMovie)
@@ -91,6 +119,7 @@ const MyLists = ({ user, config, getUserLists }) => {
                   config={config}
                   listId={list.list_id}
                   handleDelete={handleDelete}
+                  updateSeen={updateSeen}
                   hasDelete={true}
                 />
               </div>
