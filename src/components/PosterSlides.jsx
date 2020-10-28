@@ -10,6 +10,7 @@ const PosterSlides = ({
   config,
   listId,
   handleDelete,
+  updateSeen,
   hasDelete,
   hasAdd,
   handleDialogOpen,
@@ -76,7 +77,9 @@ const PosterSlides = ({
           id={movie.id}
           genre={movie.genres ? movie.genres[0].name : 'unknown'}
           listId={listId}
+          seen={movie.seen}
           handleDelete={handleDelete}
+          updateSeen={updateSeen}
           hasDelete={hasDelete}
           hasAdd={hasAdd}
           handleDialogOpen={handleDialogOpen}

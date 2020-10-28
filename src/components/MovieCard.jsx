@@ -43,6 +43,7 @@ const MovieCard = ({
   id,
   genre,
   handleDelete,
+  updateSeen,
   listId,
   hasDelete,
   hasAdd,
@@ -63,6 +64,8 @@ const MovieCard = ({
     genre,
     tvdb_movieid: id,
   }
+
+  console.log(seen)
 
   return (
     <Card className={classes.root} key={id}>
