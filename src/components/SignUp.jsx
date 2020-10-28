@@ -62,7 +62,7 @@ const SignUp = () => {
       const newUser = {
         firstName,
         lastName,
-        email,
+        email: email.toLowerCase(),
         password,
       }
       await userService.register(newUser)
