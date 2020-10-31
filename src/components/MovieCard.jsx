@@ -41,6 +41,7 @@ const MovieCard = ({
   imageTitle,
   year,
   id,
+  tvdb,
   genre,
   handleDelete,
   updateSeen,
@@ -65,14 +66,12 @@ const MovieCard = ({
     tvdb_movieid: id,
   }
 
-  console.log(seen)
-
   return (
     <Card className={classes.root} key={id}>
       <CardMedia
         className={classes.media}
         component={Link}
-        to={`/movies/${id}`}
+        to={`/movies/${tvdb}`}
         image={src}
         title={imageTitle}
       />
