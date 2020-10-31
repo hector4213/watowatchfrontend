@@ -22,9 +22,37 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
         }
         return {
           ...list,
-          movies: list.movies.filter((movie) => movie.id !== deleted),
+          movies: list.movies.filter((movie) => movie.db_id !== deleted),
         }
       })
+      setBuddyLists(updatedList)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const updateSeen = async (listId, movieId) => {
+    try {
+      console.log(movieId, 'this is movieid')
+      await listService.setSeen(listId, movieId)
+      const updatedList = buddyLists.map((list) => {
+        if (list.list_id !== listId) {
+          return list
+        }
+        return {
+          ...list,
+          movies: list.movies.map((movie) => {
+            if (movie.db_id === movieId) {
+              return {
+                ...movie,
+                seen: !movie.seen,
+              }
+            }
+            return movie
+          }),
+        }
+      })
+      console.log(updatedList)
       setBuddyLists(updatedList)
     } catch (error) {
       console.log(error)
@@ -53,6 +81,7 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
               hasDelete={true}
               listId={list.list_id}
               handleDelete={handleDelete}
+              updateSeen={updateSeen}
             />
           </Grid>
         ))}
