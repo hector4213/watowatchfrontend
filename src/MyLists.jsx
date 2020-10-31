@@ -31,7 +31,7 @@ const MyLists = ({ user, config, getUserLists }) => {
 
   const removeBuddy = async (listId, id) => {
     try {
-      const response = await listService.removeBuddy(listId, id)
+      await listService.removeBuddy(listId, id)
 
       const updateBuddies = userLists.map((list) => {
         if (list.list_id !== listId) {
@@ -53,7 +53,7 @@ const MyLists = ({ user, config, getUserLists }) => {
   const updateSeen = async (listId, movieId) => {
     try {
       console.log(movieId, 'this is movieid')
-      const response = await listService.setSeen(listId, movieId)
+      await listService.setSeen(listId, movieId)
       const updatedList = userLists.map((list) => {
         if (list.list_id !== listId) {
           return list
@@ -61,7 +61,7 @@ const MyLists = ({ user, config, getUserLists }) => {
         return {
           ...list,
           movies: list.movies.map((movie) => {
-            if (movie.tvdb_movieid === movieId) {
+            if (movie.db_id === movieId) {
               return {
                 ...movie,
                 seen: !movie.seen,
@@ -78,16 +78,16 @@ const MyLists = ({ user, config, getUserLists }) => {
     }
   }
 
-  const handleDelete = async (listId, deletedMovie) => {
+  const handleDelete = async (listId, deletedId) => {
     try {
-      await listService.removeMovieFromList(listId, deletedMovie)
+      await listService.removeMovieFromList(listId, deletedId)
       const updatedList = userLists.map((list) => {
         if (list.list_id !== listId) {
           return list
         }
         return {
           ...list,
-          movies: list.movies.filter((movie) => movie.id !== deletedMovie),
+          movies: list.movies.filter((movie) => movie.db_id !== deletedId),
         }
       })
       setUserLists(updatedList)
