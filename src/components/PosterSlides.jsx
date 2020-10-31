@@ -63,19 +63,25 @@ const PosterSlides = ({
   if (!movieData) {
     return 'Loading...'
   }
+  console.log(movieData)
 
   return (
     <Slider {...settings}>
       {movieData.map((movie) => (
         <MovieCard
           title={movie.title}
-          overview={movie.overview}
+          overview={movie.details.overview}
           imageTitle={movie.title}
-          src={config.base_url + config.poster_sizes[2] + movie.poster_path}
-          year={movie.release_date.substring(0, 4)}
-          key={movie.id}
-          id={movie.id}
-          genre={movie.genres ? movie.genres[0].name : 'unknown'}
+          src={
+            config.base_url + config.poster_sizes[2] + movie.details.poster_path
+          }
+          year={movie.details.release_date.substring(0, 4)}
+          key={movie.db_id}
+          id={movie.db_id}
+          tvdb={movie.details.id}
+          genre={
+            movie.details.genres ? movie.details.genres[0].name : 'unknown'
+          }
           listId={listId}
           seen={movie.seen}
           handleDelete={handleDelete}
