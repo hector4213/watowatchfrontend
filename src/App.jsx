@@ -43,16 +43,25 @@ const App = () => {
 
   useEffect(() => {
     const fetchMovies = async () => {
+      const imgData = await tvdbService.getImgConfig()
       const responses = await Promise.all([
-        tvdbService.getImgConfig(),
         tvdbService.getTrending(),
         tvdbService.getTopRated(),
         tvdbService.getUpAndComing(),
       ])
-      setConfig(responses[0])
-      setTrending(responses[1])
-      setTopRated(responses[2])
-      setUpComing(responses[3])
+
+      const addDetails = responses.map((arr) => {
+        return arr.map((movie) => {
+          return {
+            details: movie,
+          }
+        })
+      })
+
+      setConfig(imgData)
+      setTrending(addDetails[0])
+      setTopRated(addDetails[1])
+      setUpComing(addDetails[2])
       setIsLoading(false)
     }
     isLoggedIn()
@@ -66,20 +75,17 @@ const App = () => {
         tvdbService.getMovieDetails(movie.tvdb_movieid)
       )
       const movieDetails = await Promise.all(movieDetailsPromises)
-      const movieProps = list.movies.map((movie) => movie)
-      let movieData = movieDetails.reduce((acc, curr) => {
-        acc[curr.id] = curr
-        return acc
-      }, {})
-      console.log(movieData, 'movieData')
-      const combinedMovieDetails = movieProps.map((movieItem) =>
-        Object.assign(movieItem, movieData[movieItem.tvdb_movieid])
-      )
-
-      return { ...list, movies: combinedMovieDetails }
+      const movieProps = list.movies
+      const matchMovieDetails = (id) => {
+        return movieDetails.find((movie) => movie.id === id)
+      }
+      const movieData = movieProps.map((movie) => ({
+        ...movie,
+        details: matchMovieDetails(movie.tvdb_movieid),
+      }))
+      return { ...list, movies: movieData }
     })
     const movieResponses = await Promise.all(promises)
-    console.log(movieResponses, 'this movie responses')
     return movieResponses
   }
 
@@ -90,16 +96,16 @@ const App = () => {
         tvdbService.getMovieDetails(movie.tvdb_movieid)
       )
       const movieDetails = await Promise.all(movieDetailsPromises)
-      const movieProps = list.movies.map((movie) => movie)
-      let movieData = movieDetails.reduce((acc, curr) => {
-        acc[curr.id] = curr
-        return acc
-      }, {})
+      const movieProps = list.movies
+      const matchMovieDetails = (id) => {
+        return movieDetails.find((movie) => movie.id === id)
+      }
+      const movieData = movieProps.map((movie) => ({
+        ...movie,
+        details: matchMovieDetails(movie.tvdb_movieid),
+      }))
 
-      const combinedMovieDetails = movieProps.map((movieItem) =>
-        Object.assign(movieItem, movieData[movieItem.tvdb_movieid])
-      )
-      return { ...list, movies: combinedMovieDetails }
+      return { ...list, movies: movieData }
     })
     const movieResponses = await Promise.all(promises)
     return movieResponses
@@ -165,7 +171,9 @@ const App = () => {
           <Route
             exact
             from='/create'
-            render={(props) => <CreateList {...props} user={user} />}
+            render={(props) => (
+              <CreateList {...props} user={user} getUserLists={getUserLists} />
+            )}
           />
           <Route
             exact
