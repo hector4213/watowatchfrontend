@@ -57,7 +57,6 @@ const App = () => {
           }
         })
       })
-
       setConfig(imgData)
       setTrending(addDetails[0])
       setTopRated(addDetails[1])
