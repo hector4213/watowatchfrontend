@@ -37,11 +37,16 @@ const MovieDetails = ({
 
   useEffect(() => {
     const getDetails = async () => {
-      await getMovieDetails(movieId).then((responses) => {
-        setMovie(responses[0])
-        setRecommend(responses[1].results)
-        setIsLoading(false)
+      const responses = await getMovieDetails(movieId)
+      console.log(responses)
+      setMovie(responses[0])
+      const addDetails = responses[1].map((movie) => {
+        return {
+          details: movie,
+        }
       })
+      setRecommend(addDetails)
+      setIsLoading(false)
     }
     getDetails()
   }, [movieId])
