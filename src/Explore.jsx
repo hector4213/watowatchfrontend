@@ -2,6 +2,7 @@ import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Typography } from '@material-ui/core'
+import Loader from './components/Loader'
 
 import { TrendingUp, Whatshot, Replay } from '@material-ui/icons'
 
@@ -20,7 +21,7 @@ const Explore = ({ trending, config, topRated, upComing, isLoading }) => {
   const classes = useStyles()
 
   if (isLoading) {
-    return null
+    return <Loader />
   }
   return (
     <Container>
