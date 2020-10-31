@@ -38,7 +38,7 @@ const getRecommendations = async (id) => {
     `${baseURL}/movie/${id}/recommendations`,
     config
   )
-  return response.data
+  return response.data.results
 }
 
 const searchMovies = async (query) => {
