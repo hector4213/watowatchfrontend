@@ -121,6 +121,7 @@ const MyLists = ({ user, config, getUserLists }) => {
                   handleDelete={handleDelete}
                   updateSeen={updateSeen}
                   hasDelete={true}
+                  hasSeen={true}
                 />
               </div>
             </Grid>

@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { DoneOutlineRounded, ExpandMore } from '@material-ui/icons'
+import { ExpandMore } from '@material-ui/icons'
 
 import DeleteButton from './DeleteButton'
 import AddButton from './AddButton'
+import MarkSeen from './MarkSeen'
 
 import {
   Card,
@@ -16,7 +17,6 @@ import {
   Typography,
   Collapse,
   IconButton,
-  Button,
 } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -48,6 +48,7 @@ const MovieCard = ({
   listId,
   hasDelete,
   hasAdd,
+  hasSeen,
   handleDialogOpen,
   seen,
 }) => {
@@ -93,12 +94,8 @@ const MovieCard = ({
           hasAdd={hasAdd}
           onClick={() => handleDialogOpen(movieSelection)}
         />
-        {seen ? (
-          <DoneOutlineRounded onClick={() => updateSeen(listId, id)} />
-        ) : (
-          <Button size='small' onClick={() => updateSeen(listId, id)}>
-            Mark as seen
-          </Button>
+        {hasSeen && (
+          <MarkSeen onClick={updateSeen} listId={listId} id={id} seen={seen} />
         )}
       </CardActions>
       <CardHeader

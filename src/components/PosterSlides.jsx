@@ -13,6 +13,7 @@ const PosterSlides = ({
   updateSeen,
   hasDelete,
   hasAdd,
+  hasSeen,
   handleDialogOpen,
   setMovie,
 }) => {
@@ -88,6 +89,7 @@ const PosterSlides = ({
           updateSeen={updateSeen}
           hasDelete={hasDelete}
           hasAdd={hasAdd}
+          hasSeen={hasSeen}
           handleDialogOpen={handleDialogOpen}
           setMovie={setMovie}
         />
