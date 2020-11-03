@@ -5,7 +5,12 @@ import { Typography, Box } from '@material-ui/core'
 const UserRating = ({ value }) => {
   return (
     <Box position='relative' display='inline-flex'>
-      <CircularProgress color='secondary' variant='static' value={value} />
+      <CircularProgress
+        color='secondary'
+        variant='static'
+        size={60}
+        value={value}
+      />
       <Box
         top={0}
         left={0}
