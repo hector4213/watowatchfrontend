@@ -8,6 +8,7 @@ import {
   Container,
   Grid,
   Typography,
+  Paper,
   Button,
   Dialog,
   DialogTitle,
@@ -65,8 +66,7 @@ const MovieDetails = ({
   if (isLoading) {
     return null
   }
-  console.log('these are recommended', recommend)
-  console.log()
+
   const handleOpen = () => {
     setIsOpen(true)
   }
@@ -81,7 +81,6 @@ const MovieDetails = ({
       await listService.addMovieToList(listId, movieToAdd)
       setSnackOpen(true)
       setMessage(`${movieToAdd.title} has been added!`)
-      getUserLists(user.id) //works but can i handle this better instead of another api call?
     } catch (error) {
       console.log(error)
     }
@@ -98,35 +97,40 @@ const MovieDetails = ({
   return (
     <>
       <Container>
-        <Grid container spacing={2}>
-          <Grid item>
+        <Grid container justify='space-around' spacing={3}>
+          <Grid item xs={12} md={5}>
             <img
               src={config.base_url + config.poster_sizes[3] + movie.poster_path}
               alt='poster'
             />
           </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction='column' spacing={2}>
-              <Grid item xs={2} />
-              <Grid item xs={3}>
-                <Typography variant='h6' gutterBottom>
-                  {movie.original_title}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <UserRating value={movie.vote_average * 10} />
-                <Button onClick={handleOpen}>Add to list</Button>
-              </Grid>
-              <Grid item xs>
-                {movie.overview}
-              </Grid>
+          <Grid item container xs={12} md={7} alignItems='center' spacing={3}>
+            <Grid item xs={12} />
+            <Grid item xs={8} md={8}>
+              <Typography variant='h6' gutterBottom>
+                {movie.original_title}
+              </Typography>
+            </Grid>
+            <Grid item xs={4} md={4}>
+              <UserRating value={movie.vote_average * 10} />
+            </Grid>
+            <Grid item xs={4}>
+              <Button
+                color='secondary'
+                variant='contained'
+                onClick={handleOpen}
+              >
+                Add to list
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant='body2'>{movie.overview}</Typography>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <PosterSlides movieData={recommend} config={config} />
           </Grid>
         </Grid>
-
         <Dialog selectedvalue={userLists} open={isOpen} onClose={handleClose}>
           <DialogTitle id='list-selection'>Select your list</DialogTitle>
           <List>
