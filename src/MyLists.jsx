@@ -71,7 +71,6 @@ const MyLists = ({ user, config, getUserLists }) => {
           }),
         }
       })
-      console.log(updatedList)
       setUserLists(updatedList)
     } catch (error) {
       console.log(error)
@@ -106,24 +105,27 @@ const MyLists = ({ user, config, getUserLists }) => {
     <Container>
       <Grid container spacing={3}>
         <Grid item xs={12} md={12}>
-          <Typography>{`${user.name} Lists`}</Typography>
+          <Typography
+            component='h1'
+            variant='h4'
+          >{`${user.name} find your lists below `}</Typography>
         </Grid>
 
         {userLists.map((list) => (
           <>
-            <Grid item xs={12}>
-              <div key={list.list_id}>
+            <Grid item xs={12} key={list.list_id}>
+              <Typography component='h1' variant='h6'>
                 {list.title}
-                <PosterSlides
-                  movieData={list.movies}
-                  config={config}
-                  listId={list.list_id}
-                  handleDelete={handleDelete}
-                  updateSeen={updateSeen}
-                  hasDelete={true}
-                  hasSeen={true}
-                />
-              </div>
+              </Typography>
+              <PosterSlides
+                movieData={list.movies}
+                config={config}
+                listId={list.list_id}
+                handleDelete={handleDelete}
+                updateSeen={updateSeen}
+                hasDelete={true}
+                hasSeen={true}
+              />
             </Grid>
             <Grid className={classes.root} item xs={12}>
               {list.buddy_ids.map((buddy) => (
