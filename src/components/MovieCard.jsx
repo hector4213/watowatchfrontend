@@ -7,6 +7,8 @@ import { ExpandMore } from '@material-ui/icons'
 import DeleteButton from './DeleteButton'
 import AddButton from './AddButton'
 import MarkSeen from './MarkSeen'
+import AddBasket from './AddBasket'
+import BasketDelete from './BasketDelete'
 
 import {
   Card,
@@ -48,9 +50,14 @@ const MovieCard = ({
   listId,
   hasDelete,
   hasAdd,
+  hasBasket,
   hasSeen,
   handleDialogOpen,
   seen,
+  handleBasketAdd,
+  handleBasketDelete,
+  isBasket,
+  details,
 }) => {
   const classes = useStyles()
   const [expanded, setExpanded] = useState(false)
@@ -64,7 +71,8 @@ const MovieCard = ({
   const movieSelection = {
     title,
     genre,
-    tvdb_movieid: id,
+    db_id: id,
+    details,
   }
 
   return (
@@ -89,14 +97,30 @@ const MovieCard = ({
         <DeleteButton
           hasDelete={hasDelete}
           onClick={() => handleDelete(listId, id)}
+          listId={listId}
+          id={id}
+        />
+        <BasketDelete
+          onClick={handleBasketDelete}
+          id={id}
+          isBasket={isBasket}
         />
         <AddButton
           hasAdd={hasAdd}
           onClick={() => handleDialogOpen(movieSelection)}
         />
-        {hasSeen && (
-          <MarkSeen onClick={updateSeen} listId={listId} id={id} seen={seen} />
-        )}
+        <AddBasket
+          hasBasket={hasBasket}
+          onClick={handleBasketAdd}
+          movieSelection={movieSelection}
+        />
+        <MarkSeen
+          onClick={updateSeen}
+          listId={listId}
+          id={id}
+          hasSeen={hasSeen}
+          seen={seen}
+        />
       </CardActions>
       <CardHeader
         title={title}
