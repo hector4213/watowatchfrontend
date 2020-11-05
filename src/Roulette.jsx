@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
+import PosterSlides from './components/PosterSlides'
+
 import {
   Container,
   Grid,
@@ -12,11 +14,24 @@ import {
   MenuItem,
 } from '@material-ui/core'
 
+import { Casino } from '@material-ui/icons'
+
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles((theme) => ({
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  textPadding: {
+    padding: '12px',
+  },
+}))
+
 const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
-  //TODO: get shared lists into roulette
+  const classes = useStyles()
   const [selectedList, setSelectedList] = useState(null)
   const [basket, setBasket] = useState([])
-  const [winner, setWinner] = useState(null)
   const [userLists, setUserLists] = useState([])
 
   useEffect(() => {
@@ -33,7 +48,6 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
   }, [])
 
   const handleListChange = (e) => {
-    console.log(e.target.value)
     setSelectedList(e.target.value)
   }
 
@@ -41,25 +55,14 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
     setBasket([...basket, movieItem])
   }
 
-  const removeFromBasket = (item) => {
-    console.log('im removing from basket')
-    const deleteItem = basket.filter((movie) => item.id !== movie.id)
-    setBasket(deleteItem)
+  const removeFromBasket = (id) => {
+    const filtered = basket.filter((movie) => movie.db_id !== id)
+    setBasket(filtered)
   }
 
   const getRandom = () => {
-    setWinner(basket[Math.floor(Math.random() * basket.length)])
+    setBasket([basket[Math.floor(Math.random() * basket.length)]])
   }
-
-  const selectedWinner = () => (
-    <>
-      <h1>{winner.title}</h1>
-      <img
-        src={config.base_url + config.poster_sizes[2] + winner.poster_path}
-        alt='randomresult'
-      />
-    </>
-  )
 
   if (user === null) {
     return 'Please login or create an account!'
@@ -68,30 +71,40 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
   return (
     <Container component='main'>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Typography variant='h4'>The Movie Roulette</Typography>
+        <Grid item xs={12} md={12}>
+          <Typography
+            className={classes.header}
+            align='left'
+            component='h1'
+            variant='h6'
+          >
+            The Movie Roulette
+            <Casino color='secondary' fontSize='inherit' />
+          </Typography>
         </Grid>
-        <Paper style={{ flexGrow: 1 }}>
-          <Grid item container xs={12}>
-            <Grid item xs={12} md={7}>
-              <p>
-                Select movies from your lists to add to the basket, a movie will
-                be selected at random from your basket
-              </p>
-            </Grid>
-          </Grid>
+        <Grid
+          container
+          item
+          xs={12}
+          alignItems='center'
+          justify='center'
+          spacing={3}
+        >
           <Grid item xs={12} md={6}>
-            <Typography variant='subtitle1'>
-              Please Select from your lists
+            <Typography className={classes.textPadding} variant='body2'>
+              Select movies from your lists, either shared or personal and to
+              add to the basket, a movie will be selected at random from your
+              basket!
             </Typography>
           </Grid>
-          <Grid item xs={12} md={8}>
-            <FormControl style={{ width: '300px' }}>
-              <InputLabel id='list-select-label'>Select your lists</InputLabel>
+          <Grid item xs={12} md={6}>
+            <FormControl variant='outlined' style={{ width: '300px' }}>
+              <InputLabel id='list-select-label'>Select list</InputLabel>
               <Select
                 labelId='list-select-label'
                 id='list-select'
                 value={selectedList || ''}
+                label='Select list'
                 onChange={handleListChange}
               >
                 {userLists.map((list) => (
@@ -102,41 +115,35 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
               </Select>
             </FormControl>
           </Grid>
-        </Paper>
+        </Grid>
       </Grid>
+
       <div style={{ paddingTop: '50px' }}>
         {selectedList && <h3>{selectedList.title}</h3>}
-        {selectedList &&
-          selectedList.movies.map((movie) => (
-            <div key={movie.id} style={{ display: 'flex', width: '100%' }}>
-              <p>{movie.title}</p>
-              <Button
-                color='secondary'
-                onClick={() => handleAddToBasket(movie)}
-              >
-                Add to basket
-              </Button>
-              <img
-                src={
-                  config.base_url + config.poster_sizes[0] + movie.poster_path
-                }
-                alt='movieposter'
-              />
-            </div>
-          ))}
-        <div>
-          <Button color='secondary' onClick={() => getRandom()}>
+        {selectedList && (
+          <PosterSlides
+            movieData={selectedList.movies}
+            config={config}
+            handleBasketAdd={handleAddToBasket}
+            hasBasket={true}
+          />
+        )}
+
+        <div style={{ width: '100%' }}>
+          <Button
+            color='secondary'
+            variant='contained'
+            onClick={() => getRandom()}
+          >
             get random
           </Button>
-          <div>
-            {basket.map((movie) => (
-              <div>
-                <p>{movie.title}</p>
-                <Button onClick={() => removeFromBasket(movie)}>delete</Button>
-              </div>
-            ))}
-          </div>
-          <div>{winner ? selectedWinner() : null}</div>
+          <PosterSlides
+            movieData={basket}
+            config={config}
+            handleDelete={removeFromBasket}
+            isBasket={true}
+            handleBasketDelete={removeFromBasket}
+          />
         </div>
       </div>
     </Container>

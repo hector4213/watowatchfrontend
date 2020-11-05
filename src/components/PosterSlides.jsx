@@ -14,8 +14,12 @@ const PosterSlides = ({
   hasDelete,
   hasAdd,
   hasSeen,
+  hasBasket,
   handleDialogOpen,
   setMovie,
+  handleBasketAdd,
+  handleBasketDelete,
+  isBasket,
 }) => {
   const settings = {
     dots: false,
@@ -61,16 +65,15 @@ const PosterSlides = ({
     ],
   }
 
-  if (!movieData) {
+  if (movieData.length < 1) {
     return 'Loading...'
   }
-  console.log(movieData)
 
   return (
     <Slider {...settings}>
       {movieData.map((movie) => (
         <MovieCard
-          title={movie.title}
+          title={movie.details.original_title}
           overview={movie.details.overview}
           imageTitle={movie.title}
           src={
@@ -90,8 +93,13 @@ const PosterSlides = ({
           hasDelete={hasDelete}
           hasAdd={hasAdd}
           hasSeen={hasSeen}
+          hasBasket={hasBasket}
           handleDialogOpen={handleDialogOpen}
           setMovie={setMovie}
+          handleBasketAdd={handleBasketAdd}
+          handleBasketDelete={handleBasketDelete}
+          isBasket={isBasket}
+          details={movie.details}
         />
       ))}
     </Slider>
