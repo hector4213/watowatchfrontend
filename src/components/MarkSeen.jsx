@@ -3,19 +3,30 @@ import React from 'react'
 import { Button } from '@material-ui/core'
 import { DoneOutlineRounded } from '@material-ui/icons'
 
-const MarkSeen = ({ seen, onClick, listId, id }) => {
+const MarkSeen = ({ hasSeen, seen, onClick, listId, id }) => {
+  if (!hasSeen) {
+    return null
+  }
   if (seen) {
     return (
       <>
-        <DoneOutlineRounded onClick={() => onClick(listId, id)} />
+        <DoneOutlineRounded
+          color='secondary'
+          onClick={() => onClick(listId, id)}
+        />
       </>
     )
   }
 
   return (
     <>
-      <Button size='small' onClick={() => onClick(listId, id)}>
-        Mark as seen
+      <Button
+        color='secondary'
+        variant='outlined'
+        size='small'
+        onClick={() => onClick(listId, id)}
+      >
+        Mark seen
       </Button>
     </>
   )
