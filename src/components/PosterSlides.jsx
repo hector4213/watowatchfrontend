@@ -65,8 +65,8 @@ const PosterSlides = ({
     ],
   }
 
-  if (movieData.length < 1) {
-    return 'Loading...'
+  if (movieData.length < 1 || !movieData) {
+    return 'No movieData yet'
   }
 
   return (
@@ -75,7 +75,7 @@ const PosterSlides = ({
         <MovieCard
           title={movie.details.original_title}
           overview={movie.details.overview}
-          imageTitle={movie.title}
+          imageTitle={movie.details.original_title}
           src={
             config.base_url + config.poster_sizes[2] + movie.details.poster_path
           }
