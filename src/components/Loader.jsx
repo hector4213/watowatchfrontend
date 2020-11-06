@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     '& > * + *': {
       marginLeft: theme.spacing(2),
     },
-    margin: '',
+    justify: 'space-between',
   },
 }))
 
