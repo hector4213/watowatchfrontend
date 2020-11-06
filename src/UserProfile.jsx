@@ -50,7 +50,6 @@ const UserProfile = ({ config, getUserLists, currentUser }) => {
       await listService.addMovieToList(listId, movie)
       setSnackOpen(true)
       setMessage(`${movie.title} has been added!`)
-      getUserLists(user.id) //works but can i handle this better instead of another api call?
       setTimeout(() => {
         handleClose()
       }, 600)
@@ -99,7 +98,6 @@ const UserProfile = ({ config, getUserLists, currentUser }) => {
   const handleSnackClose = () => {
     setSnackOpen(false)
   }
-  console.log(movie)
 
   const handleAddBuddy = async (listId) => {
     setIsOpen(true)
