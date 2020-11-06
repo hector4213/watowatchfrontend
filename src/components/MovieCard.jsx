@@ -23,10 +23,11 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 185,
+    minWidth: 185,
+    maxWidth: 185,
   },
   media: {
-    height: 277,
+    minHeight: 277,
   },
   cardHeader: {
     flex: '1',
