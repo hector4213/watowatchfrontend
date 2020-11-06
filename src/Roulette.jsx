@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import PosterSlides from './components/PosterSlides'
+import RandomSelection from './components/RandomSelection'
 
 import {
   Container,
@@ -26,6 +27,11 @@ const useStyles = makeStyles((theme) => ({
   textPadding: {
     padding: '12px',
   },
+  winnerContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
 }))
 
 const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
@@ -36,8 +42,8 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userData = getUserLists(user.id)
-      const buddyData = getBuddiedLists(user.id)
+      const userData = await getUserLists(user.id)
+      const buddyData = await getBuddiedLists(user.id)
       const responses = await Promise.all([userData, buddyData])
       setUserLists([...responses[0], ...responses[1]])
       console.log(userLists)
@@ -61,7 +67,12 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
   }
 
   const getRandom = () => {
-    setBasket([basket[Math.floor(Math.random() * basket.length)]])
+    const random = basket[Math.floor(Math.random() * basket.length)]
+    const winner = basket
+      .filter((movie) => random.db_id === movie.db_id)
+      .map((item) => ({ ...item, winner: true }))
+    console.log(winner)
+    setBasket(winner)
   }
 
   if (user === null) {
@@ -117,6 +128,27 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
           </Grid>
         </Grid>
       </Grid>
+      <Grid container spacing={5} xs={12} alignItems='center'>
+        <Grid item xs={5} />
+        <Grid item xs={7}>
+          <Button
+            color='secondary'
+            variant='contained'
+            size='large'
+            onClick={() => getRandom()}
+          >
+            get random
+          </Button>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <RandomSelection
+            basket={basket}
+            config={config}
+            handleBasketDelete={removeFromBasket}
+            isBasket={true}
+          />
+        </Grid>
+      </Grid>
 
       <div style={{ paddingTop: '50px' }}>
         {selectedList && <h3>{selectedList.title}</h3>}
@@ -128,23 +160,6 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
             hasBasket={true}
           />
         )}
-
-        <div style={{ width: '100%' }}>
-          <Button
-            color='secondary'
-            variant='contained'
-            onClick={() => getRandom()}
-          >
-            get random
-          </Button>
-          <PosterSlides
-            movieData={basket}
-            config={config}
-            handleDelete={removeFromBasket}
-            isBasket={true}
-            handleBasketDelete={removeFromBasket}
-          />
-        </div>
       </div>
     </Container>
   )
