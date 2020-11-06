@@ -13,20 +13,20 @@ import {
   ListItemIcon,
   ListItem,
   ListSubheader,
+  Divider,
+  Box,
   Snackbar,
 } from '@material-ui/core'
-import { FormatListBulleted } from '@material-ui/icons'
+import { FormatListBulleted, Theaters, EmojiPeople } from '@material-ui/icons'
 import { Alert } from '@material-ui/lab'
 
 import listService from './apis/listService'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    minHeight: '300px',
+    minHeight: '85vh',
   },
   listInfo: {
-    width: '100%',
-    maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
 }))
@@ -64,6 +64,25 @@ const CreateList = ({ user, getUserLists }) => {
     const response = await getUserLists(user.id)
     setUserLists(response)
   }
+  const totalMovies = userLists
+    .map((list) => list.movies.length)
+    .reduce((total, curr) => {
+      return total + curr
+    }, 0)
+
+  const totalBuddies = userLists
+    .map((list) => [...list.buddy_ids])
+    .reduce((a, b) => a.concat(b), [])
+
+  const uniqueBuddies = Array.from(new Set(totalBuddies.map((b) => b.f2))).map(
+    (f2) => {
+      return {
+        f2: f2,
+        f1: totalBuddies.find((b) => b.f2 === f2).f1,
+      }
+    }
+  )
+  console.log(totalBuddies, uniqueBuddies)
 
   if (!user) {
     return 'please log in to make lists'
@@ -71,7 +90,7 @@ const CreateList = ({ user, getUserLists }) => {
 
   return (
     <Container component='main'>
-      <Paper>
+      <Paper className={classes.paper}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <Typography className={classes.header} variant='h6' align='center'>
@@ -85,41 +104,76 @@ const CreateList = ({ user, getUserLists }) => {
             justify='space-around'
             alignItems='center'
           >
-            <Grid item xs={5}>
+            <Grid item xs={12} md={5}>
               <form onSubmit={handleSubmit}>
                 <TextField
                   id='title'
-                  label='enter title'
+                  label='Enter title'
                   variant='outlined'
                   value={name}
                   onChange={({ target }) => setName(target.value)}
+                  fullWidth
                 />
               </form>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} md={2}>
               <Button
                 color='secondary'
                 size='large'
                 variant='contained'
                 type='submit'
+                onSubmit={handleSubmit}
               >
                 Create
               </Button>
             </Grid>
           </Grid>
 
-          <Grid container item xs={12}>
-            <Grid item xs={6}>
-              <List subheader={<ListSubheader>Info</ListSubheader>}>
-                <ListItem>
-                  <ListItemIcon>
-                    <FormatListBulleted />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={`You have ${userLists.length} lists`}
-                  ></ListItemText>
-                </ListItem>
-              </List>
+          <Grid
+            container
+            item
+            spacing={8}
+            direction='column'
+            alignItems='center'
+            xs={12}
+            md={12}
+          >
+            <Grid item xs={12} />
+            <Grid item xs={12} md={12}>
+              <Box elevation={3}>
+                <List
+                  className={classes.listInfo}
+                  subheader={<ListSubheader>Info</ListSubheader>}
+                >
+                  <ListItem>
+                    <ListItemIcon>
+                      <FormatListBulleted />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={`You have ${userLists.length} lists`}
+                    ></ListItemText>
+                  </ListItem>
+                  <Divider variant='inset' component='li' />
+                  <ListItem>
+                    <ListItemIcon>
+                      <Theaters />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={`That total ${totalMovies} movies`}
+                    ></ListItemText>
+                  </ListItem>
+                  <Divider variant='inset' component='li' />
+                  <ListItem>
+                    <ListItemIcon>
+                      <EmojiPeople />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={`With ${uniqueBuddies.length} unique buddies`}
+                    ></ListItemText>
+                  </ListItem>
+                  <Divider variant='inset' component='li' />
+                </List>
+              </Box>
             </Grid>
           </Grid>
         </Grid>

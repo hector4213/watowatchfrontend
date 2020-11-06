@@ -36,11 +36,10 @@ const MyLists = ({ user, config, getUserLists }) => {
       const updateBuddies = userLists.map((list) => {
         if (list.list_id !== listId) {
           return list
-        } else {
-          return {
-            ...list,
-            buddy_ids: list.buddy_ids.filter((buddy) => buddy.f2 !== id),
-          }
+        }
+        return {
+          ...list,
+          buddy_ids: list.buddy_ids.filter((buddy) => buddy.f2 !== id),
         }
       })
       console.log(updateBuddies)
