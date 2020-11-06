@@ -66,24 +66,31 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
   }, [])
   return (
     <Container>
-      <Typography component='h1' variant='h3'>
-        Buddied User Lists
-      </Typography>
       <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Typography component='h1' gutterBottom='true' variant='h6'>
+            Your Shared lists
+          </Typography>
+        </Grid>
         {buddyLists.map((list) => (
-          <Grid item xs={12}>
-            <p>
-              {list.title} Author: {list.author}
-            </p>
-            <PosterSlides
-              movieData={list.movies}
-              config={config}
-              hasDelete={true}
-              listId={list.list_id}
-              handleDelete={handleDelete}
-              updateSeen={updateSeen}
-            />
-          </Grid>
+          <>
+            <Grid item xs={12}>
+              <Typography component='h2' variant='h5'>
+                {list.title} Author: {list.author}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <PosterSlides
+                movieData={list.movies}
+                config={config}
+                hasDelete={true}
+                listId={list.list_id}
+                handleDelete={handleDelete}
+                updateSeen={updateSeen}
+                hasSeen={true}
+              />
+            </Grid>
+          </>
         ))}
       </Grid>
     </Container>
