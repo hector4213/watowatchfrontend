@@ -1,11 +1,11 @@
-# Watowatch :clapper:
+# Watowatch :movie_camera:
 
 Watowatch is a movie list aggregation application, built using React, PostgreSQL, Express and Node. Create your own personal movie list and allow other users to edit them.
 
 
 ## Installation :file_folder:
 
-### Requirements
+### Requirements 
 
    *  PostgreSQL 12.4^
    *  API KEY from [TMDB](https://developers.themoviedb.org/3)
@@ -31,7 +31,7 @@ Watowatch is a movie list aggregation application, built using React, PostgreSQL
     $ \i schema.sql
     $ \i seeds.sql
     
-### Dependencies 
+### Dependencies :eyeglasses:
    * axios             
    * react             
    * react-router-dom  
