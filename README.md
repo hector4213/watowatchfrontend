@@ -30,3 +30,15 @@ Watowatch is a movie list aggregation application, built using React, PostgreSQL
     $ \c mydb
     $ \i schema.sql
     $ \i seeds.sql
+    
+### Dependencies
+   * axios             
+   * react             
+   * react-router-dom  
+   * react-slick       
+   * slick-carousel    
+   * slick-carousel    
+   * material-ui/core 
+   * material-ui/icons
+   * material-ui/lab  
+   * For a complete list check the [package.json](https://github.com/hector4213/watowatch/blob/master/package.json)
