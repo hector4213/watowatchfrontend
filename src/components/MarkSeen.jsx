@@ -26,7 +26,7 @@ const MarkSeen = ({ hasSeen, seen, onClick, listId, id }) => {
         size='small'
         onClick={() => onClick(listId, id)}
       >
-        Mark seen
+        seen
       </Button>
     </>
   )
