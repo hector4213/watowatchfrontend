@@ -8,7 +8,7 @@ import {
   Container,
   Grid,
   Typography,
-  Paper,
+  Chip,
   Button,
   Dialog,
   DialogTitle,
@@ -16,9 +16,17 @@ import {
   ListItem,
   Snackbar,
 } from '@material-ui/core'
+
+import { makeStyles } from '@material-ui/core/styles'
 import { Alert } from '@material-ui/lab'
 
 import { Face } from '@material-ui/icons'
+
+const useStyles = makeStyles({
+  chips: {
+    marginRight: '5px',
+  },
+})
 
 const MovieDetails = ({
   config,
@@ -35,6 +43,7 @@ const MovieDetails = ({
   const [snackOpen, setSnackOpen] = useState(false)
   const [message, setMessage] = useState(null)
   const [userLists, setUserLists] = useState([])
+  const classes = useStyles()
 
   useEffect(() => {
     const getDetails = async () => {
@@ -104,7 +113,7 @@ const MovieDetails = ({
               alt='poster'
             />
           </Grid>
-          <Grid item container xs={12} md={7} alignItems='center' spacing={3}>
+          <Grid item container xs={12} md={7} alignItems='center' spacing={4}>
             <Grid item xs={12} />
             <Grid item xs={8} md={8}>
               <Typography variant='h6' gutterBottom>
@@ -114,7 +123,15 @@ const MovieDetails = ({
             <Grid item xs={4} md={4}>
               <UserRating value={movie.vote_average * 10} />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12}>
+              {movie.release_date.substring(0, 4)}
+            </Grid>
+            <Grid item xs={12}>
+              {movie.genres.map((genre) => (
+                <Chip className={classes.chips} label={genre.name} />
+              ))}
+            </Grid>
+            <Grid item xs={12}>
               <Button
                 color='secondary'
                 variant='contained'
@@ -126,6 +143,11 @@ const MovieDetails = ({
             <Grid item xs={12}>
               <Typography variant='body2'>{movie.overview}</Typography>
             </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant='h6' gutterBottom='true'>
+              If you like {movie.original_title} check these out
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <PosterSlides movieData={recommend} config={config} />
