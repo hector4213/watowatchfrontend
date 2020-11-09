@@ -66,7 +66,7 @@ const PosterSlides = ({
   }
 
   if (movieData.length < 1 || !movieData) {
-    return 'No movieData yet'
+    return null
   }
 
   return (
