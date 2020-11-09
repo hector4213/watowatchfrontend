@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Loader from './Loader'
 import MovieCard from './MovieCard'
 
-import { Paper, Grid } from '@material-ui/core'
+import { Paper, Grid, Typography } from '@material-ui/core'
 import { FlashOn } from '@material-ui/icons'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: '10px',
     backgroundColor: '#f3ce13',
+    display: 'flex',
+    justifyContent: 'center',
   },
 }))
 
@@ -44,11 +46,15 @@ const LoadWinner = ({ winner, config }) => {
   }
   console.log(winner)
   return (
-    <Grid container alignItems='center' justify='space-evenly' spacing={1}>
-      <Grid item xs={5}>
+    <Grid container spacing={3} alignItems='center' justify='space-around'>
+      <Grid item xs={4}>
+        <Typography variant='subtitle1'>{`Your movie Tonight is ${winner[0].details.original_title}`}</Typography>
+        <Typography variant='caption'>{`${winner[0].details.tagline}`}</Typography>
+      </Grid>
+      <Grid item xs={1}>
         <FlashOn color='secondary' size='large' />
       </Grid>
-      <Grid item xs={13}>
+      <Grid item xs={3}>
         {winner.map((movie) => (
           <Paper elevation={3} className={classes.paper} variant='outlined'>
             <MovieCard
