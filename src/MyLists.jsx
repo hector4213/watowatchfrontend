@@ -100,6 +100,10 @@ const MyLists = ({ user, config, getUserLists }) => {
     }
   }, [])
 
+  if (!user) {
+    return 'Please login to make or register!'
+  }
+
   return (
     <Container>
       <Grid container spacing={3}>
