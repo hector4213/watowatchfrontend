@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-around',
   },
+  paper: {
+    minHeight: '414px',
+  },
 }))
 
 const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
@@ -39,6 +42,7 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
   const [selectedList, setSelectedList] = useState(null)
   const [basket, setBasket] = useState([])
   const [userLists, setUserLists] = useState([])
+  const [hasSpun, setHasSpun] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,8 +61,16 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
     setSelectedList(e.target.value)
   }
 
+  const preventDuplicate = (movieItem) => {
+    return basket.find((movie) => movie.db_id === movieItem.db_id)
+  }
+
   const handleAddToBasket = (movieItem) => {
-    setBasket([...basket, movieItem])
+    if (preventDuplicate(movieItem)) {
+      setBasket([...basket])
+    } else {
+      setBasket([...basket, movieItem])
+    }
   }
 
   const removeFromBasket = (id) => {
@@ -72,10 +84,15 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
       .filter((movie) => random.db_id === movie.db_id)
       .map((item) => ({ ...item, winner: true }))
     console.log(winner)
+    setHasSpun(true)
     setBasket(winner)
   }
 
-  if (user === null) {
+  const resetBasket = () => {
+    setBasket([])
+  }
+
+  if (!user) {
     return 'Please login or create an account!'
   }
 
@@ -129,8 +146,8 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
         </Grid>
       </Grid>
       <Grid container spacing={5} xs={12} alignItems='center'>
-        <Grid item xs={5} />
-        <Grid item xs={7}>
+        <Grid item xs={3} />
+        <Grid item xs={5}>
           <Button
             color='secondary'
             variant='contained'
@@ -140,13 +157,26 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
             get random
           </Button>
         </Grid>
+        <Grid item xs={4}>
+          <Button
+            color='secondary'
+            variant='contained'
+            size='large'
+            disabled={!hasSpun}
+            onClick={() => resetBasket()}
+          >
+            reset
+          </Button>
+        </Grid>
         <Grid item xs={12} md={12}>
-          <RandomSelection
-            basket={basket}
-            config={config}
-            handleBasketDelete={removeFromBasket}
-            isBasket={true}
-          />
+          <Paper className={classes.paper}>
+            <RandomSelection
+              basket={basket}
+              config={config}
+              handleBasketDelete={removeFromBasket}
+              isBasket={true}
+            />
+          </Paper>
         </Grid>
       </Grid>
 
