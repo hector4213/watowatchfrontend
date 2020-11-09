@@ -64,6 +64,10 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
       fetchBuddiedLists()
     }
   }, [])
+
+  if (!user) {
+    return 'Please login or register to see your shared lists :)'
+  }
   return (
     <Container>
       <Grid container spacing={3}>
