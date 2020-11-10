@@ -4,7 +4,7 @@ import Loader from './Loader'
 import MovieCard from './MovieCard'
 
 import { Paper, Grid, Typography } from '@material-ui/core'
-import { FlashOn } from '@material-ui/icons'
+import { NewReleases } from '@material-ui/icons'
 
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -20,10 +20,13 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   paper: {
-    padding: '10px',
+    padding: '5px',
     backgroundColor: '#f3ce13',
     display: 'flex',
     justifyContent: 'center',
+  },
+  ribbon: {
+    color: '#f3ce13',
   },
 }))
 
@@ -52,9 +55,14 @@ const LoadWinner = ({ winner, config }) => {
         <Typography variant='caption'>{`${winner[0].details.tagline}`}</Typography>
       </Grid>
       <Grid item xs={1}>
-        <FlashOn color='secondary' size='large' />
+        <NewReleases
+          className={classes.ribbon}
+          color='secondary'
+          fontSize='large'
+        />
       </Grid>
       <Grid item xs={3}>
+        {' '}
         {winner.map((movie) => (
           <Paper elevation={3} className={classes.paper} variant='outlined'>
             <MovieCard

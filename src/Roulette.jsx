@@ -24,14 +24,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
-  textPadding: {
-    padding: '12px',
-  },
-  winnerContainer: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-around',
-  },
   paper: {
     minHeight: '414px',
   },
@@ -83,7 +75,6 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
     const winner = basket
       .filter((movie) => random.db_id === movie.db_id)
       .map((item) => ({ ...item, winner: true }))
-    console.log(winner)
     setHasSpun(true)
     setBasket(winner)
   }
@@ -119,7 +110,7 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
           spacing={3}
         >
           <Grid item xs={12} md={6}>
-            <Typography className={classes.textPadding} variant='body2'>
+            <Typography variant='body2'>
               Select movies from your lists, either shared or personal and to
               add to the basket, a movie will be selected at random from your
               basket!
@@ -147,17 +138,21 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
       </Grid>
       <Grid container spacing={5} xs={12} alignItems='center'>
         <Grid item xs={3} />
-        <Grid item xs={5}>
-          <Button
-            color='secondary'
-            variant='contained'
-            size='large'
-            onClick={() => getRandom()}
-          >
-            get random
-          </Button>
-        </Grid>
-        <Grid item xs={4}>
+
+        <Container component='section' style={{ paddingTop: '50px' }}>
+          {selectedList && <h3>{selectedList.title}</h3>}
+          {selectedList ? (
+            <PosterSlides
+              movieData={selectedList.movies}
+              config={config}
+              handleBasketAdd={handleAddToBasket}
+              hasBasket={true}
+            />
+          ) : (
+            'Start by adding some movie from your lists'
+          )}
+        </Container>
+        <Grid item xs={6}>
           <Button
             color='secondary'
             variant='contained'
@@ -166,6 +161,16 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
             onClick={() => resetBasket()}
           >
             reset
+          </Button>
+        </Grid>
+        <Grid item xs={5}>
+          <Button
+            color='secondary'
+            variant='contained'
+            size='large'
+            onClick={() => getRandom()}
+          >
+            get random
           </Button>
         </Grid>
         <Grid item xs={12} md={12}>
@@ -179,18 +184,6 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
           </Paper>
         </Grid>
       </Grid>
-
-      <div style={{ paddingTop: '50px' }}>
-        {selectedList && <h3>{selectedList.title}</h3>}
-        {selectedList && (
-          <PosterSlides
-            movieData={selectedList.movies}
-            config={config}
-            handleBasketAdd={handleAddToBasket}
-            hasBasket={true}
-          />
-        )}
-      </div>
     </Container>
   )
 }
