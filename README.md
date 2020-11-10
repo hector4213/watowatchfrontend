@@ -4,7 +4,7 @@ Watowatch is a movie list aggregation application, built using React, PostgreSQL
 
 ## Screenshots
 
-![Register](screenshots/register)
+![Register](screenshots/register.png)
 ![Details](screenshots/details.png)
 
 ## Installation :file_folder:
