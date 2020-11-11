@@ -72,12 +72,12 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
     <Container>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography component='h1' gutterBottom='true' variant='h6'>
+          <Typography component='h1' gutterBottom variant='h6'>
             Your Shared lists
           </Typography>
         </Grid>
         {buddyLists.map((list) => (
-          <>
+          <React.Fragment key={list.list_id}>
             <Grid item xs={12}>
               <Typography component='h2' variant='h5'>
                 {list.title} Author: {list.author}
@@ -94,7 +94,7 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
                 hasSeen={true}
               />
             </Grid>
-          </>
+          </React.Fragment>
         ))}
       </Grid>
     </Container>
