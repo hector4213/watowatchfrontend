@@ -31,7 +31,7 @@ Watowatch is a movie list aggregation application, built using React, PostgreSQL
     $ npm run dev
     
     Create a .env file in the root directory create and set
-    ```javascript
+    <b>
     POSTGRES_KEY=yourdbpw
     SECRET=yourJWTsecret
     PORT=yourdbport
@@ -39,7 +39,7 @@ Watowatch is a movie list aggregation application, built using React, PostgreSQL
     PG_PORT=yourdbport
     PG_HOST=localhost
     DB=yourdb
-    ```
+    </b>
 
 ### Schema and seeds :heavy_check_mark:
 
