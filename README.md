@@ -20,6 +20,8 @@ Watowatch is a movie list aggregation application, built using React, PostgreSQL
     $ git clone https://github.com/hector4213/watowatchfrontend.git
     $ cd watowatchfrontend
     $ npm install
+    
+    Create a .env file in your root directory, create a variable REACT_APP_TVDB_APIKEY='Your TMDB variable here" 
 
 ### Server-side Installation :heavy_check_mark:
 
@@ -27,6 +29,17 @@ Watowatch is a movie list aggregation application, built using React, PostgreSQL
     $ cd watowatch
     $ npm install
     $ npm run dev
+    
+    Create a .env file in the root directory create and set
+    ```javascript
+POSTGRES_KEY=yourdbpw
+SECRET=yourJWTsecret
+PORT=yourdbport
+PG_USER=hector
+PG_PORT=yourdbport
+PG_HOST=localhost
+DB=yourdb
+```
 
 ### Schema and seeds :heavy_check_mark:
 
