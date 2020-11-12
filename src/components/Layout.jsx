@@ -147,7 +147,6 @@ const Layout = ({ children, setUser, user }) => {
           <SearchBar />
 
           <div className={classes.grow} />
-
           {user === null ? (
             <LoginModal setUser={setUser} user={user} />
           ) : (

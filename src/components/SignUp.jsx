@@ -77,8 +77,8 @@ const SignUp = () => {
     }
   }
   return (
-    <div>
-      <Button color='secondary' onClick={handleClickOpen}>
+    <div style={{ paddingLeft: '5px' }}>
+      <Button color='secondary' variant='contained' onClick={handleClickOpen}>
         SIGN UP
       </Button>
       <Dialog

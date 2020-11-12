@@ -59,7 +59,7 @@ describe('PosterSlides component', () => {
     expect(wrapper.find('PosterSlides').props().config).toBe(config)
   })
 
-  it('slider renders 1 movie item', () => {
+  it('slider renders 2 movie items', () => {
     const wrapper = mount(
       <Router>
         <PosterSlides movieData={movieData} config={config} />

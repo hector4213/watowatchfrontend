@@ -10,7 +10,12 @@ const Logout = ({ setUser }) => {
     history.push('/')
   }
 
-  return <Button onClick={handleLogOut}> LOGOUT</Button>
+  return (
+    <Button color='secondary' variant='contained' onClick={handleLogOut}>
+      {' '}
+      LOGOUT
+    </Button>
+  )
 }
 
 export default Logout

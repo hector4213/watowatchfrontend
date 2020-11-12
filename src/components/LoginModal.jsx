@@ -71,7 +71,7 @@ const LoginModal = ({ setUser }) => {
 
   return (
     <div className={classes.root}>
-      <Button color='secondary' onClick={handleClickOpen}>
+      <Button color='secondary' variant='contained' onClick={handleClickOpen}>
         LOGIN
       </Button>
       <Dialog
