@@ -148,7 +148,7 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
               hasBasket={true}
             />
           ) : (
-            'Start by adding some movie from your lists'
+            'Select from your lists and add to the basket!'
           )}
         </Container>
         <Grid item xs={6}>
