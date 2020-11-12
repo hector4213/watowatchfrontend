@@ -1,25 +1,29 @@
 # Watowatch :movie_camera:
 
-Watowatch is a movie list aggregation application, built using React, PostgreSQL, Express and Node. Create your own personal movie list and allow other users to edit them.
+Ever have trouble choosing something to watch? Watowatch is a movie list aggregation application, built using React, PostgreSQL, Express and Node. Create your own personal movie list and allow other users to edit them.
 
 ## Features
 
 ### User Login
 
-> Users will login in with their email and password, the backend uses JsonWebToken for authentication and bcrypt for password encryption
+Users login with their email and password, the backend uses JsonWebToken for authentication and bcrypt for password encryption
 
 <img src='/screenshots/register.gif' width='600px'/>
 
+### Create a list
+
+<img src='screenshots/create.gif' width='600px'>
+
 ## Movie suggestions and searching
 
-> Search on watowatch is easy, the search is debounced to prevent extra API calls
+Search on watowatch is easy, the search is debounced to prevent extra API calls
 
 <img src='/screenshots/searchsuggestions.gif' width='600px'/>
 
 ## Movie selection Randomizer
 
-> Choosing a movie is tough, let Watowatch do it for you! Add Movies from the lists you have compiled, or from lists where other users have added you as a buddy.
-> Watowatch will choose one for you at random from the selected items.
+Choosing a movie is tough, let Watowatch do it for you! Add Movies from the lists you have compiled, or from lists where other users have added you as a buddy.
+Watowatch will choose one for you at random from the selected items.
 
 <img src='/screenshots/random.gif' width='600px'/>
 
