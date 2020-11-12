@@ -29,7 +29,7 @@ Watowatch is a movie list aggregation application, built using React, PostgreSQL
     $ cd watowatchfrontend
     $ npm install
 
-#### Set environment varibales
+#### Set environment variables
 
     Create a .env file in your root directory, create a variable REACT_APP_TVDB_APIKEY='Your TMDB variable here"
 
@@ -40,7 +40,7 @@ Watowatch is a movie list aggregation application, built using React, PostgreSQL
     $ npm install
     $ npm run dev
 
-#### Set environment varibales
+#### Set environment variables
 
     Create a .env file in the root directory create and set the following variables
 
