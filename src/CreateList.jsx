@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
+import CreateListInfo from './components/CreateListInfo'
+
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Grid,
@@ -8,16 +10,8 @@ import {
   Container,
   TextField,
   Button,
-  List,
-  ListItemText,
-  ListItemIcon,
-  ListItem,
-  ListSubheader,
-  Divider,
-  Box,
   Snackbar,
 } from '@material-ui/core'
-import { FormatListBulleted, Theaters, EmojiPeople } from '@material-ui/icons'
 import { Alert } from '@material-ui/lab'
 
 import listService from './apis/listService'
@@ -128,7 +122,6 @@ const CreateList = ({ user, getUserLists }) => {
               </Button>
             </Grid>
           </Grid>
-
           <Grid
             container
             item
@@ -140,40 +133,11 @@ const CreateList = ({ user, getUserLists }) => {
           >
             <Grid item xs={12} />
             <Grid item xs={12} md={12}>
-              <Box elevation={3}>
-                <List
-                  className={classes.listInfo}
-                  subheader={<ListSubheader>Info</ListSubheader>}
-                >
-                  <ListItem>
-                    <ListItemIcon>
-                      <FormatListBulleted />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={`You have ${userLists.length} lists`}
-                    ></ListItemText>
-                  </ListItem>
-                  <Divider variant='inset' component='li' />
-                  <ListItem>
-                    <ListItemIcon>
-                      <Theaters />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={`That total ${totalMovies} movies`}
-                    ></ListItemText>
-                  </ListItem>
-                  <Divider variant='inset' component='li' />
-                  <ListItem>
-                    <ListItemIcon>
-                      <EmojiPeople />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={`With ${uniqueBuddies.length} unique buddies`}
-                    ></ListItemText>
-                  </ListItem>
-                  <Divider variant='inset' component='li' />
-                </List>
-              </Box>
+              <CreateListInfo
+                numLists={userLists.length}
+                numMovies={totalMovies}
+                numBuddies={uniqueBuddies.length}
+              />
             </Grid>
           </Grid>
         </Grid>
