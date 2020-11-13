@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import CreateListInfo from './components/CreateListInfo'
+import CreateForm from './components/CreateForm'
 
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -60,9 +61,7 @@ const CreateList = ({ user, getUserLists }) => {
   }
   const totalMovies = userLists
     .map((list) => list.movies.length)
-    .reduce((total, curr) => {
-      return total + curr
-    }, 0)
+    .reduce((total, curr) => total + curr, 0)
 
   const totalBuddies = userLists
     .map((list) => [...list.buddy_ids])
@@ -76,7 +75,6 @@ const CreateList = ({ user, getUserLists }) => {
       }
     }
   )
-  console.log(totalBuddies, uniqueBuddies)
 
   if (!user) {
     return 'please log in to make lists'
@@ -98,28 +96,12 @@ const CreateList = ({ user, getUserLists }) => {
             justify='space-around'
             alignItems='center'
           >
-            <Grid item xs={12} md={5}>
-              <form onSubmit={handleSubmit}>
-                <TextField
-                  id='title'
-                  label='Enter title'
-                  variant='outlined'
-                  value={name}
-                  onChange={({ target }) => setName(target.value)}
-                  fullWidth
-                />
-              </form>
-            </Grid>
-            <Grid item xs={12} md={2}>
-              <Button
-                color='secondary'
-                size='large'
-                variant='contained'
-                type='submit'
-                onSubmit={handleSubmit}
-              >
-                Create
-              </Button>
+            <Grid item xs={12} md={12}>
+              <CreateForm
+                setTitle={setName}
+                handleSubmit={handleSubmit}
+                title={name}
+              />
             </Grid>
           </Grid>
           <Grid
@@ -141,7 +123,6 @@ const CreateList = ({ user, getUserLists }) => {
             </Grid>
           </Grid>
         </Grid>
-
         <Snackbar open={open} autoHideDuration={2000}>
           <Alert severity={error ? 'error' : 'success'}>{message}</Alert>
         </Snackbar>
