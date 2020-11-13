@@ -12,6 +12,8 @@ Users login with their email and password, the backend uses JsonWebToken for aut
 
 ### Create a list
 
+Start by creating a titled list and add some movies, if you add another user as a buddy, you are granting them permission to their add or delete from your list and marking the movies as seen if you have seen them together.
+
 <img src='screenshots/create.gif' width='600px'>
 
 ## Movie suggestions and searching
