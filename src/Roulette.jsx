@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import PosterSlides from './components/PosterSlides'
 import RandomSelection from './components/RandomSelection'
 import RouletteSelect from './components/RouletteSelect'
+import RouletteLists from './components/RouletteLists'
 
 import {
   Container,
@@ -129,19 +130,11 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
       </Grid>
       <Grid container spacing={5} xs={12} alignItems='center'>
         <Grid item xs={3} />
-        <Container component='section' style={{ paddingTop: '50px' }}>
-          {selectedList && <h3>{selectedList.title}</h3>}
-          {selectedList ? (
-            <PosterSlides
-              movieData={selectedList.movies}
-              config={config}
-              handleBasketAdd={handleAddToBasket}
-              hasBasket={true}
-            />
-          ) : (
-            'Select from your lists and add to the basket!'
-          )}
-        </Container>
+        <RouletteLists
+          selectedList={selectedList}
+          handleAddToBasket={handleAddToBasket}
+          config={config}
+        />
         <Grid item xs={6}>
           <Button
             color='secondary'
