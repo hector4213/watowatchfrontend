@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#f3ce13',
     display: 'flex',
     justifyContent: 'center',
+    width: 200,
   },
   ribbon: {
     color: '#f3ce13',

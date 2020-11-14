@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
-import PosterSlides from './components/PosterSlides'
 import RandomSelection from './components/RandomSelection'
 import RouletteSelect from './components/RouletteSelect'
 import RouletteLists from './components/RouletteLists'
 
-import {
-  Container,
-  Grid,
-  Typography,
-  Button,
-  Paper,
-  Select,
-  FormControl,
-  InputLabel,
-  MenuItem,
-} from '@material-ui/core'
+import { Container, Grid, Typography, Button, Paper } from '@material-ui/core'
 
 import { Casino } from '@material-ui/icons'
 
@@ -28,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     minHeight: '414px',
+    padding: 50,
   },
 }))
 
