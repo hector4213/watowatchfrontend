@@ -34,7 +34,6 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
       const buddyData = await getBuddiedLists(user.id)
       const responses = await Promise.all([userData, buddyData])
       setUserLists([...responses[0], ...responses[1]])
-      console.log(userLists)
     }
     if (user !== null) {
       fetchData()
