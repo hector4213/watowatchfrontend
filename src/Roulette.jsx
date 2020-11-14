@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import PosterSlides from './components/PosterSlides'
 import RandomSelection from './components/RandomSelection'
+import RouletteSelect from './components/RouletteSelect'
 
 import {
   Container,
@@ -117,22 +118,12 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
-            <FormControl variant='outlined' style={{ width: '300px' }}>
-              <InputLabel id='list-select-label'>Select list</InputLabel>
-              <Select
-                labelId='list-select-label'
-                id='list-select'
-                value={selectedList || ''}
-                label='Select list'
-                onChange={handleListChange}
-              >
-                {userLists.map((list) => (
-                  <MenuItem key={list.title} value={list}>
-                    {list.title}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <RouletteSelect
+              label='Choose from your lists'
+              value={selectedList}
+              lists={userLists}
+              handleListChange={handleListChange}
+            />
           </Grid>
         </Grid>
       </Grid>
