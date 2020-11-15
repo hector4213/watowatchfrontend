@@ -25,15 +25,15 @@ const PosterSlides = ({
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 6,
-    adaptiveHeight: true,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    adaptiveWidth: true,
     responsive: [
       {
         breakpoint: 1366,
         settings: {
-          slidesToShow: 5,
-          slidesToScroll: 5,
+          slidesToShow: 4,
+          slidesToScroll: 4,
           infinite: false,
           dots: false,
         },
