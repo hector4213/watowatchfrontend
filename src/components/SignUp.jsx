@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+
+import Toast from './Toast'
 import {
   Button,
   TextField,
@@ -6,11 +8,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Snackbar,
   Grid,
 } from '@material-ui/core'
-
-import { Alert } from '@material-ui/lab'
 
 import userService from '../apis/userService'
 
@@ -36,9 +35,6 @@ const SignUp = () => {
   const handleSnackOpen = (msg) => {
     setMessage(msg)
     setSnackOpen(true)
-    setTimeout(() => {
-      setOpen(false)
-    }, 2000)
   }
 
   const handleClose = () => {
@@ -71,6 +67,9 @@ const SignUp = () => {
       handleSnackOpen(
         `Thanks ${firstName} please log in with your new account!`
       )
+      setTimeout(() => {
+        handleClose()
+      }, 2001)
     } catch (error) {
       handleSnackOpen(error.response.data.error)
       setError(true)
@@ -170,13 +169,12 @@ const SignUp = () => {
             </DialogActions>
           </form>
         </DialogContent>
-        <Snackbar
+        <Toast
           open={snackOpen}
-          autoHideDuration={2000}
           onClose={handleSnackClose}
-        >
-          <Alert severity={error ? 'error' : 'success'}>{message}</Alert>
-        </Snackbar>
+          message={message}
+          error={error}
+        />
       </Dialog>
     </div>
   )
