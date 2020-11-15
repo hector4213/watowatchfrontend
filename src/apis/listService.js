@@ -17,6 +17,14 @@ const createList = async (titleName) => {
   return response.data
 }
 
+const deleteList = async (id) => {
+  const config = {
+    headers: { Authorization: token },
+  }
+  const response = await axios.delete(`${baseURL}/lists/${id}`, config)
+  return response.data
+}
+
 //Route to get all movie lists from all users
 const getUserLists = async (id) => {
   const response = await axios.get(`${baseURL}/lists/${id}`)
@@ -93,6 +101,7 @@ const getBuddiedList = async (id) => {
 
 export default {
   createList,
+  deleteList,
   getUserLists,
   getListById,
   addMovieToList,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { Typography, Container, Grid, Chip } from '@material-ui/core'
-import { Face } from '@material-ui/icons'
+import { Face, Delete } from '@material-ui/icons'
 
 import { makeStyles } from '@material-ui/styles'
 
@@ -94,6 +94,17 @@ const MyLists = ({ user, config, getUserLists }) => {
     }
   }
 
+  const deleteList = async (listId) => {
+    try {
+      const response = await listService.deleteList(listId)
+      const updatedList = userLists.filter((list) => list.list_id !== listId)
+      setUserLists(updatedList)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     if (user !== null) {
       fetchData()
@@ -116,7 +127,7 @@ const MyLists = ({ user, config, getUserLists }) => {
 
         {userLists.map((list) => (
           <>
-            <Grid item xs={12} key={list.list_id}>
+            <Grid item xs={11} key={list.list_id}>
               <Typography component='h1' variant='h6'>
                 {list.title}
               </Typography>
@@ -129,6 +140,9 @@ const MyLists = ({ user, config, getUserLists }) => {
                 hasDelete={true}
                 hasSeen={true}
               />
+            </Grid>
+            <Grid item xs={1}>
+              <Delete color='error' onClick={() => deleteList(list.list_id)} />
             </Grid>
             <Grid className={classes.root} item xs={12}>
               {list.buddy_ids.map((buddy) => (
