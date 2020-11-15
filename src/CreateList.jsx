@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 
 import CreateListInfo from './components/CreateListInfo'
 import CreateForm from './components/CreateForm'
+import Toast from './components/Toast'
 
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid, Typography, Paper, Container, Snackbar } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
+import { Grid, Typography, Paper, Container } from '@material-ui/core'
 
 import listService from './apis/listService'
 
@@ -21,7 +21,7 @@ const CreateList = ({ user, getUserLists }) => {
   const [name, setName] = useState('')
   const [message, setMessage] = useState('null')
   const [open, setOpen] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(false)
   const [userLists, setUserLists] = useState([])
 
   const classes = useStyles()
@@ -39,12 +39,18 @@ const CreateList = ({ user, getUserLists }) => {
       setOpen(true)
       setMessage('List Created!')
       setName('')
-      setTimeout(() => {
-        setOpen(false)
-      }, 2000)
     } catch (error) {
-      setMessage(error.response.data.msg)
+      setOpen(true)
+      setMessage(error.response.data.error)
+      setError(true)
+      setTimeout(() => {
+        setError(false)
+      }, 2000)
     }
+  }
+
+  const handleSnackClose = () => {
+    setOpen(false)
   }
 
   const fetchData = async () => {
@@ -115,9 +121,12 @@ const CreateList = ({ user, getUserLists }) => {
             </Grid>
           </Grid>
         </Grid>
-        <Snackbar open={open} autoHideDuration={2000}>
-          <Alert severity={error ? 'error' : 'success'}>{message}</Alert>
-        </Snackbar>
+        <Toast
+          open={open}
+          onClose={handleSnackClose}
+          message={message}
+          error={error}
+        />
       </Paper>
     </Container>
   )
