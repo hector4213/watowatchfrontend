@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Toast from './components/Toast'
 
 import { Typography, Container, Grid, Chip } from '@material-ui/core'
 import { Face, Delete } from '@material-ui/icons'
@@ -22,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
 
 const MyLists = ({ user, config, getUserLists }) => {
   const [userLists, setUserLists] = useState([])
+  const [open, setOpen] = useState(false)
+  const [message, setMessage] = useState(false)
+  const [error, setError] = useState(false)
   const classes = useStyles()
 
   const fetchData = async () => {
@@ -94,14 +98,25 @@ const MyLists = ({ user, config, getUserLists }) => {
     }
   }
 
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   const deleteList = async (listId) => {
     try {
       const response = await listService.deleteList(listId)
-      const updatedList = userLists.filter((list) => list.list_id !== listId)
+      const deleted = userLists.find((list) => list.list_id === listId)
+      const updatedList = userLists.filter(
+        (list) => list.list_id !== deleted.list_id
+      )
       setUserLists(updatedList)
-      console.log(response)
+      setMessage(`${deleted.title} has been removed`)
+      setError(false)
+      setOpen(true)
     } catch (error) {
-      console.log(error)
+      setMessage(error.response.data.error)
+      setError(true)
+      setOpen(true)
     }
   }
 
@@ -121,7 +136,7 @@ const MyLists = ({ user, config, getUserLists }) => {
         <Grid item xs={12} md={12}>
           <Typography
             component='h1'
-            variant='h4'
+            variant='h6'
           >{`${user.name} find your lists below `}</Typography>
         </Grid>
 
@@ -157,6 +172,12 @@ const MyLists = ({ user, config, getUserLists }) => {
           </>
         ))}
       </Grid>
+      <Toast
+        open={open}
+        onClose={handleClose}
+        message={message}
+        error={error}
+      />
     </Container>
   )
 }
