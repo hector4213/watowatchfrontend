@@ -4,7 +4,6 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 import MovieCard from '../components/MovieCard'
-import { Delete } from '@material-ui/icons'
 
 const PosterSlides = ({
   movieData,
