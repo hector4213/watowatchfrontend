@@ -19,6 +19,7 @@ import listService from '../apis/listService'
 const useStyles = makeStyles({
   root: {
     display: 'flex',
+    flexShrink: 1,
   },
 })
 

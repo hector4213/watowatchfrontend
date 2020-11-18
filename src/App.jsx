@@ -15,7 +15,6 @@ import tvdbService from './apis/tvdbService'
 import listService from './apis/listService'
 
 import { Route, Switch } from 'react-router-dom'
-import './App.css'
 
 const useStyles = makeStyles((theme) => ({
   container: {
