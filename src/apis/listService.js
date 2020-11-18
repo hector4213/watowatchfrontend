@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'https://watowatchbackend.herokuapp.com/'
+const baseURL = 'https://watowatchbackend.herokuapp.com'
 
 let token = null
 
