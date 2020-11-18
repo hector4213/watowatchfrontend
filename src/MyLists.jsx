@@ -76,7 +76,9 @@ const MyLists = ({ user, config, getUserLists }) => {
       })
       setUserLists(updatedList)
     } catch (error) {
-      console.log(error)
+      setMessage(error.response.data.error)
+      setError(true)
+      setOpen(true)
     }
   }
 
@@ -94,7 +96,9 @@ const MyLists = ({ user, config, getUserLists }) => {
       })
       setUserLists(updatedList)
     } catch (error) {
-      console.log(error)
+      setMessage(error.response.data.error)
+      setError(true)
+      setOpen(true)
     }
   }
 

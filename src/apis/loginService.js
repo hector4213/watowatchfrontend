@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = `http://localhost:3001/login`
+const baseURL = `https://watowatchbackend.herokuapp.com/login`
 
 const login = async (credentials) => {
   const response = await axios.post(baseURL, credentials)
