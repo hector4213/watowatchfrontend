@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'https://watowatchbackend.herokuapp.com/'
+const baseURL = 'https://watowatchbackend.herokuapp.com'
 
 const register = async (userData) => {
   const response = await axios.post(`${baseURL}/users`, userData)
