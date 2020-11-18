@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     minHeight: 277,
-    width: 185,
+    width: '100%',
   },
   cardHeader: {
     flex: '1',

@@ -72,38 +72,34 @@ const PosterSlides = ({
   return (
     <Slider {...settings} key={listId}>
       {movieData.map((movie) => (
-        <div key={movie.details.id}>
-          <MovieCard
-            title={movie.details.original_title}
-            overview={movie.details.overview}
-            imageTitle={movie.details.original_title}
-            src={
-              config.base_url +
-              config.poster_sizes[2] +
-              movie.details.poster_path
-            }
-            year={movie.details.release_date.substring(0, 4)}
-            id={movie.db_id}
-            tvdb={movie.details.id}
-            genre={
-              movie.details.genres ? movie.details.genres[0].name : 'unknown'
-            }
-            listId={listId}
-            seen={movie.seen}
-            handleDelete={handleDelete}
-            updateSeen={updateSeen}
-            hasDelete={hasDelete}
-            hasAdd={hasAdd}
-            hasSeen={hasSeen}
-            hasBasket={hasBasket}
-            handleDialogOpen={handleDialogOpen}
-            setMovie={setMovie}
-            handleBasketAdd={handleBasketAdd}
-            handleBasketDelete={handleBasketDelete}
-            isBasket={isBasket}
-            details={movie.details}
-          />
-        </div>
+        <MovieCard
+          title={movie.details.original_title}
+          overview={movie.details.overview}
+          imageTitle={movie.details.original_title}
+          src={
+            config.base_url + config.poster_sizes[2] + movie.details.poster_path
+          }
+          year={movie.details.release_date.substring(0, 4)}
+          id={movie.db_id}
+          tvdb={movie.details.id}
+          genre={
+            movie.details.genres ? movie.details.genres[0].name : 'unknown'
+          }
+          listId={listId}
+          seen={movie.seen}
+          handleDelete={handleDelete}
+          updateSeen={updateSeen}
+          hasDelete={hasDelete}
+          hasAdd={hasAdd}
+          hasSeen={hasSeen}
+          hasBasket={hasBasket}
+          handleDialogOpen={handleDialogOpen}
+          setMovie={setMovie}
+          handleBasketAdd={handleBasketAdd}
+          handleBasketDelete={handleBasketDelete}
+          isBasket={isBasket}
+          details={movie.details}
+        />
       ))}
     </Slider>
   )
