@@ -19,7 +19,7 @@ import listService from '../apis/listService'
 const useStyles = makeStyles({
   root: {
     display: 'flex',
-    flexShrink: 1,
+    minWidth: '150px',
   },
 })
 
@@ -72,9 +72,16 @@ const LoginModal = ({ setUser }) => {
 
   return (
     <div className={classes.root}>
-      <Button color='secondary' variant='contained' onClick={handleClickOpen}>
-        LOGIN
-      </Button>
+      <div>
+        <Button
+          color='secondary'
+          variant='contained'
+          size='small'
+          onClick={handleClickOpen}
+        >
+          LOGIN
+        </Button>
+      </div>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -111,15 +118,17 @@ const LoginModal = ({ setUser }) => {
             </DialogActions>
           </form>
         </DialogContent>
-        <Snackbar
-          open={snackOpen}
-          autoHideDuration={1000}
-          onClose={handleSnackClose}
-        >
-          <Alert severity={error ? 'error' : 'success'}>{message}</Alert>
-        </Snackbar>
       </Dialog>
-      <SignUp />
+      <div>
+        <SignUp />
+      </div>
+      <Snackbar
+        open={snackOpen}
+        autoHideDuration={1000}
+        onClose={handleSnackClose}
+      >
+        <Alert severity={error ? 'error' : 'success'}>{message}</Alert>
+      </Snackbar>
     </div>
   )
 }

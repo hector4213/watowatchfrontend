@@ -137,13 +137,14 @@ const Layout = ({ children, setUser, user }) => {
           >
             <Burger />
           </IconButton>
-          <IconButton>
-            <LogoIcon />
-          </IconButton>
-          <Typography variant='h6' noWrap>
-            WATOWATCH
-          </Typography>
-
+          <Hidden xsDown>
+            <IconButton>
+              <LogoIcon />
+            </IconButton>
+            <Typography variant='h6' noWrap>
+              WATOWATCH
+            </Typography>
+          </Hidden>
           <SearchBar />
 
           <div className={classes.grow} />

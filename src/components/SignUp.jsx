@@ -76,8 +76,13 @@ const SignUp = () => {
     }
   }
   return (
-    <div style={{ paddingLeft: '5px' }}>
-      <Button color='secondary' variant='contained' onClick={handleClickOpen}>
+    <>
+      <Button
+        color='secondary'
+        size='small'
+        variant='contained'
+        onClick={handleClickOpen}
+      >
         SIGN UP
       </Button>
       <Dialog
@@ -176,7 +181,7 @@ const SignUp = () => {
           error={error}
         />
       </Dialog>
-    </div>
+    </>
   )
 }
 
