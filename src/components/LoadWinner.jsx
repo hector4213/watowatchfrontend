@@ -22,9 +22,6 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: '5px',
     backgroundColor: '#f3ce13',
-    display: 'flex',
-    justifyContent: 'center',
-    width: 200,
   },
   ribbon: {
     color: '#f3ce13',
@@ -51,21 +48,26 @@ const LoadWinner = ({ winner, config }) => {
   console.log(winner)
   return (
     <Grid container spacing={3} alignItems='center' justify='space-around'>
-      <Grid item xs={4}>
+      <Grid item xs={12} md={4}>
         <Typography variant='subtitle1'>{`Your movie Tonight is ${winner[0].details.original_title}`}</Typography>
         <Typography variant='caption'>{`${winner[0].details.tagline}`}</Typography>
       </Grid>
-      <Grid item xs={1}>
+      <Grid item xs={3} md={1}>
         <NewReleases
           className={classes.ribbon}
           color='secondary'
           fontSize='large'
         />
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={9} md={5}>
         {' '}
         {winner.map((movie) => (
-          <Paper elevation={3} className={classes.paper} variant='outlined'>
+          <Paper
+            elevation={3}
+            className={classes.paper}
+            key={movie.id}
+            variant='outlined'
+          >
             <MovieCard
               title={movie.title}
               overview={movie.details.overview}

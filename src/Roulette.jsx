@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     minHeight: '414px',
-    padding: 50,
+    padding: 10,
   },
 }))
 
