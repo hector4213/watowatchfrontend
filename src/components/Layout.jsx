@@ -131,7 +131,7 @@ const Layout = ({ children, setUser, user }) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position='absolute' className={classes.appBar} color='inherit'>
+      <AppBar position='fixed' className={classes.appBar} color='inherit'>
         <Toolbar>
           <IconButton
             color='inherit'

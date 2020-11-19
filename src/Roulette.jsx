@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import RandomSelection from './components/RandomSelection'
 import RouletteSelect from './components/RouletteSelect'
 import RouletteLists from './components/RouletteLists'
+import Loader from './components/Loader'
 
 import { Container, Grid, Typography, Button, Paper } from '@material-ui/core'
 
@@ -78,9 +79,13 @@ const Roulette = ({ user, config, getUserLists, getBuddiedLists }) => {
     return 'Please login or create an account!'
   }
 
+  if (!userLists) {
+    return <Loader size={100} />
+  }
+
   return (
     <Container component='main'>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} justifyContent='center'>
         <Grid item xs={12} md={12}>
           <Typography
             className={classes.header}
