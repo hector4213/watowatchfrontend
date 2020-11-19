@@ -5,7 +5,7 @@ import App from './App.jsx'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
-import { BrowserRouter as Router } from 'react-router-dom'
+import { HashRouter as Router } from 'react-router-dom'
 const theme = createMuiTheme({
   palette: {
     primary: {
