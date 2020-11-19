@@ -60,7 +60,7 @@ const MySharedLists = ({ user, config, getBuddiedLists }) => {
   }
 
   useEffect(() => {
-    if (user) {
+    if (user !== null) {
       fetchBuddiedLists()
     }
   }, [])
