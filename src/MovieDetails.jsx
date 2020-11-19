@@ -62,14 +62,16 @@ const MovieDetails = ({
   }, [movieId])
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchUserData = async () => {
       const data = getUserLists(user.id)
       const buddyData = getBuddiedLists(user.id)
       const responses = await Promise.all([data, buddyData])
       console.log(responses[0], responses[1])
       setUserLists([...responses[0], ...responses[1]])
     }
-    fetchData()
+    if (user) {
+      fetchUserData()
+    }
   }, [])
 
   if (isLoading) {

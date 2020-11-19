@@ -13,6 +13,7 @@ import Loader from './components/Loader'
 
 import tvdbService from './apis/tvdbService'
 import listService from './apis/listService'
+import './App.css'
 
 import { Route, Switch } from 'react-router-dom'
 

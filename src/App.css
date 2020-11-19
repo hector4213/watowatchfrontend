@@ -1,0 +1,4 @@
+* {
+  min-height: 0;
+  min-width: 0;
+} /* This is a fix for a slider issue see https://github.com/kenwheeler/slick/issues/2378 */

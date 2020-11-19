@@ -30,6 +30,11 @@ import { fade, makeStyles } from '@material-ui/core/styles'
 const drawerWidth = 250
 const menuItems = [
   {
+    text: 'WATOWATCH',
+    icon: <LogoIcon />,
+    path: '/',
+  },
+  {
     text: 'Explore Movies',
     icon: <ExploreIcon />,
     path: '/',
@@ -126,7 +131,7 @@ const Layout = ({ children, setUser, user }) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position='fixed' className={classes.appBar} color='inherit'>
+      <AppBar position='absolute' className={classes.appBar} color='inherit'>
         <Toolbar>
           <IconButton
             color='inherit'
@@ -146,7 +151,6 @@ const Layout = ({ children, setUser, user }) => {
             </Typography>
           </Hidden>
           <SearchBar />
-
           <div className={classes.grow} />
           {user === null ? (
             <LoginModal setUser={setUser} user={user} />
@@ -169,7 +173,7 @@ const Layout = ({ children, setUser, user }) => {
               keepMounted: true, // this be mobile
             }}
           >
-            <Toolbar />
+            {/* <Toolbar /> */}
             <div className={classes.drawerContainer}>
               <MenuList>{drawer}</MenuList>
             </div>
@@ -184,7 +188,7 @@ const Layout = ({ children, setUser, user }) => {
             variant='permanent'
             open
           >
-            <Toolbar />
+            {/* <Toolbar /> */}
             <div className={classes.drawerContainer}>
               <MenuList>{drawer}</MenuList>
             </div>
