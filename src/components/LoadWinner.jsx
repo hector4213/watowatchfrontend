@@ -26,6 +26,18 @@ const useStyles = makeStyles((theme) => ({
   ribbon: {
     color: '#f3ce13',
   },
+  iconContainer: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+  },
+  winnerText: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
 }))
 
 const LoadWinner = ({ winner, config }) => {
@@ -47,19 +59,23 @@ const LoadWinner = ({ winner, config }) => {
   }
   console.log(winner)
   return (
-    <Grid container spacing={3} alignItems='center' justify='space-around'>
-      <Grid item xs={12} md={4}>
-        <Typography variant='subtitle1'>{`Your movie Tonight is ${winner[0].details.original_title}`}</Typography>
-        <Typography variant='caption'>{`${winner[0].details.tagline}`}</Typography>
+    <Grid container spacing={3} alignItems='center' justify='space-evenly'>
+      <Grid item xs={11} md={5}>
+        <div className={classes.winnerText}>
+          <Typography variant='subtitle1'>{`Your movie Tonight is ${winner[0].details.original_title}`}</Typography>
+          <Typography variant='caption'>{`${winner[0].details.tagline}`}</Typography>
+        </div>
       </Grid>
-      <Grid item xs={3} md={1}>
-        <NewReleases
-          className={classes.ribbon}
-          color='secondary'
-          fontSize='large'
-        />
+      <Grid item xs={11} md={1}>
+        <div className={classes.iconContainer}>
+          <NewReleases
+            className={classes.ribbon}
+            color='secondary'
+            fontSize='large'
+          />
+        </div>
       </Grid>
-      <Grid item xs={9} md={5}>
+      <Grid item xs={5} md={2}>
         {' '}
         {winner.map((movie) => (
           <Paper
