@@ -31,12 +31,12 @@ const App = () => {
   const [upComing, setUpComing] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
-  const isLoggedIn = () => {
+  const isLoggedIn = async () => {
     const loggedUserJSON = window.localStorage.getItem('loggedInUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
-      listService.setToken(user.token)
+      await listService.setToken(user.token)
       return true
     }
   }
