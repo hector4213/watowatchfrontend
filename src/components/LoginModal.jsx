@@ -20,6 +20,7 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     minWidth: '150px',
+    justifyContent: 'space-around',
   },
 })
 
