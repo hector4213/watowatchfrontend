@@ -8,6 +8,7 @@ import {
   Popper,
   Paper,
   ClickAwayListener,
+  Typography,
 } from '@material-ui/core'
 import { makeStyles, fade } from '@material-ui/core/styles'
 
@@ -57,6 +58,9 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
+  customWidth: {
+    maxWidth: 300,
+  },
 }))
 
 const SearchBar = () => {
@@ -104,10 +108,21 @@ const SearchBar = () => {
     setAnchorEl(null)
   }
   const showResults = (
-    <MenuList autoFocusItem={isOpen} id='menu-list-grow'>
+    <MenuList
+      autoFocusItem={isOpen}
+      className={classes.customWidth}
+      id='menu-list-grow'
+    >
       {results.map((movie) => (
-        <MenuItem key={movie.id} component={Link} to={`/movies/${movie.id}`}>
-          {movie.original_title}
+        <MenuItem
+          key={movie.id}
+          component={Link}
+          to={`/movies/${movie.id}`}
+          onClick={handleClose}
+        >
+          <Typography variant='inherit' noWrap>
+            {movie.original_title}
+          </Typography>
         </MenuItem>
       ))}
     </MenuList>
@@ -115,7 +130,7 @@ const SearchBar = () => {
 
   return (
     <div className={classes.searchContainer}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={divRef}>
         <div className={classes.searchIcon}>
           <MovieFilterOutlinedIcon />
         </div>
@@ -130,11 +145,12 @@ const SearchBar = () => {
           value={text}
         />
       </form>
-      <div ref={divRef}></div>
+      <div></div>
       <Popper
         open={isOpen}
         anchorEl={divRef.current}
         role={undefined}
+        placement={'bottom-start'}
         transition
         disablePortal
       >
@@ -142,7 +158,7 @@ const SearchBar = () => {
           <Fade
             {...TransitionProps}
             style={{
-              transformOrigin: 'center top',
+              transformOrigin: 'bottom-start',
             }}
           >
             <Paper>
