@@ -108,12 +108,16 @@ const MovieDetails = ({
   return (
     <>
       <Container>
-        <Grid container justify='space-around' spacing={3}>
+        <Grid container justify='center' spacing={3}>
           <Grid item xs={12} md={5}>
-            <img
-              src={config.base_url + config.poster_sizes[3] + movie.poster_path}
-              alt='poster'
-            />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <img
+                src={
+                  config.base_url + config.poster_sizes[3] + movie.poster_path
+                }
+                alt='poster'
+              />
+            </div>
           </Grid>
           <Grid item container xs={12} md={7} alignItems='center' spacing={4}>
             <Grid item xs={12} />
